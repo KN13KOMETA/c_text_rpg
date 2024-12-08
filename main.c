@@ -34,13 +34,14 @@ unsigned int sum_chars(char *str) {
   return sum;
 }
 
-void print_status(char *nick, unsigned int coins, unsigned short max_hp,
-                  int hp) {
+void print_status(char *nick, unsigned int coins, unsigned short max_hp, int hp,
+                  char *weapon_name, unsigned short weapon_attack) {
   printf(
       "Welcome %s!\n"
       "You have %d coins.\n"
-      "Your hp is %d/%d.\n",
-      nick, coins, hp, max_hp);
+      "Your hp is %d/%d.\n"
+      "Your weapon is %s (%d attack)\n",
+      nick, coins, hp, max_hp, weapon_name, weapon_attack);
 }
 
 int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
@@ -59,7 +60,7 @@ int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
 
     if (*hp < *max_hp) {
       (*hp)++;
-      printf("1(%d/%d) hp restored.\n", *hp, *max_hp);
+      printf("1 (%d/%d) hp restored.\n", *hp, *max_hp);
     }
   } else {
     char enemy_name[7] = "Slime";
@@ -296,7 +297,7 @@ int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
     switch (getchar_clear()) {
       case 's':
       case 'S': {
-        print_status(nick, *coins, *max_hp, *hp);
+        print_status(nick, *coins, *max_hp, *hp, weapon_name, *weapon_attack);
         break;
       }
       case 'b':
@@ -356,7 +357,7 @@ int main(int argc, char *argv[]) {
   coins = rand() % 50;
   hp = 1 + rand() % 9;
 
-  print_status(nick, coins, max_hp, hp);
+  print_status(nick, coins, max_hp, hp, weapon_name, weapon_attack);
 
   while (1) {
     printf(
@@ -368,7 +369,7 @@ int main(int argc, char *argv[]) {
     switch (getchar_clear()) {
       case 's':
       case 'S': {
-        print_status(nick, coins, max_hp, hp);
+        print_status(nick, coins, max_hp, hp, weapon_name, weapon_attack);
         break;
       }
       case 'e':
@@ -382,7 +383,7 @@ int main(int argc, char *argv[]) {
       case 'c':
       case 'C': {
         visit_city(nick, &coins, &max_hp, &hp, weapon_name, &weapon_attack,
-                   &weapon_attack);
+                   &weapon_upgrade_cost);
         break;
       }
 
