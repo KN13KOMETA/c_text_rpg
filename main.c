@@ -5,13 +5,9 @@
 #include <string.h>
 #include <unistd.h>
 
-#define MAX_HP 55555
+#include "functions.h"
 
-char getchar_clear_buffer() {
-  char c = getchar();
-  if (c != 10) getchar();
-  return c;
-}
+#define MAX_HP 55555
 
 void get_nick(char *nick, size_t nick_len) {
   char c;
@@ -100,7 +96,7 @@ int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
     while (1) {
       printf("'F'ight with monster, 'r'un away: ");
 
-      switch (getchar_clear_buffer()) {
+      switch (getchar_clear()) {
         case 'f':
         case 'F': {
           // Attack enemy
@@ -161,7 +157,7 @@ int tavern(char *nick, unsigned int *coins, int *hp, unsigned short *max_hp) {
         "'C'hicken (-50 c=+40 max hp)\n"
         "'e'xit tavern: ");
 
-    switch (getchar_clear_buffer()) {
+    switch (getchar_clear()) {
       case 'b':
       case 'B': {
         dish_hp_restore = 1;
@@ -229,7 +225,7 @@ int training_ground(char *nick, unsigned int *coins, unsigned short *max_hp) {
         "'l'ong train (-50 c=+40 max hp)\n"
         "'e'xit training ground: ");
 
-    switch (getchar_clear_buffer()) {
+    switch (getchar_clear()) {
       case 's':
       case 'S': {
         train_hp_upgrade = 1;
@@ -290,7 +286,7 @@ int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
         "visit 'f'orge, "
         "training 'g'round, "
         "'l'eave city: ");
-    switch (getchar_clear_buffer()) {
+    switch (getchar_clear()) {
       case 's':
       case 'S': {
         print_status(nick, *coins, *max_hp, *hp);
@@ -362,7 +358,7 @@ int main(int argc, char *argv[]) {
         "visit 'c'ity, "
         "'q'uit game: ");
 
-    switch (getchar_clear_buffer()) {
+    switch (getchar_clear()) {
       case 's':
       case 'S': {
         print_status(nick, coins, max_hp, hp);
