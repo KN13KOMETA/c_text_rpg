@@ -1,8 +1,17 @@
-// TODO: City
+// TODO: City/forge
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+
+#define MAX_HP 55555
+
+char getchar_clear_buffer() {
+  char c = getchar();
+  if (c != 10) getchar();
+  return c;
+}
 
 void get_nick(char *nick, size_t nick_len) {
   char c;
@@ -89,13 +98,9 @@ int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
         enemy_name, enemy_hp, nick, *hp, *max_hp);
     // Fight loop
     while (1) {
-      char c;
-
       printf("'F'ight with monster, 'r'un away: ");
-      c = getchar();
-      if (c != 10) getchar();
 
-      switch (c) {
+      switch (getchar_clear_buffer()) {
         case 'f':
         case 'F': {
           // Attack enemy
@@ -136,6 +141,202 @@ int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
   return 0;
 }
 
+int tavern(char *nick, unsigned int *coins, int *hp, unsigned short *max_hp) {
+  char dish_name[8] = "Beer";
+  unsigned short dish_cost = 2;
+  unsigned short dish_hp_restore = 0;
+
+  printf("%s enters tavern.\n", nick);
+
+  while (1) {
+    if (*max_hp == *hp) {
+      printf("%s (%d hp) already have max hp.\n", nick, *hp);
+      printf("%s enters city.\n", nick);
+      return 0;
+    }
+
+    printf(
+        "'B'eer (-2 c=+1 max hp)\n"
+        "'S'alad (-10 c=+7 max hp)\n"
+        "'C'hicken (-50 c=+40 max hp)\n"
+        "'e'xit tavern: ");
+
+    switch (getchar_clear_buffer()) {
+      case 'b':
+      case 'B': {
+        dish_hp_restore = 1;
+        break;
+      }
+      case 's':
+      case 'S': {
+        strcpy(dish_name, "Salad");
+        dish_cost = 10;
+        dish_hp_restore = 7;
+        break;
+      }
+      case 'c':
+      case 'C': {
+        strcpy(dish_name, "Chicken");
+        dish_cost = 50;
+        dish_hp_restore = 40;
+        break;
+      }
+      case 'e':
+      case 'E': {
+        printf("%s enters city.\n", nick);
+        return 0;
+      }
+      default:
+        printf("Unknown action, choose one of suggested.\n");
+    }
+
+    if (dish_hp_restore == 0) continue;
+    if (dish_cost > *coins) {
+      printf("%s (%d c) doesn't have enough coins for %s.\n", nick, *coins,
+             dish_name);
+      continue;
+    }
+
+    *coins -= dish_cost;
+    *hp += dish_hp_restore;
+    if (*hp > *max_hp) *hp = *max_hp;
+    printf(
+        "%s consume %s.\n"
+        "Hp now is %d. %d coins left.\n",
+        nick, dish_name, *hp, *coins);
+  }
+
+  return 0;
+}
+
+int training_ground(char *nick, unsigned int *coins, unsigned short *max_hp) {
+  char train_name[7] = "Short";
+  unsigned short train_cost = 2;
+  unsigned short train_hp_upgrade = 0;
+
+  printf("%s enters training ground.\n", nick);
+
+  while (1) {
+    if (*max_hp == MAX_HP) {
+      printf("%s (%d max hp) already maxed hp.\n", nick, *max_hp);
+      printf("%s enters city.\n", nick);
+      return 0;
+    }
+
+    printf(
+        "'S'hort train (-2 c=+1 max hp)\n"
+        "'m'edium train (-10 c=+7 max hp)\n"
+        "'l'ong train (-50 c=+40 max hp)\n"
+        "'e'xit training ground: ");
+
+    switch (getchar_clear_buffer()) {
+      case 's':
+      case 'S': {
+        train_hp_upgrade = 1;
+        break;
+      }
+      case 'm':
+      case 'M': {
+        strcpy(train_name, "Medium");
+        train_cost = 10;
+        train_hp_upgrade = 7;
+        break;
+      }
+      case 'l':
+      case 'L': {
+        strcpy(train_name, "Long");
+        train_cost = 50;
+        train_hp_upgrade = 40;
+        break;
+      }
+      case 'e':
+      case 'E': {
+        printf("%s enters city.\n", nick);
+        return 0;
+      }
+      default:
+        printf("Unknown action, choose one of suggested.\n");
+    }
+
+    if (train_hp_upgrade == 0) continue;
+    if (train_cost > *coins) {
+      printf("%s (%d c) doesn't have enough coins for %s train.\n", nick,
+             *coins, train_name);
+      continue;
+    }
+
+    *coins -= train_cost;
+    *max_hp += train_hp_upgrade;
+    if (*max_hp > MAX_HP) *max_hp = MAX_HP;
+    printf(
+        "%s did %s train.\n"
+        "Max hp now is %d. %d coins left.\n",
+        nick, train_name, *max_hp, *coins);
+  }
+
+  return 0;
+}
+
+int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
+               char *weapon_name, unsigned short *weapon_attack,
+               unsigned short *weapon_upgrade_cost) {
+  printf("%s enters city.\n", nick);
+
+  while (1) {
+    printf(
+        "Check 's'tatus, "
+        "Sit on 'b'ench, "
+        "visit 't'avern,\n"
+        "visit 'f'orge, "
+        "training 'g'round, "
+        "'l'eave city: ");
+    switch (getchar_clear_buffer()) {
+      case 's':
+      case 'S': {
+        print_status(nick, *coins, *max_hp, *hp);
+        break;
+      }
+      case 'b':
+      case 'B': {
+        printf("%s sits on bench and enjoy city view", nick);
+        for (int i = 0; i < 10; i++) {
+          sleep(1);
+          printf(".");
+          fflush(stdout);
+        }
+        printf("\n");
+        if (*hp == *max_hp) break;
+
+        (*hp)++;
+        printf("%s restored 1 hp (%d/%d) hp.\n", nick, *hp, *max_hp);
+        break;
+      }
+      case 't':
+      case 'T': {
+        tavern(nick, coins, hp, max_hp);
+        break;
+      }
+      case 'f':
+      case 'F': {
+        break;
+      }
+      case 'g':
+      case 'G': {
+        training_ground(nick, coins, max_hp);
+        break;
+      }
+      case 'l':
+      case 'L': {
+        return 0;
+      }
+      default:
+        printf("Unknown action, choose one of suggested.\n");
+    }
+  }
+
+  return 0;
+}
+
 int main(int argc, char *argv[]) {
   char nick[16];
   unsigned int coins;
@@ -154,13 +355,13 @@ int main(int argc, char *argv[]) {
   print_status(nick, coins, max_hp, hp);
 
   while (1) {
-    char c;
     printf(
         "Check 's'tatus, "
-        "begin 'e'xplore (enter),"
+        "begin 'e'xplore (enter), "
         "visit 'c'ity, "
         "'q'uit game: ");
-    switch (c = getchar()) {
+
+    switch (getchar_clear_buffer()) {
       case 's':
       case 'S': {
         print_status(nick, coins, max_hp, hp);
@@ -175,7 +376,11 @@ int main(int argc, char *argv[]) {
         break;
       }
       case 'c':
-      case 'C':
+      case 'C': {
+        visit_city(nick, &coins, &max_hp, &hp, weapon_name, &weapon_attack,
+                   &weapon_attack);
+        break;
+      }
 
       case 'q':
       case 'Q': {
@@ -184,8 +389,6 @@ int main(int argc, char *argv[]) {
       default:
         printf("Unknown action, choose one of suggested.\n");
     }
-
-    if (c != 10) getchar();
   }
 
   return 0;
