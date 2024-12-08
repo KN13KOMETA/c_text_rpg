@@ -299,6 +299,7 @@ int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
       case 'b':
       case 'B': {
         printf("%s sits on bench and enjoy city view", nick);
+        fflush(stdout);
         for (int i = 0; i < 10; i++) {
           sleep(1);
           printf(".");
