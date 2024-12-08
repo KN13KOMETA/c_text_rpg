@@ -5,6 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "forge.h"
 #include "functions.h"
 
 #define MAX_HP 55555
@@ -283,7 +284,7 @@ int training_ground(char *nick, unsigned int *coins, unsigned short *max_hp) {
 
 int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
                char *weapon_name, unsigned short *weapon_attack,
-               unsigned short *weapon_upgrade_cost) {
+               unsigned int *weapon_upgrade_cost) {
   printf("%s enters city.\n", nick);
 
   while (1) {
@@ -323,6 +324,7 @@ int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
       }
       case 'f':
       case 'F': {
+        forge(nick, coins, weapon_name, weapon_attack, weapon_upgrade_cost);
         break;
       }
       case 'g':
@@ -349,7 +351,7 @@ int main(int argc, char *argv[]) {
   int hp;
   char weapon_name[64] = "Hands";
   unsigned short weapon_attack = 5;
-  unsigned short weapon_upgrade_cost = 5;
+  unsigned int weapon_upgrade_cost = 5;
 
   get_nick(nick, sizeof(nick));
 
@@ -386,7 +388,6 @@ int main(int argc, char *argv[]) {
                    &weapon_upgrade_cost);
         break;
       }
-
       case 'q':
       case 'Q': {
         return 0;
