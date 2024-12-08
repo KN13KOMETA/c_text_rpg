@@ -160,9 +160,9 @@ int tavern(char *nick, unsigned int *coins, int *hp, unsigned short *max_hp) {
     }
 
     printf(
-        "'B'eer (-2 c=+1 max hp)\n"
-        "'S'alad (-10 c=+7 max hp)\n"
-        "'C'hicken (-50 c=+40 max hp)\n"
+        "'B'eer (-2 c=+1 hp)\n"
+        "'S'alad (-10 c=+7 hp)\n"
+        "'C'hicken (-50 c=+40 hp)\n"
         "'e'xit tavern: ");
 
     switch (getchar_clear()) {
