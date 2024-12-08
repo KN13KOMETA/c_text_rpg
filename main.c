@@ -81,7 +81,7 @@ int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
 
     (*hp)--;
 
-    if (*hp == 0) {
+    if (*hp < 1) {
       printf(
           "%s was defeated by %s\n"
           "This is end of %s adventure.\n",
@@ -121,6 +121,13 @@ int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
               "%s attacks.\n"
               "%s loses %d(%d/%d) hp\n",
               enemy_name, nick, enemy_attack, *hp, *max_hp);
+          if (*hp < 0) {
+            printf(
+                "%s was defeated by %s\n"
+                "This is end of %s adventure.\n",
+                nick, enemy_name, nick);
+            return 1;
+          }
           break;
         }
         case 'r':
