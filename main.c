@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,6 +7,10 @@
 
 #include "forge.h"
 #include "functions.h"
+
+#if RAND_MAX < INT32_MAX
+#error "RAND_MAX "
+#endif
 
 #define MAX_HP 55555
 
