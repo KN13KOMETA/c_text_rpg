@@ -9,7 +9,7 @@
 #include "functions.h"
 
 #if RAND_MAX < INT32_MAX
-#error "RAND_MAX "
+#error RAND_MAX IS LOWER THAN INT32_MAX
 #endif
 
 #define MAX_HP 55555
@@ -348,7 +348,8 @@ int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
   return 0;
 }
 
-int main(int argc, char *argv[]) {
+/* int main(int argc, char *argv[]) { */
+int main(void) {
   char nick[16];
   unsigned int coins;
   unsigned short max_hp = 10;

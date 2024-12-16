@@ -272,7 +272,7 @@ void forge(char *nick, unsigned int *coins, char *weapon_name,
         else
           *weapon_upgrade_cost =
               *weapon_upgrade_cost + (*weapon_upgrade_cost / 4);
-        printf("%s (%d attack) was upgraded.", weapon_name, *weapon_attack);
+        printf("%s (%d attack) was upgraded.\n", weapon_name, *weapon_attack);
         return;
       }
       case 'e':
