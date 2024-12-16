@@ -25,7 +25,7 @@ void debug_character(struct Character *chr) {
 }
 void print_player(struct Character *chr) {
   printf(
-      "-----< PLAYER STATUS >-----\n"
+      "\n-----< PLAYER STATUS >-----\n"
       "Character: %s (%ug %u/%uh)\n"
       "Weapon: %s (%up %uup %ud)\n",
       chr->name, chr->gold, chr->health, chr->max_health, chr->weapon.name,
@@ -33,7 +33,7 @@ void print_player(struct Character *chr) {
 }
 void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage) {
   printf(
-      "-----< ENEMY STATUS >-----\n"
+      "\n-----< ENEMY STATUS >-----\n"
       "Character: %s (",
       chr->name);
   if (hideGold)
