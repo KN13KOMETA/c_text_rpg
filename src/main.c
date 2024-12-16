@@ -5,6 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "character.h"
 #include "forge.h"
 #include "functions.h"
 
@@ -49,55 +50,43 @@ void print_status(char *nick, unsigned int coins, unsigned short max_hp, int hp,
       nick, coins, hp, max_hp, weapon_name, weapon_attack);
 }
 
-int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
-            char *weapon_name, unsigned short weapon_attack) {
+/* int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int
+ *hp,*/
+/* char *weapon_name, unsigned short weapon_attack) { */
+int explore(struct Character *player) {
   int r = rand() % 4;
 
-  printf("%s begin exploring forest.\n", nick);
+  printf("%s begin exploring forest.\n", player->name);
 
   if (r == 0) {
     unsigned char found_coins = rand() % 5;
 
     if (found_coins != 0) {
-      *coins += found_coins;
-      printf("Found %d(%d) coins.\n", found_coins, *coins);
+      player->gold += found_coins;
+      printf("Found %d(%d) coins.\n", found_coins, player->gold);
     }
 
-    if (*hp < *max_hp) {
-      (*hp)++;
-      printf("1 (%d/%d) hp restored.\n", *hp, *max_hp);
+    if (player->health < player->max_health) {
+      player->health++;
+      printf("1 (%d/%d) hp restored.\n", player->health, player->max_health);
     }
   } else {
-    char enemy_name[7] = "Slime";
-    unsigned short enemy_gold = 5 + rand() % 10;
-    unsigned short enemy_attack = 1 + rand() % 2;
-    int enemy_hp = 5 + rand() % 5;
+    struct Character enemy = generate_enemy(0);
 
-    if (r == 2) {
-      strcpy(enemy_name, "Goblin");
-      enemy_gold = 15 + rand() % 35;
-      enemy_attack = 3 + rand() % 7;
-      enemy_hp = 10 + rand() % 15;
-    } else if (r == 3) {
-      strcpy(enemy_name, "Demon");
-      enemy_gold = 100 + rand() % 900;
-      enemy_attack = 50 + rand() % 200;
-      enemy_hp = 100 + rand() % 900;
-    }
+    player->health--;
 
-    (*hp)--;
-
-    if (*hp < 1) {
+    if (player->health < 1) {
       printf(
           "%s was defeated by %s\n"
           "This is end of %s adventure.\n",
-          nick, enemy_name, nick);
+          player->name, enemy.name, player->name);
       return 1;
     }
     printf(
         "%s (%d hp) attacked %s.\n"
         "1(%d/%d) hp lost.\n",
-        enemy_name, enemy_hp, nick, *hp, *max_hp);
+        enemy.name, enemy.health, player->name, player->health,
+        player->max_health);
     // Fight loop
     while (1) {
       printf("'F'ight with monster, 'r'un away: ");
@@ -106,39 +95,41 @@ int explore(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
         case 'f':
         case 'F': {
           // Attack enemy
-          enemy_hp -= weapon_attack;
+          enemy.health -= player->weapon.damage;
           printf(
               "%s hits %s with %s.\n"
               "%s loses %d(%d) hp.\n",
-              nick, enemy_name, weapon_name, enemy_name, weapon_attack,
-              enemy_hp);
+              player->name, enemy.name, player->weapon.name, enemy.name,
+              player->weapon.damage, enemy.health);
 
           // Check enemy hp
-          if (enemy_hp < 1) {
-            printf("%s (%d hp) was defeated by %s using %s.\n", enemy_name,
-                   enemy_hp, nick, weapon_name);
-            *coins += enemy_gold;
-            printf("%s got %d(%d) gold.\n", nick, enemy_gold, *coins);
+          if (enemy.health < 1) {
+            printf("%s (%d hp) was defeated by %s using %s.\n", enemy.name,
+                   enemy.health, player->name, player->weapon.name);
+            player->gold += enemy.gold;
+            printf("%s got %d(%d) gold.\n", player->name, enemy.gold,
+                   player->gold);
             return 0;
           }
 
-          *hp -= enemy_attack;
+          player->health -= enemy.weapon.damage;
           printf(
               "%s attacks.\n"
               "%s loses %d(%d/%d) hp\n",
-              enemy_name, nick, enemy_attack, *hp, *max_hp);
-          if (*hp < 0) {
+              enemy.name, player->name, enemy.weapon.damage, player->health,
+              player->max_health);
+          if (player->health < 0) {
             printf(
                 "%s was defeated by %s\n"
                 "This is end of %s adventure.\n",
-                nick, enemy_name, nick);
+                player->name, enemy.name, player->name);
             return 1;
           }
           break;
         }
         case 'r':
         case 'R': {
-          printf("%s decided to ran away.\n", nick);
+          printf("%s decided to ran away.\n", player->name);
           return 0;
         }
         default:
@@ -350,21 +341,28 @@ int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
 
 /* int main(int argc, char *argv[]) { */
 int main(void) {
-  char nick[16];
-  unsigned int coins;
-  unsigned short max_hp = 10;
-  int hp;
-  char weapon_name[64] = "Hands";
-  unsigned short weapon_attack = 5;
-  unsigned int weapon_upgrade_cost = 5;
+  struct Character player;
+  /* char nick[16]; */
+  /* unsigned int coins; */
+  /* unsigned short max_hp = 10; */
+  /* int hp; */
+  /* char weapon_name[64] = "Hands"; */
+  /* unsigned short weapon_attack = 5; */
+  /* unsigned int weapon_upgrade_cost = 5; */
 
-  get_nick(nick, sizeof(nick));
+  get_nick(player.name, sizeof(player.name));
+  srand(sum_chars(player.name));
 
-  srand(sum_chars(nick));
-  coins = rand() % 50;
-  hp = 1 + rand() % 9;
+  player = generate_player(player.name);
 
-  print_status(nick, coins, max_hp, hp, weapon_name, weapon_attack);
+  /* debug_character(&player); */
+  /* print_player(&player); */
+
+  /* coins = rand() % 50; */
+  /* hp = 1 + rand() % 9; */
+
+  print_player(&player);
+  /* print_status(nick, coins, max_hp, hp, weapon_name, weapon_attack); */
 
   while (1) {
     printf(
@@ -376,21 +374,23 @@ int main(void) {
     switch (getchar_clear()) {
       case 's':
       case 'S': {
-        print_status(nick, coins, max_hp, hp, weapon_name, weapon_attack);
+        print_player(&player);
+        /* print_status(nick, coins, max_hp, hp, weapon_name, weapon_attack); */
         break;
       }
       case 'e':
       case 'E':
       case 10: {
-        if (explore(nick, &coins, &max_hp, &hp, weapon_name, weapon_attack) ==
-            1)
+        if (/*explore(nick, &coins, &max_hp, &hp, weapon_name, weapon_attack)*/
+            explore(&player) == 1)
           return 0;
         break;
       }
       case 'c':
       case 'C': {
-        visit_city(nick, &coins, &max_hp, &hp, weapon_name, &weapon_attack,
-                   &weapon_upgrade_cost);
+        /* visit_city(nick, &coins, &max_hp, &hp, weapon_name, &weapon_attack,
+         */
+        /*            &weapon_upgrade_cost); */
         break;
       }
       case 'q':
