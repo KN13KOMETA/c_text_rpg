@@ -1,9 +1,7 @@
 #! /bin/bash
 # BUILD AND RUN LINUX BINARY
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source $SCRIPT_DIR/var.sh
-
 
 if [ ! -d "$OUTPUT_DIR" ]; then
   mkdir $OUTPUT_DIR

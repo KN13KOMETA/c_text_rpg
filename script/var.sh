@@ -1,12 +1,18 @@
 #! /bin/bash
 # DECLARE ENVIROMENT VARIABLES
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+
+ZIG_PATH="$(dirname -- "$SCRIPT_DIR")/zig-linux-x86_64-0.14.0-dev.2487+af89bb05d"
+
+echo $ZIG_PATH
+
+PATH=$PATH:$ZIG_PATH
 
 PROJECT_NAME=c_text_rpg
 
-CC="$(dirname -- "$SCRIPT_DIR")/zig-linux-x86_64-0.14.0-dev.2487+af89bb05d/zig cc"
-CFLAGS="--std=c99 -Wall -Wextra -Wpedantic"
-CFILES="src/main.c src/forge.c src/functions.c"
+CC="zig cc"
+CFLAGS="-std=c99 -Wall -Wextra -Wpedantic"
+CFILES="src/main.c src/forge.c src/functions.c src/character.c"
 
 # Setup dirs
 OUTPUT_DIR=$(dirname -- "$SCRIPT_DIR")/bin

@@ -1,7 +1,6 @@
 #! /bin/bash
 # COMPILE LINUX AND WINDOWS BINARIES
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source $SCRIPT_DIR/var.sh
 
 # Delete bin dir
