@@ -22,10 +22,9 @@ void debug_character(struct Character *chr) {
       chr->name, chr->gold, chr->max_health, chr->health, chr->weapon.name,
       chr->weapon.price, chr->weapon.upgrade_price, chr->weapon.damage);
 }
-
 void print_player(struct Character *chr) {
   printf(
-      "-----< STATUS >-----\n"
+      "-----< PLAYER STATUS >-----\n"
       "Character: %s (%ug %u/%uh)\n"
       "Weapon: %s (%up %uup %ud)\n",
       chr->name, chr->gold, chr->health, chr->max_health, chr->weapon.name,
@@ -40,7 +39,6 @@ void fix_character(struct Character *chr) {
     chr->max_health = CHARACTER_MAX_HEALTH;
   if (chr->health > chr->max_health) chr->health = chr->max_health;
 }
-
 struct Character generate_player(char *name) {
   struct Character chr = {.weapon = {"Hands", 0, 5, 5}};
 
@@ -53,7 +51,6 @@ struct Character generate_player(char *name) {
 
   return chr;
 }
-
 struct Character generate_enemy(uint8_t difficulty) {
   struct Character chr = {
       .name = "Glitter Glitch",
