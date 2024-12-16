@@ -15,6 +15,8 @@ void debug_character(struct Character *chr);
 void print_player(struct Character *chr);
 void print_enemy(struct Character *chr);
 
+void battle_enemy(struct Character *player, struct Character *enemy);
+
 void fix_character(struct Character *chr);
 struct Character generate_player(char *name);
 struct Character generate_enemy(uint8_t difficulty);

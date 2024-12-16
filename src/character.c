@@ -32,6 +32,7 @@ void print_player(struct Character *chr) {
 }
 
 void print_enemy(struct Character *chr);
+void battle_enemy(struct Character *player, struct Character *enemy);
 
 void fix_character(struct Character *chr) {
   if (chr->gold > CHARACTER_MAX_GOLD) chr->gold = CHARACTER_MAX_GOLD;
