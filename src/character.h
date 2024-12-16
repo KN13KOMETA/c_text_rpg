@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdint.h>
 
 #include "const.h"
@@ -13,7 +14,7 @@ struct Character {
 
 void debug_character(struct Character *chr);
 void print_player(struct Character *chr);
-void print_enemy(struct Character *chr);
+void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage);
 
 void battle_enemy(struct Character *player, struct Character *enemy);
 

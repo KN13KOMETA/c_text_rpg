@@ -1,5 +1,6 @@
 #include "character.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -30,8 +31,30 @@ void print_player(struct Character *chr) {
       chr->name, chr->gold, chr->health, chr->max_health, chr->weapon.name,
       chr->weapon.price, chr->weapon.upgrade_price, chr->weapon.damage);
 }
+void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage) {
+  printf(
+      "-----< ENEMY STATUS >-----\n"
+      "Character: %s (",
+      chr->name);
+  if (hideGold)
+    printf("?");
+  else
+    printf("%u", chr->gold);
 
-void print_enemy(struct Character *chr);
+  printf(
+      "g %u/%uh)\n"
+      "Weapon: %s (%up %uup ",
+      chr->health, chr->max_health, chr->weapon.name, chr->weapon.price,
+      chr->weapon.upgrade_price);
+
+  if (hideWeaponDamage)
+    printf("?");
+  else
+    printf("%u", chr->weapon.damage);
+
+  printf("d)\n");
+}
+
 void battle_enemy(struct Character *player, struct Character *enemy);
 
 void fix_character(struct Character *chr) {
