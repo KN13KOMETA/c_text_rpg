@@ -8,8 +8,7 @@ if [ -f $LINUX_OUTPUT ]; then
   rm $LINUX_OUTPUT
 fi
 
-clang main.c forge.c functions.c -o $LINUX_OUTPUT --std=c23
-
+$CC $CFILES -o $LINUX_OUTPUT $CFLAGS
 
 if [ -f $LINUX_OUTPUT ]; then
   $LINUX_OUTPUT

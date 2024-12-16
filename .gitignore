@@ -1,1 +1,5 @@
 bin
+
+# Ignore zig compiler and cache
+zig*
+.zig-cache

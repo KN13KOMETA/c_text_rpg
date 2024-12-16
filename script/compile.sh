@@ -11,7 +11,8 @@ fi
 
 mkdir $OUTPUT_DIR
 
-clang main.c forge.c functions.c -o $LINUX_OUTPUT --std=c23
-x86_64-w64-mingw32-gcc main.c forge.c functions.c -o $WINDOWS_OUTPUT --std=c2x
+# Compile linux and windows binaries
+$CC $CFILES -o $LINUX_OUTPUT $CFLAGS
+$CC $CFILES -o $WINDOWS_OUTPUT $CFLAGS -target x86_64-windows
 
 echo "COMPILING COMPLETE!"
