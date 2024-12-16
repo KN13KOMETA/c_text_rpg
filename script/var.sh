@@ -4,8 +4,6 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 ZIG_PATH="$(dirname -- "$SCRIPT_DIR")/zig-linux-x86_64-0.14.0-dev.2487+af89bb05d"
 
-echo $ZIG_PATH
-
 PATH=$PATH:$ZIG_PATH
 
 PROJECT_NAME=c_text_rpg
