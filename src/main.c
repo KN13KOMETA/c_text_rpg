@@ -9,6 +9,7 @@
 #include "character/character.h"
 #include "forge.h"
 #include "functions.h"
+#include "location/location.h"
 
 #if RAND_MAX < INT32_MAX
 #error RAND_MAX IS LOWER THAN INT32_MAX
@@ -296,39 +297,42 @@ int main(void) {
   player = generate_player(player.name);
   print_player(&player);
 
-  while (1) {
-    printf(
-        "Check 's'tatus, "
-        "begin 'e'xplore (enter), "
-        "visit 'c'ity, "
-        "'q'uit game: ");
+  location_loop();
 
-    switch (getchar_clear()) {
-      case 's':
-      case 'S': {
-        print_player(&player);
-        break;
-      }
-      case 'e':
-      case 'E':
-      case 10: {
-        if (explore(&player) == 1) return 0;
-        break;
-      }
-      case 'c':
-      case 'C': {
-        // visit_city(nick, &coins, &max_hp, &hp, weapon_name, &weapon_attack,
-        // &weapon_upgrade_cost);
-        break;
-      }
-      case 'q':
-      case 'Q': {
-        return 0;
-      }
-      default:
-        printf("Unknown action, choose one of suggested.\n");
-    }
-  }
+  // while (1) {
+  //   printf(
+  //       "Check 's'tatus, "
+  //       "begin 'e'xplore (enter), "
+  //       "visit 'c'ity, "
+  //       "'q'uit game: ");
+  //
+  //   switch (getchar_clear()) {
+  //     case 's':
+  //     case 'S': {
+  //       print_player(&player);
+  //       break;
+  //     }
+  //     case 'e':
+  //     case 'E':
+  //     case 10: {
+  //       if (explore(&player) == 1) return 0;
+  //       break;
+  //     }
+  //     case 'c':
+  //     case 'C': {
+  //       // visit_city(nick, &coins, &max_hp, &hp, weapon_name,
+  //       &weapon_attack,
+  //       // &weapon_upgrade_cost);
+  //       break;
+  //     }
+  //     case 'q':
+  //     case 'Q': {
+  //       return 0;
+  //     }
+  //     default:
+  //       printf("Unknown action, choose one of suggested.\n");
+  //   }
+  // }
 
   return 0;
 }
