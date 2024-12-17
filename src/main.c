@@ -290,27 +290,11 @@ int visit_city(char *nick, unsigned int *coins, unsigned short *max_hp, int *hp,
 /* int main(int argc, char *argv[]) { */
 int main(void) {
   struct Character player;
-  /* char nick[16]; */
-  /* unsigned int coins; */
-  /* unsigned short max_hp = 10; */
-  /* int hp; */
-  /* char weapon_name[64] = "Hands"; */
-  /* unsigned short weapon_attack = 5; */
-  /* unsigned int weapon_upgrade_cost = 5; */
-
   get_nick(player.name, sizeof(player.name));
   srand(sum_chars(player.name));
 
   player = generate_player(player.name);
-
-  /* debug_character(&player); */
-  /* print_player(&player); */
-
-  /* coins = rand() % 50; */
-  /* hp = 1 + rand() % 9; */
-
   print_player(&player);
-  /* print_status(nick, coins, max_hp, hp, weapon_name, weapon_attack); */
 
   while (1) {
     printf(
@@ -323,22 +307,18 @@ int main(void) {
       case 's':
       case 'S': {
         print_player(&player);
-        /* print_status(nick, coins, max_hp, hp, weapon_name, weapon_attack); */
         break;
       }
       case 'e':
       case 'E':
       case 10: {
-        if (/*explore(nick, &coins, &max_hp, &hp, weapon_name, weapon_attack)*/
-            explore(&player) == 1)
-          return 0;
+        if (explore(&player) == 1) return 0;
         break;
       }
       case 'c':
       case 'C': {
-        /* visit_city(nick, &coins, &max_hp, &hp, weapon_name, &weapon_attack,
-         */
-        /*            &weapon_upgrade_cost); */
+        // visit_city(nick, &coins, &max_hp, &hp, weapon_name, &weapon_attack,
+        // &weapon_upgrade_cost);
         break;
       }
       case 'q':
