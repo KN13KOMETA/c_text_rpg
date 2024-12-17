@@ -75,6 +75,15 @@ int explore(struct Character *player) {
     struct Character enemy = generate_enemy(0);
 
     battle_enemy(player, &enemy);
+
+    if (player->health == 0) {
+      printf(
+          "\n-----< AFTER BATTLE >-----\n"
+          "%s refuses to die\n"
+          "1 health restored\n",
+          player->name);
+      player->health = 1;
+    }
   }
 
   return 0;
