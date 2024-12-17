@@ -10,7 +10,7 @@ PROJECT_NAME=c_text_rpg
 
 CC="zig cc"
 CFLAGS="-std=c99 -Wall -Wextra -Wpedantic"
-CFILES="src/main.c src/forge.c src/functions.c src/character.c"
+CFILES="src/main.c src/forge.c src/functions.c src/character/character.c"
 
 # Setup dirs
 OUTPUT_DIR=$(dirname -- "$SCRIPT_DIR")/bin

@@ -1,7 +1,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "const.h"
+#include "../const.h"
 #include "weapon.h"
 
 struct Character {

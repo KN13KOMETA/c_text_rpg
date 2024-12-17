@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -5,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "character.h"
+#include "character/character.h"
 #include "forge.h"
 #include "functions.h"
 
@@ -73,6 +74,11 @@ int explore(struct Character *player) {
   } else {
     struct Character enemy = generate_enemy(0);
 
+    battle_enemy(player, &enemy);
+
+    // print_enemy(&enemy, true, true);
+    // print_enemy(&enemy, false, false);
+    /*
     player->health--;
 
     if (player->health < 1) {
@@ -136,6 +142,7 @@ int explore(struct Character *player) {
           printf("Unknown action, choose one of suggested.\n");
       }
     }
+    */
   }
 
   return 0;

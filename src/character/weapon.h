@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-#include "const.h"
+#include "../const.h"
 
 struct Weapon {
   char name[WEAPON_NAME_LENGTH];
