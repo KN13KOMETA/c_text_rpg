@@ -1,3 +1,6 @@
+#ifndef CHARACTER_H
+#define CHARACTER_H
+
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -21,3 +24,5 @@ void battle_enemy(struct Character *player, struct Character *enemy);
 void fix_character(struct Character *chr);
 struct Character generate_player(char *name);
 struct Character generate_enemy(uint8_t difficulty);
+
+#endif  // !CHARACTER_H
