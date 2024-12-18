@@ -297,7 +297,7 @@ int main(void) {
   player = generate_player(player.name);
   print_player(&player);
 
-  location_loop();
+  location_loop(&player);
 
   // while (1) {
   //   printf(
