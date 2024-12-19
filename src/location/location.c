@@ -16,19 +16,20 @@ void home_loop(struct Character *player, uint8_t *location_id) {
   sprintf(location_name, "%s home", player->name);
 
   printf(
-      "\n-----< LOCATION >-----\n"
+      "\n-----< %s LOCATION  >-----\n"
       "%s enters %s\n",
-      player->name, location_name);
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     printf(
-        "\n-----< LOCATION ACTION >-----\n"
+        "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
         "e) Explore\n"
         "1) Leave home\n"
         "2) Sleep\n"
-        "SELECT: ");
+        "SELECT: ",
+        location_name);
 
     switch (getchar_clear()) {
       case 's': {
@@ -37,10 +38,10 @@ void home_loop(struct Character *player, uint8_t *location_id) {
       }
       case 'l': {
         printf(
-            "\n-----< LOCATION >-----\n"
+            "\n-----< %s LOCATION >-----\n"
             "%s looks around sees stone walls around him, "
             "bed and table, seems confortable enough\n",
-            player->name);
+            location_name, player->name);
         break;
       }
       case 'e': {
@@ -71,10 +72,10 @@ void home_loop(struct Character *player, uint8_t *location_id) {
         player->health += restore_health;
 
         printf(
-            "\n-----< LOCATION >-----\n"
+            "\n-----< %s LOCATION >-----\n"
             "%s lays on bed and sleep\n"
             "\n-----< WAIT (%us) >-----\n",
-            player->name, sleep_time);
+            location_name, player->name, sleep_time);
 
         for (uint8_t i = 0; i < sleep_time; i++) {
           sleep(1);
@@ -90,14 +91,14 @@ void home_loop(struct Character *player, uint8_t *location_id) {
         break;
       }
       default:
-        printf("\n-----< LOCATION UNKNOWN ACTION >-----\n");
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
     }
   }
 
   printf(
-      "\n-----< LOCATION >-----\n"
+      "\n-----< %s LOCATION >-----\n"
       "%s leaves %s\n",
-      player->name, location_name);
+      location_name, player->name, location_name);
 }
 
 void void_loop(struct Character *player, uint8_t *location_id) {
@@ -107,18 +108,19 @@ void void_loop(struct Character *player, uint8_t *location_id) {
   sprintf(location_name, "void %u", *location_id);
 
   printf(
-      "\n-----< LOCATION >-----\n"
+      "\n-----< %s LOCATION >-----\n"
       "%s enters %s\n",
-      player->name, location_name);
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     printf(
-        "\n-----< LOCATION ACTION >-----\n"
+        "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
         "e) Explore\n"
         "1) Return to home\n"
-        "SELECT: ");
+        "SELECT: ",
+        location_name);
 
     switch (getchar_clear()) {
       case 's': {
@@ -127,9 +129,9 @@ void void_loop(struct Character *player, uint8_t *location_id) {
       }
       case 'l': {
         printf(
-            "\n-----< LOCATION >-----\n"
+            "\n-----< %s LOCATION >-----\n"
             "%s looks around but see nothing\n",
-            player->name);
+            location_name, player->name);
         break;
       }
       case 'e': {
@@ -153,14 +155,14 @@ void void_loop(struct Character *player, uint8_t *location_id) {
         break;
       }
       default:
-        printf("\n-----< LOCATION UNKNOWN ACTION >-----\n");
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
     }
   }
 
   printf(
-      "\n-----< LOCATION >-----\n"
+      "\n-----< %s LOCATION >-----\n"
       "%s leaves %s\n",
-      player->name, location_name);
+      location_name, player->name, location_name);
 }
 
 void location_loop(struct Character *player) {
