@@ -64,8 +64,8 @@ void home_loop(struct Character *player, uint8_t *location_id) {
         uint8_t sleep_time = 30;
         uint16_t restore_health = player->max_health * 0.75;
 
-        if (restore_health < player->health)
-          restore_health = player->health - restore_health;
+        if (restore_health > player->health)
+          restore_health -= player->health;
         else
           restore_health = 0;
 
