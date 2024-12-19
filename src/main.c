@@ -11,8 +11,8 @@
 #include "functions.h"
 #include "location/location.h"
 
-#if RAND_MAX < INT32_MAX
-#error RAND_MAX IS LOWER THAN INT32_MAX
+#if RAND_MAX < INT16_MAX
+#error RAND_MAX IS LOWER THAN INT16_MAX
 #endif
 
 #define MAX_HP 55555
