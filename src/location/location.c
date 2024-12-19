@@ -45,14 +45,18 @@ void home_loop(struct Character *player, uint8_t *location_id) {
         break;
       }
       case 'e': {
-        // TODO:
-        printf(
-            "\n-----< NOCONTENT >-----\n"
-            "Sending player to void.\n"
-            "Good luck\n");
+        struct Character enemy = generate_enemy(0);
+        battle_enemy(player, &enemy);
 
-        *location_id = UINT8_MAX;
-        leaveLocation = true;
+        if (player->health == 0) {
+          printf(
+              "\n-----< AFTER BATTLE >-----\n"
+              "%s refuses to die\n"
+              "1 health restored\n",
+              player->name);
+          player->health = 1;
+        }
+
         break;
       }
       case '1': {
