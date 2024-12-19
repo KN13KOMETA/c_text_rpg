@@ -168,7 +168,7 @@ struct Character generate_player(char *name) {
 
   return chr;
 }
-struct Character generate_enemy(uint8_t difficulty) {
+struct Character generate_enemy(uint8_t enemy_id) {
   struct Character chr = {
       .name = "Glitter Glitch",
       .gold = RND_MAX(UINT16_MAX),
@@ -176,8 +176,17 @@ struct Character generate_enemy(uint8_t difficulty) {
       .health = chr.gold,
       {.name = "Shining Death Star Glitch ", .damage = UINT16_MAX}};
 
-  switch (difficulty) {
+  switch (enemy_id) {
     case 0: {
+      strcpy(chr.name, "Rat");
+      chr.gold = RND_RANGE(5, 1);
+      chr.max_health = 5;
+      chr.health = RND_RANGE(5, 1);
+      strcpy(chr.weapon.name, "Sharp Teeth");
+      chr.weapon.damage = RND_RANGE(2, 1);
+      break;
+    }
+    case 10: {
       strcpy(chr.name, "Slime");
       chr.gold = RND_RANGE(10, 1);
       chr.max_health = 10;
@@ -186,7 +195,7 @@ struct Character generate_enemy(uint8_t difficulty) {
       chr.weapon.damage = RND_RANGE(3, 1);
       break;
     }
-    case 1: {
+    case 20: {
       strcpy(chr.name, "Goblin");
       chr.gold = RND_RANGE(20, 10);
       chr.max_health = 25;

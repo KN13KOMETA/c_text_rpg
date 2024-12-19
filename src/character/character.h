@@ -23,6 +23,6 @@ void battle_enemy(struct Character *player, struct Character *enemy);
 
 void fix_character(struct Character *chr);
 struct Character generate_player(char *name);
-struct Character generate_enemy(uint8_t difficulty);
+struct Character generate_enemy(uint8_t enemy_id);
 
 #endif  // !CHARACTER_H
