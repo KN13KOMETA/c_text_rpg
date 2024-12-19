@@ -61,9 +61,9 @@ void battle_enemy(struct Character *player, struct Character *enemy) {
   while (1) {
     printf(
         "\n-----< BATTLE ACTION >-----\n"
-        "1) Player and enemy status (doesn't waste turn)\n"
-        "2) Attack enemy\n"
-        "3) Run away\n"
+        "s) Player and enemy status (doesn't waste turn)\n"
+        "a) Attack enemy\n"
+        "r) Run away\n"
         "SELECT: ");
 
     switch (getchar_clear()) {
