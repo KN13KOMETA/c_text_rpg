@@ -126,7 +126,7 @@ void battle_enemy(struct Character *player, struct Character *enemy) {
               "%s defeats %s using %s\n"
               "%s takes %u gold from %s\n",
               player->name, enemy->name, player->weapon.name, player->name,
-              enemy->gold, player->name);
+              enemy->gold, enemy->name);
 
           player->gold = winner_gold;
           enemy->gold = 0;
