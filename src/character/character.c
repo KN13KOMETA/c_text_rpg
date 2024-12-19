@@ -67,12 +67,12 @@ void battle_enemy(struct Character *player, struct Character *enemy) {
         "SELECT: ");
 
     switch (getchar_clear()) {
-      case '1': {
+      case 's': {
         print_player(player);
         print_enemy(enemy, hideEnemyGold, hideEnemyWeaponDamage);
         break;
       }
-      case '2': {
+      case 'a': {
         uint16_t player_new_health = player->health - enemy->weapon.damage;
         uint16_t enemy_new_health = enemy->health - player->weapon.damage;
         uint32_t winner_gold = player->gold + enemy->gold;
@@ -136,7 +136,7 @@ void battle_enemy(struct Character *player, struct Character *enemy) {
 
         break;
       }
-      case '3': {
+      case 'r': {
         printf(
             "\n-----< BATTLE END >-----\n"
             "%s decided to run away\n",
