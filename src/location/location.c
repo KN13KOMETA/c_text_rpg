@@ -27,6 +27,7 @@ void home_loop(struct Character *player, uint8_t *location_id) {
         "e) Explore\n"
         "1) Leave home\n"
         "2) Sleep\n"
+        "3) Suicide\n"
         "SELECT: ",
         location_name);
 
@@ -91,6 +92,18 @@ void home_loop(struct Character *player, uint8_t *location_id) {
             "%u health restored\n",
             restore_health);
 
+        break;
+      }
+      case '3': {
+        print_player(player);
+
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s commits suicide\n"
+            "0 health left\n",
+            location_name, player->name);
+        player->health = 0;
+        return;
         break;
       }
       default:
