@@ -48,7 +48,16 @@ unsigned int sum_chars(char *str) {
 int main(void) {
   struct Character player;
   get_player_nick(&player);
-  srand(sum_chars(player.name));
+
+  {
+    unsigned int new_seed = 0;
+    size_t len = strlen(player.name);
+
+    for (size_t i = 0; i < len; i++) new_seed += player.name[i];
+
+    srand(new_seed);
+  }
+  // srand(sum_chars(player.name));
 
   player = generate_player(player.name);
   print_player(&player);
