@@ -176,6 +176,8 @@ struct Character generate_enemy(uint8_t enemy_id) {
       .health = chr.gold,
       {.name = "Shining Death Star Glitch ", .damage = UINT16_MAX}};
 
+  // TODO: Dead Forest, Deep Forest, Forest enemies
+
   switch (enemy_id) {
     case 0: {
       strcpy(chr.name, "Rat");

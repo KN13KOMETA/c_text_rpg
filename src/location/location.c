@@ -9,7 +9,6 @@
 
 void home_loop(struct Character *player, uint8_t *location_id) {
   bool leaveLocation = false;
-
   char location_name[CHARACTER_NAME_LENGTH + 5];
 
   sprintf(location_name, "%s home", player->name);
@@ -117,6 +116,74 @@ void home_loop(struct Character *player, uint8_t *location_id) {
       location_name, player->name, location_name);
 }
 
+void dead_forest_loop(struct Character *player, uint8_t *location_id) {
+  bool leaveLocation = false;
+  char location_name[] = "Dead Forest";
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
+
+  while (!leaveLocation) {
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Enter home\n"
+        "2) Leave %s\n"
+        "SELECT: ",
+        location_name, location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around, everything seems dead\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        struct Character enemy = generate_enemy(UINT8_MAX);
+        battle_enemy(player, &enemy);
+
+        if (player->health == 0) {
+          printf(
+              "\n-----< AFTER BATTLE >-----\n"
+              "%s refuses to die\n"
+              "1 health restored\n",
+              player->name);
+          player->health = 1;
+        }
+
+        break;
+      }
+      case '1': {
+        *location_id = 0;
+        leaveLocation = true;
+        break;
+      }
+      case '2': {
+        *location_id = 2;
+        leaveLocation = true;
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
+  }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
+}
+
 void void_loop(struct Character *player, uint8_t *location_id) {
   bool leaveLocation = false;
   char location_name[9];
@@ -188,6 +255,18 @@ void location_loop(struct Character *player) {
       case 0: {
         home_loop(player, &location_id);
         break;
+      }
+      case 1: {
+        dead_forest_loop(player, &location_id);
+        break;
+      }
+      case 2: {
+        // TODO: deep forest
+        // break;
+      }
+      case 3: {
+        // TODO: forest
+        // break;
       }
       // If something went wrong player will be sent in void location
       default:
