@@ -2,7 +2,8 @@
 # DECLARE ENVIROMENT VARIABLES
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-ZIG_PATH="$(dirname -- "$SCRIPT_DIR")/zig-linux-x86_64-0.14.0-dev.2487+af89bb05d"
+TOOL_DIR="$(readlink -f "$SCRIPT_DIR/../tool")"
+ZIG_PATH="$(readlink -f "$TOOL_DIR/$(ls "$TOOL_DIR" | grep --color=never zig)")"
 
 PATH=$PATH:$ZIG_PATH
 
