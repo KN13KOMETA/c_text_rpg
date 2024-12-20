@@ -3,7 +3,8 @@
 
 #include <stdint.h>
 
-#include "../const.h"
+#define WEAPON_NAME_LENGTH 30
+#define WEAPON_MAX_DAMAGE 50001
 
 struct Weapon {
   char name[WEAPON_NAME_LENGTH];

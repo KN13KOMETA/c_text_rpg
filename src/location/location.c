@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../const.h"
 #include "../functions.h"
 
 void home_loop(struct Character *player, uint8_t *location_id) {

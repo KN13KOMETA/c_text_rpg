@@ -3,7 +3,6 @@
 #include <string.h>
 
 #include "character/character.h"
-#include "const.h"
 #include "location/location.h"
 
 #if RAND_MAX < INT16_MAX
