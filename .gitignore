@@ -1,5 +1,5 @@
 bin
 
 # Ignore zig compiler and cache
-zig*
+tool/*
 .zig-cache
