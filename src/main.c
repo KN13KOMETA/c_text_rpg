@@ -4,6 +4,7 @@
 
 #include "character/character.h"
 #include "location/location.h"
+#include "story/story.h"
 
 #if RAND_MAX < INT16_MAX
 #error RAND_MAX IS LOWER THAN INT16_MAX
@@ -31,8 +32,11 @@ void get_player_nick(struct Character *player) {
 /* int main(int argc, char *argv[]) { */
 int main(void) {
   struct Character player;
+  struct Story story;
+
   get_player_nick(&player);
 
+  // Init seed using nick
   {
     unsigned int new_seed = 0;
     size_t len = strlen(player.name);
@@ -44,7 +48,7 @@ int main(void) {
 
   player = generate_player(player.name);
   print_player(&player);
-  location_loop(&player);
+  location_loop(&player, &story);
 
   return 0;
 }

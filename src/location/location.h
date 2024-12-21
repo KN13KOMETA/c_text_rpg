@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "../character/character.h"
+#include "../story/story.h"
 
 typedef enum {
   player_room,
@@ -27,6 +28,6 @@ typedef enum {
   nvoid = UINT8_MAX,
 } LOCATION_ID;
 
-void location_loop(struct Character *player);
+void location_loop(struct Character *player, struct Story *story);
 
 #endif  // !LOCATION_H

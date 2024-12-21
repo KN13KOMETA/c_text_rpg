@@ -7,16 +7,25 @@
 
 #include "../functions.h"
 
-void player_room_loop(struct Character *player, LOCATION_ID *location_id) {
+void player_room_loop(struct Character *player, struct Story *story,
+                      LOCATION_ID *location_id) {
   bool leaveLocation = false;
   char location_name[CHARACTER_NAME_LENGTH + 5];
 
   sprintf(location_name, "%s room", player->name);
 
-  printf(
-      "\n-----< %s LOCATION  >-----\n"
-      "%s enters %s\n",
-      location_name, player->name, location_name);
+  if (story->firstPlayerRoomEnter == true) {
+    story->firstPlayerRoomEnter = false;
+    printf(
+        "\n-----< %s LOCATION >-----\n"
+        "%s wakes up very drunk\n"
+        "Not remembering what happened yesterday\n",
+        player->name, player->name);
+  } else
+    printf(
+        "\n-----< %s LOCATION  >-----\n"
+        "%s enters %s\n",
+        location_name, player->name, location_name);
 
   while (!leaveLocation) {
     printf(
@@ -115,9 +124,9 @@ void player_room_loop(struct Character *player, LOCATION_ID *location_id) {
       "%s leaves %s\n",
       location_name, player->name, location_name);
 }
-void throne_room_loop(struct Character *player, LOCATION_ID *location_id) {};
+void throne_room_loop(struct Character *player, LOCATION_ID *location_id) {}
 void demon_lord_castle_loop(struct Character *player,
-                            LOCATION_ID *location_id) {};
+                            LOCATION_ID *location_id) {}
 
 void dead_forest_loop(struct Character *player, LOCATION_ID *location_id) {
   bool leaveLocation = false;
@@ -186,21 +195,19 @@ void dead_forest_loop(struct Character *player, LOCATION_ID *location_id) {
       "%s leaves %s\n",
       location_name, player->name, location_name);
 }
-void deep_forest_loop(struct Character *player, LOCATION_ID *location_id) {};
-void forest_loop(struct Character *player, LOCATION_ID *location_id) {};
+void deep_forest_loop(struct Character *player, LOCATION_ID *location_id) {}
+void forest_loop(struct Character *player, LOCATION_ID *location_id) {}
 
-void hidden_garden_loop(struct Character *player, LOCATION_ID *location_id) {};
-void high_mountain_loop(struct Character *player, LOCATION_ID *location_id) {};
-void mountain_loop(struct Character *player, LOCATION_ID *location_id) {};
+void hidden_garden_loop(struct Character *player, LOCATION_ID *location_id) {}
+void high_mountain_loop(struct Character *player, LOCATION_ID *location_id) {}
+void mountain_loop(struct Character *player, LOCATION_ID *location_id) {}
 
-void city_loop(struct Character *player, LOCATION_ID *location_id) {};
-void tavern_loop(struct Character *player, LOCATION_ID *location_id) {};
-void blacksmith_shop_loop(struct Character *player, LOCATION_ID *location_id) {
-};
-void training_ground_loop(struct Character *player, LOCATION_ID *location_id) {
-};
+void city_loop(struct Character *player, LOCATION_ID *location_id) {}
+void tavern_loop(struct Character *player, LOCATION_ID *location_id) {}
+void blacksmith_shop_loop(struct Character *player, LOCATION_ID *location_id) {}
+void training_ground_loop(struct Character *player, LOCATION_ID *location_id) {}
 void adventurer_guild_loop(struct Character *player, LOCATION_ID *location_id) {
-};
+}
 
 void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
   bool leaveLocation = false;
@@ -266,13 +273,13 @@ void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
       location_name, player->name, location_name);
 }
 
-void location_loop(struct Character *player) {
+void location_loop(struct Character *player, struct Story *story) {
   LOCATION_ID current_location = player_room;
 
   while (current_location != nolocation) {
     switch (current_location) {
       case player_room: {
-        player_room_loop(player, &current_location);
+        player_room_loop(player, story, &current_location);
         break;
       }
       case throne_room: {
