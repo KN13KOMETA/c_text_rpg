@@ -1,5 +1,7 @@
 # SPOILER ALERT
 If you avoid spoilers, do not open next files.
+- story.c
+- story.h
 - location.c
 - location.h
 - character.c
