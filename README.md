@@ -1,3 +1,8 @@
+# SPOILER ALERT
+If you avoid spoilers, do not open next files.
+- character.c
+- weapon.c
+- location.c
 # BUILDING
 Build targets: linux and windows <br>
 Build host: linux
