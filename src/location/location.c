@@ -124,9 +124,13 @@ void player_room_loop(struct Character *player, struct Story *story,
       "%s leaves %s\n",
       location_name, player->name, location_name);
 }
-void throne_room_loop(struct Character *player, LOCATION_ID *location_id) {}
+void throne_room_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
 void demon_lord_castle_loop(struct Character *player,
-                            LOCATION_ID *location_id) {}
+                            LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
 
 void dead_forest_loop(struct Character *player, LOCATION_ID *location_id) {
   bool leaveLocation = false;
@@ -195,18 +199,37 @@ void dead_forest_loop(struct Character *player, LOCATION_ID *location_id) {
       "%s leaves %s\n",
       location_name, player->name, location_name);
 }
-void deep_forest_loop(struct Character *player, LOCATION_ID *location_id) {}
-void forest_loop(struct Character *player, LOCATION_ID *location_id) {}
+void deep_forest_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
+void forest_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
 
-void hidden_garden_loop(struct Character *player, LOCATION_ID *location_id) {}
-void high_mountain_loop(struct Character *player, LOCATION_ID *location_id) {}
-void mountain_loop(struct Character *player, LOCATION_ID *location_id) {}
+void hidden_garden_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
+void high_mountain_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
+void mountain_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
 
-void city_loop(struct Character *player, LOCATION_ID *location_id) {}
-void tavern_loop(struct Character *player, LOCATION_ID *location_id) {}
-void blacksmith_shop_loop(struct Character *player, LOCATION_ID *location_id) {}
-void training_ground_loop(struct Character *player, LOCATION_ID *location_id) {}
+void city_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
+void tavern_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
+void blacksmith_shop_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
+void training_ground_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
+}
 void adventurer_guild_loop(struct Character *player, LOCATION_ID *location_id) {
+  *location_id = nvoid;
 }
 
 void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
