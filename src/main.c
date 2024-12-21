@@ -32,7 +32,7 @@ void get_player_nick(struct Character *player) {
 /* int main(int argc, char *argv[]) { */
 int main(void) {
   struct Character player;
-  struct Story story;
+  struct Story story = get_story();
 
   get_player_nick(&player);
 
