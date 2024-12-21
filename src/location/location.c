@@ -184,7 +184,7 @@ void dead_forest_loop(struct Character *player, uint8_t *location_id) {
       location_name, player->name, location_name);
 }
 
-void void_loop(struct Character *player, uint8_t *location_id) {
+void nvoid_loop(struct Character *player, uint8_t *location_id) {
   bool leaveLocation = false;
   char location_name[9];
 
@@ -270,7 +270,7 @@ void location_loop(struct Character *player) {
       }
       // If something went wrong player will be sent in void location
       default:
-        void_loop(player, &location_id);
+        nvoid_loop(player, &location_id);
     }
   }
 
