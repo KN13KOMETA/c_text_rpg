@@ -4,6 +4,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define STORY_HEADER "\n-----< STORY >-----\n"
+
+#define STORY_TEXT_PLAYER_ROOM1 \
+  STORY_HEADER                  \
+  "%s wakes up very drunk\n"    \
+  "Not remembering what happened yesterday\n"
+
 struct Story {
   uint16_t player_room_counter;
   uint16_t throne_room_counter;

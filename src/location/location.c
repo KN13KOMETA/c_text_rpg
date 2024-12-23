@@ -12,11 +12,11 @@ void player_room_loop(struct Character *player, struct Story *story,
   bool leaveLocation = false;
   char location_name[CHARACTER_NAME_LENGTH + 5];
 
-  sprintf(location_name, "%s room", player->name);
+  sprintf(location_name, "%s Room", player->name);
   add_counter(&story->player_room_counter);
 
   if (story->player_room_counter == 1) {
-    printf(STORY_TEXT1, player->name);
+    printf(STORY_TEXT_PLAYER_ROOM1, player->name);
   } else
     printf(
         "\n-----< %s LOCATION  >-----\n"
@@ -123,7 +123,7 @@ void player_room_loop(struct Character *player, struct Story *story,
 void throne_room_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Throne Room";
 
   add_counter(&story->throne_room_counter);
 
@@ -136,15 +136,25 @@ void throne_room_loop(struct Character *player, struct Story *story,
 void demon_lord_castle_loop(struct Character *player, struct Story *story,
                             LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Demon Lord Castle";
 
   add_counter(&story->demon_lord_castle_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 
 void dead_forest_loop(struct Character *player, struct Story *story,
@@ -220,133 +230,234 @@ void dead_forest_loop(struct Character *player, struct Story *story,
 void deep_forest_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Deep Forest";
 
   add_counter(&story->deep_forest_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 void forest_loop(struct Character *player, struct Story *story,
                  LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Forest";
 
   add_counter(&story->forest_counter);
 
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
+
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
+
 void hidden_garden_loop(struct Character *player, struct Story *story,
                         LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Hidden Garden";
 
   add_counter(&story->hidden_garden_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 void high_mountain_loop(struct Character *player, struct Story *story,
                         LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "High Mountain";
 
   add_counter(&story->high_mountain_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 void mountain_loop(struct Character *player, struct Story *story,
                    LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Mountain";
 
   add_counter(&story->mountain_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 
 void city_loop(struct Character *player, struct Story *story,
                LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "City";
 
   add_counter(&story->city_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 void tavern_loop(struct Character *player, struct Story *story,
                  LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Tavern";
 
   add_counter(&story->tavern_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 void blacksmith_shop_loop(struct Character *player, struct Story *story,
                           LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Blacksmith Shop";
 
   add_counter(&story->blacksmith_shop_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 void training_ground_loop(struct Character *player, struct Story *story,
                           LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Training Ground";
 
   add_counter(&story->training_ground_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 void adventurer_guild_loop(struct Character *player, struct Story *story,
                            LOCATION_ID *location_id) {
   bool leaveLocation = false;
-  char location_name[] = "location_name";
+  char location_name[] = "Adventurer Guild";
 
   add_counter(&story->adventurer_guild_counter);
+
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 
 void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
