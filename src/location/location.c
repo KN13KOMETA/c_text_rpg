@@ -127,11 +127,21 @@ void throne_room_loop(struct Character *player, struct Story *story,
 
   add_counter(&story->throne_room_counter);
 
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
+
   while (!leaveLocation) {
     // Send player to void for now
     leaveLocation = true;
     *location_id = nvoid;
   }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
 }
 void demon_lord_castle_loop(struct Character *player, struct Story *story,
                             LOCATION_ID *location_id) {
