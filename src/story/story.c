@@ -1,8 +1,13 @@
 #include "story.h"
 
 struct Story get_story(void) {
-  struct Story story = {
-      .firstPlayerRoomEnter = true, .firstThroneRoomEnter = true, .ending = 0};
+  struct Story story = {.ending = 0xff};
 
   return story;
+}
+
+void add_counter(uint16_t* counter) {
+  if (*counter == UINT16_MAX) return;
+
+  (*counter)++;
 }
