@@ -488,6 +488,7 @@ void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
         "l) Look around\n"
         "e) Explore\n"
         "1) Return to location 0\n"
+        "2) Enter custom location id\n"
         "SELECT: ",
         location_name);
 
@@ -520,6 +521,17 @@ void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
       }
       case '1': {
         *location_id = 0;
+        leaveLocation = true;
+        break;
+      }
+      case '2': {
+        char location_string[4];
+        LOCATION_ID new_id = *location_id;
+        printf("LOCATION ID (uint 8): ");
+
+        scanf("%u", location_id);
+        if (new_id > 0xff) *location_id = 0xff;
+
         leaveLocation = true;
         break;
       }
