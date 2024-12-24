@@ -47,7 +47,7 @@ int main(void) {
   }
 
   player = generate_player(player.name);
-  print_player(&player);
+  print_player(&player, &story);
   location_loop(&player, &story);
 
   return 0;

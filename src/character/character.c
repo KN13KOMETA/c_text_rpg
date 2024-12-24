@@ -23,13 +23,29 @@ void debug_character(struct Character *chr) {
       chr->name, chr->gold, chr->max_health, chr->health, chr->weapon.name,
       chr->weapon.price, chr->weapon.upgrade_price, chr->weapon.damage);
 }
-void print_player(struct Character *chr) {
+void print_player_quest(struct Story *story) {
+  bool completed = story->quest.target_count == story->quest.progress_count;
+
+  if (story->quest.target_count == 0) return;
+
+  printf(
+      "\n-----< QUEST (%s) >-----\n"
+      "Kill %s (%u/%u)\n"
+      "Reward %ug\n",
+      (completed ? "COMPLETED" : "NOT COMPLETED"), story->quest.target_name,
+      story->quest.progress_count, story->quest.target_count,
+      story->quest.reward_gold);
+  if (completed) printf("Head to the Adventurer Guild for reward\n");
+}
+void print_player(struct Character *chr, struct Story *story) {
   printf(
       "\n-----< PLAYER STATUS >-----\n"
       "Character: %s (%ug %u/%uh)\n"
       "Weapon: %s (%up %uup %ud)\n",
       chr->name, chr->gold, chr->health, chr->max_health, chr->weapon.name,
       chr->weapon.price, chr->weapon.upgrade_price, chr->weapon.damage);
+
+  print_player_quest(story);
 }
 void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage) {
   printf(
@@ -55,7 +71,8 @@ void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage) {
   printf("d)\n");
 }
 
-void battle_enemy(struct Character *player, struct Character *enemy) {
+void battle_enemy(struct Story *story, struct Character *player,
+                  struct Character *enemy) {
   bool hideEnemyGold = true;
   bool hideEnemyWeaponDamage = true;
   while (1) {
@@ -68,7 +85,7 @@ void battle_enemy(struct Character *player, struct Character *enemy) {
 
     switch (getchar_clear()) {
       case 's': {
-        print_player(player);
+        print_player(player, story);
         print_enemy(enemy, hideEnemyGold, hideEnemyWeaponDamage);
         break;
       }
@@ -130,6 +147,13 @@ void battle_enemy(struct Character *player, struct Character *enemy) {
 
           player->gold = winner_gold;
           enemy->gold = 0;
+
+          if (strcmp(enemy->name, story->quest.target_name) == 0) {
+            if (story->quest.progress_count < story->quest.target_count)
+              story->quest.progress_count++;
+
+            print_player_quest(story);
+          }
 
           return;
         }

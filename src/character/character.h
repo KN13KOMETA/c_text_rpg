@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
@@ -10,6 +11,11 @@
 #define CHARACTER_MAX_GOLD 4000000000
 #define CHARACTER_MAX_HEALTH 50000
 
+#include "../story/story.h"
+
+// WARN: The whole story.h and character.h situation is horrible
+// Rewrite this trash later
+
 struct Character {
   char name[CHARACTER_NAME_LENGTH];
   uint32_t gold;
@@ -19,10 +25,11 @@ struct Character {
 };
 
 void debug_character(struct Character *chr);
-void print_player(struct Character *chr);
+void print_player(struct Character *chr, struct Story *story);
 void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage);
 
-void battle_enemy(struct Character *player, struct Character *enemy);
+void battle_enemy(struct Story *story, struct Character *player,
+                  struct Character *enemy);
 
 void fix_character(struct Character *chr);
 struct Character generate_player(char *name);

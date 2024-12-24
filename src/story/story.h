@@ -1,8 +1,11 @@
+#pragma once
 #ifndef STORY_H
 #define STORY_H
 
 #include <stdbool.h>
 #include <stdint.h>
+
+#include "../character/character.h"
 
 #define STORY_HEADER "\n-----< STORY >-----\n"
 
@@ -10,6 +13,15 @@
   STORY_HEADER                  \
   "%s wakes up very drunk\n"    \
   "Not remembering what happened yesterday\n"
+
+
+struct Quest {
+  uint32_t reward_gold;
+
+  char target_name[CHARACTER_NAME_LENGTH];
+  uint16_t target_count;
+  uint16_t progress_count;
+};
 
 struct Story {
   uint16_t player_room_counter;
@@ -29,6 +41,8 @@ struct Story {
   uint16_t blacksmith_shop_counter;
   uint16_t training_ground_counter;
   uint16_t adventurer_guild_counter;
+
+  struct Quest quest;
 
   uint8_t ending;
 };

@@ -37,7 +37,7 @@ void player_room_loop(struct Character *player, struct Story *story,
 
     switch (getchar_clear()) {
       case 's': {
-        print_player(player);
+        print_player(player, story);
         break;
       }
       case 'l': {
@@ -50,7 +50,7 @@ void player_room_loop(struct Character *player, struct Story *story,
       }
       case 'e': {
         struct Character enemy = generate_enemy(0);
-        battle_enemy(player, &enemy);
+        battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
           printf(
@@ -99,7 +99,7 @@ void player_room_loop(struct Character *player, struct Story *story,
         break;
       }
       case '3': {
-        print_player(player);
+        print_player(player, story);
 
         printf(
             "\n-----< %s LOCATION >-----\n"
@@ -192,7 +192,7 @@ void dead_forest_loop(struct Character *player, struct Story *story,
 
     switch (getchar_clear()) {
       case 's': {
-        print_player(player);
+        print_player(player, story);
         break;
       }
       case 'l': {
@@ -204,7 +204,7 @@ void dead_forest_loop(struct Character *player, struct Story *story,
       }
       case 'e': {
         struct Character enemy = generate_enemy(UINT8_MAX);
-        battle_enemy(player, &enemy);
+        battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
           printf(
@@ -470,7 +470,8 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 }
 
-void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
+void nvoid_loop(struct Character *player, struct Story *story,
+                LOCATION_ID *location_id) {
   bool leaveLocation = false;
   char location_name[9];
 
@@ -494,7 +495,7 @@ void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
 
     switch (getchar_clear()) {
       case 's': {
-        print_player(player);
+        print_player(player, story);
         break;
       }
       case 'l': {
@@ -506,7 +507,7 @@ void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
       }
       case 'e': {
         struct Character enemy = generate_enemy(UINT8_MAX);
-        battle_enemy(player, &enemy);
+        battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
           printf(
@@ -525,7 +526,6 @@ void nvoid_loop(struct Character *player, LOCATION_ID *location_id) {
         break;
       }
       case '2': {
-        char location_string[4];
         LOCATION_ID new_id = *location_id;
         printf("LOCATION ID (uint 8): ");
 
@@ -609,7 +609,7 @@ void location_loop(struct Character *player, struct Story *story) {
       }
       // If something went wrong player will be sent in void location
       default:
-        nvoid_loop(player, &current_location);
+        nvoid_loop(player, story, &current_location);
     }
   }
 
