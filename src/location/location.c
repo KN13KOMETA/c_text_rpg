@@ -367,16 +367,91 @@ void city_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leaveLocation) {
-    // Send player to void for now
-    leaveLocation = true;
-    *location_id = nvoid;
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Go to Forest\n"
+        "2) Go to Mountain\n"
+        "3) Visit Tavern\n"
+        "4) Visit Blacksmith Shop\n"
+        "5) Visit Training Ground\n"
+        "6) Visit Adventurer Guild\n"
+        "SELECT: ",
+        location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around and sees a small town\n"
+            "It seems the residents are not very friendly towards him\n"
+            "From all places, %s gets sideways glances\n",
+            location_name, player->name, player->name);
+        break;
+      }
+      case 'e': {
+        // TODO: CITY EXPLORE ACTIVITY
+        printf("\nTODO: CITY EXPLORE ACTIVITY\n");
+        // struct Character enemy = generate_enemy(0);
+        // battle_enemy(story, player, &enemy);
+        //
+        // if (player->health == 0) {
+        //   printf(
+        //       "\n-----< AFTER BATTLE >-----\n"
+        //       "%s refuses to die\n"
+        //       "1 health restored\n",
+        //       player->name);
+        //   player->health = 1;
+        // }
+
+        break;
+      }
+      case '1': {
+        *location_id = forest;
+        leaveLocation = true;
+        break;
+      }
+      case '2': {
+        *location_id = mountain;
+        leaveLocation = true;
+        break;
+      }
+      case '3': {
+        *location_id = tavern;
+        leaveLocation = true;
+        break;
+      }
+      case '4': {
+        *location_id = blacksmith_shop;
+        leaveLocation = true;
+        break;
+      }
+      case '5': {
+        *location_id = training_ground;
+        leaveLocation = true;
+        break;
+      }
+      case '6': {
+        *location_id = adventurer_guild;
+        leaveLocation = true;
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
   }
 
   printf(
       "\n-----< %s LOCATION >-----\n"
       "%s leaves %s\n",
       location_name, player->name, location_name);
-}
+}  // DONE
 void tavern_loop(struct Character *player, struct Story *story,
                  LOCATION_ID *location_id) {
   bool leaveLocation = false;
@@ -448,6 +523,7 @@ void training_ground_loop(struct Character *player, struct Story *story,
 }
 void adventurer_guild_loop(struct Character *player, struct Story *story,
                            LOCATION_ID *location_id) {
+  // TODO: Write adventurer guild after adding all enemies
   bool leaveLocation = false;
   char location_name[] = "Adventurer Guild";
 
@@ -459,9 +535,10 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leaveLocation) {
-    // Send player to void for now
+    // TODO: ADVENTURE GUILD FUNCTIONAL
+    printf("\nTODO: ADVENTURE GUILD FUNCTIONAL\n");
     leaveLocation = true;
-    *location_id = nvoid;
+    *location_id = city;
   }
 
   printf(
