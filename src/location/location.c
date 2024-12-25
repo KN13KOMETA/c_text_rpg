@@ -358,7 +358,7 @@ void mountain_loop(struct Character *player, struct Story *story,
 // city -e
 // tavern -e
 // blacksmith_shop -
-// training_ground -
+// training_ground -e
 // adventurer_guild -
 void city_loop(struct Character *player, struct Story *story,
                LOCATION_ID *location_id) {
