@@ -354,6 +354,12 @@ void mountain_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 }
 
+// TODO: City locations checklist
+// city -e
+// tavern -e
+// blacksmith_shop -
+// training_ground -
+// adventurer_guild -
 void city_loop(struct Character *player, struct Story *story,
                LOCATION_ID *location_id) {
   bool leaveLocation = false;
@@ -439,7 +445,7 @@ void city_loop(struct Character *player, struct Story *story,
       "\n-----< %s LOCATION >-----\n"
       "%s leaves %s\n",
       location_name, player->name, location_name);
-}  // DONE
+}
 void tavern_loop(struct Character *player, struct Story *story,
                  LOCATION_ID *location_id) {
   bool leaveLocation = false;
@@ -453,9 +459,155 @@ void tavern_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leaveLocation) {
-    // Send player to void for now
-    leaveLocation = true;
-    *location_id = nvoid;
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Leave %s\n"
+        "2) Drink beer (10%% health restore)\n"
+        "3) Eat salad (25%% health restore)\n"
+        "4) Eat chiken (50%% health restore)\n"
+        "SELECT: ",
+        location_name, location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around\n"
+            "It seems like everyone is having fun\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        // TODO: TAVERN EXPLORE ACTIVITY
+        printf("\nTODO: TAVERN EXPLORE ACTIVITY\n");
+        break;
+      }
+      case '1': {
+        *location_id = city;
+        leaveLocation = true;
+        break;
+      }
+      case '2': {
+        uint16_t heal = player->max_health * 0.10;
+        uint16_t new_health = player->health + heal;
+        uint32_t price = heal * 10;
+
+        // Overflow checks
+        if (new_health < player->health || new_health > player->max_health)
+          new_health = player->max_health;
+
+        // Max health check
+        if (player->health == player->max_health) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s already have max health\n",
+              location_name, player->name);
+          break;
+        }
+
+        // Gold check
+        if (player->gold < price) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s need %u gold for this, but he has only %u gold\n",
+              location_name, player->name, price, player->gold);
+          break;
+        }
+
+        player->gold -= price;
+        player->health = new_health;
+
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s healed %u health\n",
+            location_name, player->name, heal);
+
+        break;
+      }
+      case '3': {
+        uint16_t heal = player->max_health * 0.25;
+        uint16_t new_health = player->health + heal;
+        uint32_t price = heal * 10;
+
+        // Overflow checks
+        if (new_health < player->health || new_health > player->max_health)
+          new_health = player->max_health;
+
+        // Max health check
+        if (player->health == player->max_health) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s already have max health\n",
+              location_name, player->name);
+          break;
+        }
+
+        // Gold check
+        if (player->gold < price) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s need %u gold for this, but he has only %u gold\n",
+              location_name, player->name, price, player->gold);
+          break;
+        }
+
+        player->gold -= price;
+        player->health = new_health;
+
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s healed %u health\n",
+            location_name, player->name, heal);
+
+        break;
+      }
+      case '4': {
+        uint16_t heal = player->max_health * 0.50;
+        uint16_t new_health = player->health + heal;
+        uint32_t price = heal * 10;
+
+        // Overflow checks
+        if (new_health < player->health || new_health > player->max_health)
+          new_health = player->max_health;
+
+        // Max health check
+        if (player->health == player->max_health) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s already have max health\n",
+              location_name, player->name);
+          break;
+        }
+
+        // Gold check
+        if (player->gold < price) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s need %u gold for this, but he has only %u gold\n",
+              location_name, player->name, price, player->gold);
+          break;
+        }
+
+        player->gold -= price;
+        player->health = new_health;
+
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s healed %u health\n",
+            location_name, player->name, heal);
+
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
   }
 
   printf(
