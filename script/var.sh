@@ -7,7 +7,9 @@ ZIG_PATH="$(readlink -f "$TOOL_DIR/$(ls "$TOOL_DIR" | grep --color=never zig)")"
 
 PATH=$PATH:$ZIG_PATH
 
-PROJECT_NAME=c_text_rpg
+PROJECT_VERSION="v2.0.0-beta"
+PROJECT_NAME="c_text_rpg"
+FULL_PROJECT_NAME="${PROJECT_NAME}_$PROJECT_VERSION"
 
 CC="zig cc"
 CFLAGS="-std=c99 -Wall -Wextra -Wpedantic"
@@ -16,5 +18,5 @@ CFILES="$(find "$CSOURCE_FOLDER" -name "*.c" | tr '\n' ' ')"
 
 # Setup dirs
 OUTPUT_DIR=$(dirname -- "$SCRIPT_DIR")/bin
-LINUX_OUTPUT="$OUTPUT_DIR/$PROJECT_NAME"
-WINDOWS_OUTPUT="$OUTPUT_DIR/$PROJECT_NAME.exe"
+LINUX_OUTPUT="$OUTPUT_DIR/$FULL_PROJECT_NAME"
+WINDOWS_OUTPUT="$OUTPUT_DIR/$FULL_PROJECT_NAME.exe"
