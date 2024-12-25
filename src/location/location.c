@@ -92,7 +92,7 @@ void player_room_loop(struct Character *player, struct Story *story,
         }
 
         printf(
-            "\n-----< SLEEP >-----\n"
+            "\n\n-----< SLEEP >-----\n"
             "%u health restored\n",
             restore_health);
 
@@ -466,7 +466,7 @@ void tavern_loop(struct Character *player, struct Story *story,
         "e) Explore\n"
         "1) Leave %s\n"
         "2) Drink beer (10%% health restore)\n"
-        "3) Eat salad (25%% health restore)\n"
+        "3) Eat salad  (25%% health restore)\n"
         "4) Eat chiken (50%% health restore)\n"
         "SELECT: ",
         location_name, location_name);
@@ -651,9 +651,212 @@ void training_ground_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leaveLocation) {
-    // Send player to void for now
-    leaveLocation = true;
-    *location_id = nvoid;
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Leave %s\n"
+        "2) Free training   ( 0 gold,  +1 max health, 10 sec)\n"
+        "3) Short training  (10 gold,  +5 max health, 15 sec)\n"
+        "4) Medium training (20 gold, +15 max health, 30 sec)\n"
+        "5) Long training   (50 gold, +75 max health, 60 sec)\n"
+        "SELECT: ",
+        location_name, location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around and sees a lot of training equipment\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        // TODO: TRAINING GROUND EXPLORE ACTIVITY
+        printf("\nTODO: TRAINING GROUND EXPLORE ACTIVITY\n");
+        break;
+      }
+      case '1': {
+        *location_id = city;
+        leaveLocation = true;
+        break;
+      }
+      case '2': {
+        uint32_t train_price = 0;
+        uint16_t max_health_upgrade = 1;
+        uint8_t train_time = 10;
+
+        if (player->max_health == CHARACTER_MAX_HEALTH) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s already maxed his max health",
+              location_name, player->name);
+          break;
+        }
+
+        if (player->gold < train_price) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s need %u gold for this, but he has only %u gold\n",
+              location_name, player->name, train_price, player->gold);
+          break;
+        }
+
+        player->gold -= train_price;
+        player->max_health += max_health_upgrade;
+
+        if (player->max_health > CHARACTER_MAX_HEALTH)
+          player->max_health = CHARACTER_MAX_HEALTH;
+
+        printf("\n-----< WAIT (%us) >-----\n", train_time);
+
+        for (uint8_t i = 0; i < train_time; i++) {
+          sleep(1);
+          printf(".");
+          fflush(stdout);
+        }
+
+        printf(
+            "\n\n-----< %s LOCATION >-----\n"
+            "%s max health is now %u\n",
+            location_name, player->name, player->max_health);
+
+        break;
+      }
+      case '3': {
+        uint32_t train_price = 10;
+        uint16_t max_health_upgrade = 5;
+        uint8_t train_time = 15;
+
+        if (player->max_health == CHARACTER_MAX_HEALTH) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s already maxed his max health",
+              location_name, player->name);
+          break;
+        }
+
+        if (player->gold < train_price) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s need %u gold for this, but he has only %u gold\n",
+              location_name, player->name, train_price, player->gold);
+          break;
+        }
+
+        player->gold -= train_price;
+        player->max_health += max_health_upgrade;
+
+        if (player->max_health > CHARACTER_MAX_HEALTH)
+          player->max_health = CHARACTER_MAX_HEALTH;
+
+        printf("\n-----< WAIT (%us) >-----\n", train_time);
+
+        for (uint8_t i = 0; i < train_time; i++) {
+          sleep(1);
+          printf(".");
+          fflush(stdout);
+        }
+
+        printf(
+            "\n\n-----< %s LOCATION >-----\n"
+            "%s max health is now %u\n",
+            location_name, player->name, player->max_health);
+
+        break;
+      }
+      case '4': {
+        uint32_t train_price = 20;
+        uint16_t max_health_upgrade = 15;
+        uint8_t train_time = 30;
+
+        if (player->max_health == CHARACTER_MAX_HEALTH) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s already maxed his max health",
+              location_name, player->name);
+          break;
+        }
+
+        if (player->gold < train_price) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s need %u gold for this, but he has only %u gold\n",
+              location_name, player->name, train_price, player->gold);
+          break;
+        }
+
+        player->gold -= train_price;
+        player->max_health += max_health_upgrade;
+
+        if (player->max_health > CHARACTER_MAX_HEALTH)
+          player->max_health = CHARACTER_MAX_HEALTH;
+
+        printf("\n-----< WAIT (%us) >-----\n", train_time);
+
+        for (uint8_t i = 0; i < train_time; i++) {
+          sleep(1);
+          printf(".");
+          fflush(stdout);
+        }
+
+        printf(
+            "\n\n-----< %s LOCATION >-----\n"
+            "%s max health is now %u\n",
+            location_name, player->name, player->max_health);
+
+        break;
+      }
+      case '5': {
+        uint32_t train_price = 50;
+        uint16_t max_health_upgrade = 75;
+        uint8_t train_time = 60;
+
+        if (player->max_health == CHARACTER_MAX_HEALTH) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s already maxed his max health",
+              location_name, player->name);
+          break;
+        }
+
+        if (player->gold < train_price) {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s need %u gold for this, but he has only %u gold\n",
+              location_name, player->name, train_price, player->gold);
+          break;
+        }
+
+        player->gold -= train_price;
+        player->max_health += max_health_upgrade;
+
+        if (player->max_health > CHARACTER_MAX_HEALTH)
+          player->max_health = CHARACTER_MAX_HEALTH;
+
+        printf("\n-----< WAIT (%us) >-----\n", train_time);
+
+        for (uint8_t i = 0; i < train_time; i++) {
+          sleep(1);
+          printf(".");
+          fflush(stdout);
+        }
+
+        printf(
+            "\n\n-----< %s LOCATION >-----\n"
+            "%s max health is now %u\n",
+            location_name, player->name, player->max_health);
+
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
   }
 
   printf(
