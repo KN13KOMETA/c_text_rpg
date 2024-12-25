@@ -540,10 +540,13 @@ void nvoid_loop(struct Character *player, struct Story *story,
   bool leaveLocation = false;
   char location_name[9];
 
-  sprintf(location_name, "void %u", *location_id);
+  sprintf(location_name, "Nvoid %u", *location_id);
 
   printf(
       "\n-----< %s LOCATION >-----\n"
+      "!!! WARNING !!!\n"
+      "The game tried to send you to a location that does not exist\n"
+      "To avoid possible problems, you were sent here\n"
       "%s enters %s\n",
       location_name, player->name, location_name);
 
@@ -553,8 +556,8 @@ void nvoid_loop(struct Character *player, struct Story *story,
         "s) Status\n"
         "l) Look around\n"
         "e) Explore\n"
-        "1) Return to location 0\n"
-        "2) Enter custom location id\n"
+        "1) Return to location 0 (Recommended for player)\n"
+        "2) Enter location id (!!! MAY BREAK GAME !!!)\n"
         "SELECT: ",
         location_name);
 
