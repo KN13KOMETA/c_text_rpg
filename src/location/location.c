@@ -15,13 +15,10 @@ void player_room_loop(struct Character *player, struct Story *story,
   sprintf(location_name, "%s Room", player->name);
   add_counter(&story->player_room_counter);
 
-  if (story->player_room_counter == 1) {
-    printf(STORY_TEXT_PLAYER_ROOM1, player->name);
-  } else
-    printf(
-        "\n-----< %s LOCATION  >-----\n"
-        "%s enters %s\n",
-        location_name, player->name, location_name);
+  printf(
+      "\n-----< %s LOCATION  >-----\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
 
   while (!leaveLocation) {
     printf(

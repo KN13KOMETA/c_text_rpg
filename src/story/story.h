@@ -7,12 +7,6 @@
 
 #include "../character/character.h"
 
-#define STORY_HEADER "\n-----< STORY >-----\n"
-
-#define STORY_TEXT_PLAYER_ROOM1 \
-  STORY_HEADER                  \
-  "%s wakes up very drunk\n"    \
-  "Not remembering what happened yesterday\n"
 
 
 struct Quest {
