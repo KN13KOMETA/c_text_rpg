@@ -107,8 +107,11 @@ void player_room_loop(struct Character *player, struct Story *story,
             "0 health left\n",
             location_name, player->name);
         player->health = 0;
+
+        *location_id = nolocation;
+        leaveLocation = true;
+        // We doesn't want a exit location message
         return;
-        break;
       }
       default:
         printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
@@ -355,6 +358,15 @@ void mountain_loop(struct Character *player, struct Story *story,
 }
 
 // TODO: City locations checklist
+// player_room -
+// throne_room enemies -
+// demon_lord_castle -
+// dead_forest -
+// deep_forest -
+// forest -
+// hidden_garden -
+// high_mountain -
+// mountain -
 // city -e
 // tavern -e
 // blacksmith_shop -
