@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "../functions.h"
+#include "../location/location.h"
 
 void debug_character(struct Character *chr) {
   printf(
@@ -200,10 +201,10 @@ struct Character generate_enemy(uint8_t enemy_id) {
       .health = chr.gold,
       {.name = "Shining Death Star Glitch ", .damage = UINT16_MAX}};
 
-  // TODO: Dead Forest, Deep Forest, Forest enemies
-
+  // Max 10 enemies per location
   switch (enemy_id) {
-    case 0: {
+    // player_room
+    case player_room * 10 + 0: {
       strcpy(chr.name, "Rat");
       chr.gold = RND_RANGE(5, 1);
       chr.max_health = 5;
@@ -212,7 +213,22 @@ struct Character generate_enemy(uint8_t enemy_id) {
       chr.weapon.damage = RND_RANGE(2, 1);
       break;
     }
-    case 10: {
+    case player_room * 10 + 1: {
+      strcpy(chr.name, "Spider");
+      chr.gold = RND_RANGE(3, 1);
+      chr.max_health = 4;
+      chr.health = RND_RANGE(4, 2);
+      strcpy(chr.weapon.name, "Venomous Fangs");
+      chr.weapon.damage = RND_RANGE(2, 1);
+      break;
+    }
+    // throne_room
+    // demon_lord_castle
+
+    // dead_forest
+    // deep_forest
+    // forest
+    case forest * 10 + 0: {
       strcpy(chr.name, "Slime");
       chr.gold = RND_RANGE(10, 1);
       chr.max_health = 10;
@@ -221,15 +237,61 @@ struct Character generate_enemy(uint8_t enemy_id) {
       chr.weapon.damage = RND_RANGE(3, 1);
       break;
     }
-    case 20: {
+    case forest * 10 + 1: {
+      strcpy(chr.name, "Wild Boar");
+      chr.gold = RND_RANGE(10, 4);
+      chr.max_health = 20;
+      chr.health = RND_RANGE(20, 12);
+      strcpy(chr.weapon.name, "Sharp Tusks");
+      chr.weapon.damage = RND_RANGE(8, 6);
+      break;
+    }
+    case forest * 10 + 2: {
       strcpy(chr.name, "Goblin");
+      chr.gold = RND_RANGE(12, 6);
+      chr.max_health = 18;
+      chr.health = RND_RANGE(18, 10);
+      strcpy(chr.weapon.name, "Rusty Knife");
+      chr.weapon.damage = RND_RANGE(15, 6);
+      break;
+    }
+    case forest * 10 + 3: {
+      strcpy(chr.name, "Forest Bandit");
       chr.gold = RND_RANGE(20, 10);
       chr.max_health = 25;
       chr.health = RND_RANGE(25, 10);
-      strcpy(chr.weapon.name, "Rusty Knife");
+      strcpy(chr.weapon.name, "Wooden Bow");
       chr.weapon.damage = RND_RANGE(10, 3);
       break;
     }
+
+    // hidden_garden
+    // high_mountain
+    // mountain
+    case mountain * 10 + 0: {
+      strcpy(chr.name, "Mountain Goat");
+      chr.gold = RND_RANGE(18, 8);
+      chr.max_health = 26;
+      chr.health = RND_RANGE(26, 14);
+      strcpy(chr.weapon.name, "Horns");
+      chr.weapon.damage = RND_RANGE(12, 8);
+      break;
+    }
+    case mountain * 10 + 1: {
+      strcpy(chr.name, "Rock Troll");
+      chr.gold = RND_RANGE(30, 10);
+      chr.max_health = 40;
+      chr.health = RND_RANGE(40, 18);
+      strcpy(chr.weapon.name, "Stone Club");
+      chr.weapon.damage = RND_RANGE(16, 10);
+      break;
+    }
+
+      // 90 - 99 city
+      // tavern
+      // blacksmith_shop
+      // training_ground
+      // adventurer_guild
   }
 
   fix_character(&chr);

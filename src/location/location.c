@@ -11,6 +11,9 @@ void player_room_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leaveLocation = false;
   char location_name[CHARACTER_NAME_LENGTH + 5];
+  uint8_t enemies_count = 2;
+  uint8_t enemies_start_index = player_room * 10;
+  uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
 
   sprintf(location_name, "%s Room", player->name);
   add_counter(&story->player_room_counter);
@@ -46,7 +49,8 @@ void player_room_loop(struct Character *player, struct Story *story,
         break;
       }
       case 'e': {
-        struct Character enemy = generate_enemy(0);
+        struct Character enemy =
+            generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
         battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
