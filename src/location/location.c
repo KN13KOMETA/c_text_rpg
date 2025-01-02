@@ -7,6 +7,22 @@
 
 #include "../functions.h"
 
+// TODO: locations checklist
+// player_room -
+// throne_room enemies -
+// demon_lord_castle -
+// dead_forest -
+// deep_forest -
+// forest -
+// hidden_garden -
+// high_mountain -
+// mountain -
+// city -e
+// tavern -e
+// blacksmith_shop -
+// training_ground -e
+// adventurer_guild -
+
 void player_room_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leaveLocation = false;
@@ -358,21 +374,6 @@ void mountain_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 }
 
-// TODO: City locations checklist
-// player_room -
-// throne_room enemies -
-// demon_lord_castle -
-// dead_forest -
-// deep_forest -
-// forest -
-// hidden_garden -
-// high_mountain -
-// mountain -
-// city -e
-// tavern -e
-// blacksmith_shop -
-// training_ground -e
-// adventurer_guild -
 void city_loop(struct Character *player, struct Story *story,
                LOCATION_ID *location_id) {
   bool leaveLocation = false;
