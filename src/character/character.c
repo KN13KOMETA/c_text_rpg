@@ -227,6 +227,15 @@ struct Character generate_enemy(uint8_t enemy_id) {
 
     // dead_forest
     // deep_forest
+    // case deep_forest * 10 + 0: {
+    //   strcpy(chr.name, "Forest Wraith");
+    //   chr.gold = RND_RANGE(10, 1);
+    //   chr.max_health = 10;
+    //   chr.health = RND_RANGE(10, 5);
+    //   strcpy(chr.weapon.name, "Shadowy Whip");
+    //   chr.weapon.damage = RND_RANGE(3, 1);
+    //   break;
+    // }
     // forest
     case forest * 10 + 0: {
       strcpy(chr.name, "Slime");
