@@ -9,7 +9,7 @@
 
 // TODO: locations checklist
 // player_room -
-// throne_room enemies -
+// throne_room -
 // demon_lord_castle -
 // dead_forest -
 // deep_forest -
