@@ -15,8 +15,8 @@
 // deep_forest +
 // forest +
 // hidden_garden -
-// high_mountain -
-// mountain -
+// high_mountain -l
+// mountain -l
 // city -e
 // tavern -e
 // blacksmith_shop -
@@ -440,6 +440,9 @@ void high_mountain_loop(struct Character *player, struct Story *story,
                         LOCATION_ID *location_id) {
   bool leave_location = false;
   char location_name[] = "High Mountain";
+  uint8_t enemies_count = 3;
+  uint8_t enemies_start_index = high_mountain * 10;
+  uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
 
   add_counter(&story->high_mountain_counter);
 
@@ -449,9 +452,57 @@ void high_mountain_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
-    // Send player to void for now
-    leave_location = true;
-    *location_id = nvoid;
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Go to Hidden Garden\n"
+        "2) Visit Mountain\n"
+        "SELECT: ",
+        location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around sees trees around him\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        struct Character enemy =
+            generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
+        battle_enemy(story, player, &enemy);
+
+        if (player->health == 0) {
+          printf(
+              "\n-----< AFTER BATTLE >-----\n"
+              "%s refuses to die\n"
+              "1 health restored\n",
+              player->name);
+          player->health = 1;
+        }
+
+        break;
+      }
+      case '1': {
+        *location_id = hidden_garden;
+        leave_location = true;
+        break;
+      }
+      case '2': {
+        *location_id = mountain;
+        leave_location = true;
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
   }
 
   printf(
@@ -463,6 +514,9 @@ void mountain_loop(struct Character *player, struct Story *story,
                    LOCATION_ID *location_id) {
   bool leave_location = false;
   char location_name[] = "Mountain";
+  uint8_t enemies_count = 3;
+  uint8_t enemies_start_index = mountain * 10;
+  uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
 
   add_counter(&story->mountain_counter);
 
@@ -472,9 +526,57 @@ void mountain_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
-    // Send player to void for now
-    leave_location = true;
-    *location_id = nvoid;
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Go to High Mountain\n"
+        "2) Visit City\n"
+        "SELECT: ",
+        location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around sees trees around him\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        struct Character enemy =
+            generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
+        battle_enemy(story, player, &enemy);
+
+        if (player->health == 0) {
+          printf(
+              "\n-----< AFTER BATTLE >-----\n"
+              "%s refuses to die\n"
+              "1 health restored\n",
+              player->name);
+          player->health = 1;
+        }
+
+        break;
+      }
+      case '1': {
+        *location_id = high_mountain;
+        leave_location = true;
+        break;
+      }
+      case '2': {
+        *location_id = city;
+        leave_location = true;
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
   }
 
   printf(
