@@ -7,7 +7,38 @@
 
 #include "../character/character.h"
 
+// #define STORY_HEADER "\n-----< STORY >-----\n"
+//
+// #define STORY_TEXT_PLAYER_ROOM1 \
+//   STORY_HEADER                  \
+//   "%s wakes up very drunk\n"    \
+//   "Not remembering what happened yesterday\n"
+//
+// #define STORY_TEXT_THRONE_ROOM1    \
+//   STORY_HEADER                     \
+//   "As %s enters %s\n"              \
+//   "he sees a terrible mess\n"      \
+//   "He also sees a sleeping girl\n" \
+//   "with horns on the throne\n"     \
+//   "She looks very drunk\n"         \
+//   "Looks like there was a fun party yesterday\n"
+//
+// #define STORY_TEXT_DEAD_FOREST1                        \
+//   STORY_HEADER                                         \
+//   "As %s exists Demon Lord Castle\n"                   \
+//   "he sees a wasteland from which\n"                   \
+//   "dead trees occasionally stick out\n"                \
+//   "but the lake is clear as the sky\n"                 \
+//   "%s walks to the lake and looks at his reflection\n" \
+//   "He has horns too\n"
 
+// Demon Lord KAMILLA
+// 0 - Void Dead
+// 1 - Suicide
+// 2 - Killed by monster
+// 3 - enslaved
+// 4 - was killed in hidden garden
+// 5 - sleep without exiting room
 
 struct Quest {
   uint32_t reward_gold;

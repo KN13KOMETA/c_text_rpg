@@ -226,16 +226,43 @@ struct Character generate_enemy(uint8_t enemy_id) {
     // demon_lord_castle
 
     // dead_forest
+    case dead_forest * 10 + 0: {
+      strcpy(chr.name, "Undead Spirit");
+      chr.gold = RND_RANGE(1600, 1200);
+      chr.max_health = 16000;
+      chr.health = RND_RANGE(16000, 14000);
+      strcpy(chr.weapon.name, "Ethereal Scythe");
+      chr.weapon.damage = RND_RANGE(11700, 8000);
+      break;
+    }
+    case dead_forest * 10 + 1: {
+      strcpy(chr.name, "Undead Horde");
+      chr.gold = RND_RANGE(1700, 1300);
+      chr.max_health = 18000;
+      chr.health = RND_RANGE(18000, 15000);
+      strcpy(chr.weapon.name, "Rusty Weapons");
+      chr.weapon.damage = RND_RANGE(12000, 1900);
+      break;
+    }
     // deep_forest
-    // case deep_forest * 10 + 0: {
-    //   strcpy(chr.name, "Forest Wraith");
-    //   chr.gold = RND_RANGE(10, 1);
-    //   chr.max_health = 10;
-    //   chr.health = RND_RANGE(10, 5);
-    //   strcpy(chr.weapon.name, "Shadowy Whip");
-    //   chr.weapon.damage = RND_RANGE(3, 1);
-    //   break;
-    // }
+    case deep_forest * 10 + 0: {
+      strcpy(chr.name, "Forest Wraith");
+      chr.gold = RND_RANGE(800, 300);
+      chr.max_health = 3000;
+      chr.health = RND_RANGE(3000, 2000);
+      strcpy(chr.weapon.name, "Shadowy Whip");
+      chr.weapon.damage = RND_RANGE(1200, 500);
+      break;
+    }
+    case deep_forest * 10 + 1: {
+      strcpy(chr.name, "Giant Snake");
+      chr.gold = RND_RANGE(900, 400);
+      chr.max_health = 3500;
+      chr.health = RND_RANGE(3500, 2500);
+      strcpy(chr.weapon.name, "Shadowy Whip");
+      chr.weapon.damage = RND_RANGE(1500, 700);
+      break;
+    }
     // forest
     case forest * 10 + 0: {
       strcpy(chr.name, "Slime");
@@ -276,26 +303,61 @@ struct Character generate_enemy(uint8_t enemy_id) {
 
     // hidden_garden
     // high_mountain
+    case high_mountain * 10 + 0: {
+      strcpy(chr.name, "Elven Archer");
+      chr.gold = RND_RANGE(2800, 2600);
+      chr.max_health = 10000;
+      chr.health = RND_RANGE(10000, 8000);
+      strcpy(chr.weapon.name, "Mithril Bow");
+      chr.weapon.damage = RND_RANGE(14000, 12000);
+      break;
+    }
+    case high_mountain * 10 + 1: {
+      strcpy(chr.name, "Elven Mage");
+      chr.gold = RND_RANGE(4000, 3000);
+      chr.max_health = 8000;
+      chr.health = RND_RANGE(8000, 6000);
+      strcpy(chr.weapon.name, "Mithril Staff");
+      chr.weapon.damage = RND_RANGE(18000, 16000);
+      break;
+    }
+    case high_mountain * 10 + 2: {
+      strcpy(chr.name, "Elven Warrior");
+      chr.gold = RND_RANGE(10000, 8000);
+      chr.max_health = 20000;
+      chr.health = RND_RANGE(20000, 18000);
+      strcpy(chr.weapon.name, "Mithril Sword");
+      chr.weapon.damage = RND_RANGE(16000, 14000);
+      break;
+    }
     // mountain
     case mountain * 10 + 0: {
-      strcpy(chr.name, "Mountain Goat");
-      chr.gold = RND_RANGE(18, 8);
-      chr.max_health = 26;
-      chr.health = RND_RANGE(26, 14);
-      strcpy(chr.weapon.name, "Horns");
-      chr.weapon.damage = RND_RANGE(12, 8);
+      strcpy(chr.name, "Snow Leopard");
+      chr.gold = RND_RANGE(1000, 500);
+      chr.max_health = 2800;
+      chr.health = RND_RANGE(2800, 2000);
+      strcpy(chr.weapon.name, "Claws");
+      chr.weapon.damage = RND_RANGE(1300, 600);
       break;
     }
     case mountain * 10 + 1: {
-      strcpy(chr.name, "Rock Troll");
-      chr.gold = RND_RANGE(30, 10);
-      chr.max_health = 40;
-      chr.health = RND_RANGE(40, 18);
-      strcpy(chr.weapon.name, "Stone Club");
-      chr.weapon.damage = RND_RANGE(16, 10);
+      strcpy(chr.name, "Ice Elemental");
+      chr.gold = RND_RANGE(1200, 600);
+      chr.max_health = 4000;
+      chr.health = RND_RANGE(4000, 3000);
+      strcpy(chr.weapon.name, "Ice Shard");
+      chr.weapon.damage = RND_RANGE(1700, 800);
       break;
     }
-
+    case mountain * 10 + 2: {
+      strcpy(chr.name, "Elven Scout");
+      chr.gold = RND_RANGE(1800, 600);
+      chr.max_health = 2400;
+      chr.health = RND_RANGE(2400, 2000);
+      strcpy(chr.weapon.name, "Mithril Dagger");
+      chr.weapon.damage = RND_RANGE(2000, 1500);
+      break;
+    }
       // 90 - 99 city
       // tavern
       // blacksmith_shop
