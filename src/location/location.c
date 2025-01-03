@@ -11,8 +11,8 @@
 // player_room -
 // throne_room -
 // demon_lord_castle -
-// dead_forest -
-// deep_forest -
+// dead_forest +
+// deep_forest +
 // forest +
 // hidden_garden -
 // high_mountain -
@@ -22,6 +22,9 @@
 // blacksmith_shop -
 // training_ground -e
 // adventurer_guild -
+
+// TODO: currently player room send player to dead forest
+// remove it once throne_room and demon_lord_castle done
 
 void player_room_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
@@ -81,7 +84,7 @@ void player_room_loop(struct Character *player, struct Story *story,
         break;
       }
       case '1': {
-        *location_id = demon_lord_castle;
+        *location_id = dead_forest;
         leave_location = true;
         break;
       }
@@ -191,6 +194,9 @@ void dead_forest_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leave_location = false;
   char location_name[] = "Dead Forest";
+  uint8_t enemies_count = 2;
+  uint8_t enemies_start_index = dead_forest * 10;
+  uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
 
   add_counter(&story->dead_forest_counter);
 
@@ -205,10 +211,10 @@ void dead_forest_loop(struct Character *player, struct Story *story,
         "s) Status\n"
         "l) Look around\n"
         "e) Explore\n"
-        "1) Enter home\n"
-        "2) Leave %s\n"
+        "1) Go to Demon Lord Castle\n"
+        "2) Visit Deep Forest\n"
         "SELECT: ",
-        location_name, location_name);
+        location_name);
 
     switch (getchar_clear()) {
       case 's': {
@@ -223,7 +229,8 @@ void dead_forest_loop(struct Character *player, struct Story *story,
         break;
       }
       case 'e': {
-        struct Character enemy = generate_enemy(UINT8_MAX);
+        struct Character enemy =
+            generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
         battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
@@ -238,12 +245,12 @@ void dead_forest_loop(struct Character *player, struct Story *story,
         break;
       }
       case '1': {
-        *location_id = 0;
+        *location_id = player_room;
         leave_location = true;
         break;
       }
       case '2': {
-        *location_id = 2;
+        *location_id = deep_forest;
         leave_location = true;
         break;
       }
@@ -261,6 +268,9 @@ void deep_forest_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leave_location = false;
   char location_name[] = "Deep Forest";
+  uint8_t enemies_count = 2;
+  uint8_t enemies_start_index = deep_forest * 10;
+  uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
 
   add_counter(&story->deep_forest_counter);
 
@@ -270,9 +280,57 @@ void deep_forest_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
-    // Send player to void for now
-    leave_location = true;
-    *location_id = nvoid;
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Go to Dead Forest\n"
+        "2) Visit Forest\n"
+        "SELECT: ",
+        location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around, trees surround him\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        struct Character enemy =
+            generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
+        battle_enemy(story, player, &enemy);
+
+        if (player->health == 0) {
+          printf(
+              "\n-----< AFTER BATTLE >-----\n"
+              "%s refuses to die\n"
+              "1 health restored\n",
+              player->name);
+          player->health = 1;
+        }
+
+        break;
+      }
+      case '1': {
+        *location_id = dead_forest;
+        leave_location = true;
+        break;
+      }
+      case '2': {
+        *location_id = forest;
+        leave_location = true;
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
   }
 
   printf(
