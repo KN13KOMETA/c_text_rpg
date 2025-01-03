@@ -7,7 +7,7 @@ ZIG_PATH="$(readlink -f "$TOOL_DIR/$(ls "$TOOL_DIR" | grep --color=never zig)")"
 
 PATH=$PATH:$ZIG_PATH
 
-PROJECT_VERSION="v2.0.0-beta"
+PROJECT_VERSION="v2.1.0-alpha"
 PROJECT_NAME="c_text_rpg"
 FULL_PROJECT_NAME="${PROJECT_NAME}_$PROJECT_VERSION"
 
