@@ -20,3 +20,18 @@ CFILES="$(find "$CSOURCE_FOLDER" -name "*.c" | tr '\n' ' ')"
 OUTPUT_DIR=$(dirname -- "$SCRIPT_DIR")/bin
 LINUX_OUTPUT="$OUTPUT_DIR/$FULL_PROJECT_NAME"
 WINDOWS_OUTPUT="$OUTPUT_DIR/$FULL_PROJECT_NAME.exe"
+
+if [[ "$1" == "${1#[Xx]}" ]]; then
+  while true; do
+    read -p "Build in debug mode (y/n): " yn
+    case $yn in
+      [Yy]* )
+        echo "Debug mode is used";
+        CFLAGS="$CFLAGS -D DEBUG"
+        break;;
+      * )
+        echo "Debug mode is not used";
+        break;;
+    esac
+  done
+fi

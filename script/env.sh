@@ -2,7 +2,7 @@
 # SET UPS PATH
 # SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-source $SCRIPT_DIR/var.sh
+source $SCRIPT_DIR/var.sh x
 
 SCRIPT_BIN_DIR="$SCRIPT_DIR/bin"
 

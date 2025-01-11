@@ -34,6 +34,10 @@ int main(void) {
   struct Character player;
   struct Story story = get_story();
 
+#ifdef DEBUG
+  printf("\n-----< DEBUG MODE >-----\n");
+#endif /* ifdef DEBUG */
+
   get_player_nick(&player);
 
   // Init seed using nick
