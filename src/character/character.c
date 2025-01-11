@@ -39,21 +39,31 @@ void print_player_quest(struct Story *story) {
   if (completed) printf("Head to the Adventurer Guild for reward\n");
 }
 void print_player(struct Character *chr, struct Story *story) {
+  printf("\n-----< PLAYER STATUS >-----\n");
+#ifdef DEBUG
+  debug_character(chr);
+#else
   printf(
-      "\n-----< PLAYER STATUS >-----\n"
       "Character: %s (%ug %u/%uh)\n"
       "Weapon: %s (%up %uup %ud)\n",
       chr->name, chr->gold, chr->health, chr->max_health, chr->weapon.name,
       chr->weapon.price, chr->weapon.upgrade_price, chr->weapon.damage);
+#endif /* ifdef DEBUG */
 
   print_player_quest(story);
 }
-void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage) {
+void print_enemy(struct Character *chr, bool hide_gold,
+                 bool hide_weapon_damage) {
+  printf("\n-----< ENEMY STATUS >-----\n");
+#ifdef DEBUG
   printf(
-      "\n-----< ENEMY STATUS >-----\n"
-      "Character: %s (",
-      chr->name);
-  if (hideGold)
+      "hide_gold = %d\n"
+      "hide_weapon_damage = %d\n",
+      hide_gold, hide_weapon_damage);
+  debug_character(chr);
+#else
+  printf("Character: %s (", chr->name);
+  if (hide_gold)
     printf("?");
   else
     printf("%u", chr->gold);
@@ -64,12 +74,13 @@ void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage) {
       chr->health, chr->max_health, chr->weapon.name, chr->weapon.price,
       chr->weapon.upgrade_price);
 
-  if (hideWeaponDamage)
+  if (hide_weapon_damage)
     printf("?");
   else
     printf("%u", chr->weapon.damage);
 
   printf("d)\n");
+#endif /* ifdef DEBUG */
 }
 
 void battle_enemy(struct Story *story, struct Character *player,
