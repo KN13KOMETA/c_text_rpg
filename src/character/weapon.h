@@ -13,4 +13,7 @@ struct Weapon {
   uint16_t damage;
 };
 
+struct Weapon generate_weapon(void);
+void upgrade_weapon(struct Weapon* weapon);
+
 #endif  // !WEAPON_H
