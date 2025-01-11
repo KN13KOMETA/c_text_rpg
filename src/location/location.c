@@ -15,8 +15,8 @@
 // deep_forest +
 // forest +
 // hidden_garden -
-// high_mountain -l
-// mountain -l
+// high_mountain +
+// mountain +
 // city -e
 // tavern -e
 // blacksmith_shop -
@@ -470,7 +470,8 @@ void high_mountain_loop(struct Character *player, struct Story *story,
       case 'l': {
         printf(
             "\n-----< %s LOCATION >-----\n"
-            "%s looks around sees trees around him\n",
+            "%s looks around and sees lifeless frozen high mountains\n"
+            "covered with a thick layer of snow\n",
             location_name, player->name);
         break;
       }
@@ -544,7 +545,7 @@ void mountain_loop(struct Character *player, struct Story *story,
       case 'l': {
         printf(
             "\n-----< %s LOCATION >-----\n"
-            "%s looks around sees trees around him\n",
+            "%s looks around sees mountains and flower fields on them\n",
             location_name, player->name);
         break;
       }
