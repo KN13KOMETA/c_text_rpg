@@ -5,7 +5,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "../character/weapon.h"
 #include "../functions.h"
+
+#define OFFERED_WEAPONS_LENGTH 7
+
+#if OFFERED_WEAPONS_LENGTH > 10
+#error CAN'T OFFER MORE THAN 10 WEAPONS
+#endif
 
 // TODO: locations checklist
 // player_room -
@@ -19,7 +26,7 @@
 // mountain +
 // city -e
 // tavern -e
-// blacksmith_shop -
+// blacksmith_shop -e
 // training_ground -e
 // adventurer_guild -
 
@@ -842,7 +849,8 @@ void tavern_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 }
 void blacksmith_shop_loop(struct Character *player, struct Story *story,
-                          LOCATION_ID *location_id) {
+                          LOCATION_ID *location_id,
+                          struct Weapon offered_weapons[]) {
   bool leave_location = false;
   char location_name[] = "Blacksmith Shop";
 
@@ -854,9 +862,96 @@ void blacksmith_shop_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
-    // Send player to void for now
-    leave_location = true;
-    *location_id = nvoid;
+    char select;
+    uint8_t reroll_time = 10;
+
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "x) Leave %s\n"
+        "r) Reroll weapons\n",
+        location_name, location_name);
+
+    for (uint8_t i = 0; i < OFFERED_WEAPONS_LENGTH; i++) {
+      printf("%u) Buy: %s (%up %uup %ud)\n", i, offered_weapons[i].name,
+             offered_weapons[i].price, offered_weapons[i].upgrade_price,
+             offered_weapons[i].damage);
+    }
+
+    printf("SELECT: ");
+    select = getchar_clear();
+
+    switch (select) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around and sees stone walls\n"
+            "made of large pieces of stone and a forge\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        // TODO: BLACKSMITH SHOP EXPLORE ACTIVITY
+        printf("\nTODO: BLACKSMITH SHOP EXPLORE ACTIVITY\n");
+        break;
+      }
+      case 'x': {
+        *location_id = city;
+        leave_location = true;
+        break;
+      }
+      case 'r': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "Rerolling weapons\n"
+            "\n-----< WAIT (%us) >-----\n",
+            location_name, reroll_time);
+
+        for (uint8_t i = 0; i < reroll_time; i++) {
+          sleep(1);
+          printf(".");
+          fflush(stdout);
+        }
+
+        printf("\n");
+
+        for (uint8_t i = 0; i < OFFERED_WEAPONS_LENGTH; i++)
+          offered_weapons[i] = generate_weapon();
+
+        break;
+      }
+      default: {
+        for (uint8_t i = 0; i < OFFERED_WEAPONS_LENGTH; i++) {
+          struct Weapon weapon = offered_weapons[i];
+          if (select != i + '0') {
+            if (i + 1 == OFFERED_WEAPONS_LENGTH)
+              printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n",
+                     location_name);
+            continue;
+          }
+
+          printf("\n-----< %s LOCATION >-----\n", location_name);
+          if (player->gold < weapon.price) {
+            printf("%s need %u gold for %s, but he has only %u gold\n",
+                   player->name, weapon.price, weapon.name, player->gold);
+          }
+
+          player->weapon = weapon;
+
+          printf("%s bought %s (%up %uup %ud)\n", player->name,
+                 player->weapon.name, player->weapon.price,
+                 player->weapon.upgrade_price, player->weapon.damage);
+
+          break;
+        }
+      }
+    }
   }
 
   printf(
@@ -1197,6 +1292,10 @@ void nvoid_loop(struct Character *player, struct Story *story,
 
 void location_loop(struct Character *player, struct Story *story) {
   LOCATION_ID current_location = player_room;
+  struct Weapon offered_weapons[OFFERED_WEAPONS_LENGTH];
+
+  for (uint8_t i = 0; i < OFFERED_WEAPONS_LENGTH; i++)
+    offered_weapons[i] = generate_weapon();
 
   while (current_location != nolocation) {
     switch (current_location) {
@@ -1245,7 +1344,7 @@ void location_loop(struct Character *player, struct Story *story) {
         break;
       }
       case blacksmith_shop: {
-        blacksmith_shop_loop(player, story, &current_location);
+        blacksmith_shop_loop(player, story, &current_location, offered_weapons);
         break;
       }
       case training_ground: {
