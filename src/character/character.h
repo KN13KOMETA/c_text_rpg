@@ -25,6 +25,7 @@ struct Character {
 };
 
 void debug_character(struct Character *chr);
+void print_player_quest(struct Story *story);
 void print_player(struct Character *chr, struct Story *story);
 void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage);
 
