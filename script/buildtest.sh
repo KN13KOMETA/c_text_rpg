@@ -8,14 +8,14 @@ if [ ! -d "$OUTPUT_DIR" ]; then
 fi
 
 
-if [ -f $LINUX_OUTPUT ]; then
-  rm $LINUX_OUTPUT
+if [ -f $FLEX_LINUX_OUTPUT ]; then
+  rm $FLEX_LINUX_OUTPUT
 fi
 
-$CC $CFILES -o $LINUX_OUTPUT $CFLAGS
+$CC $CFILES -o $FLEX_LINUX_OUTPUT $FLEX_CFLAGS
 
-if [ -f $LINUX_OUTPUT ]; then
-  $LINUX_OUTPUT
+if [ -f $FLEX_LINUX_OUTPUT ]; then
+  $FLEX_LINUX_OUTPUT
 else
   echo "COMPILATION FAILED"
 fi
