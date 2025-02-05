@@ -30,7 +30,7 @@
 // tavern -e
 // blacksmith_shop -e
 // training_ground -e
-// adventurer_guild -
+// adventurer_guild -e
 
 // TODO: currently player room send player to dead forest
 // remove it once throne_room and demon_lord_castle done
