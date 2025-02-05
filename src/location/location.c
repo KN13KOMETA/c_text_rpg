@@ -3,19 +3,21 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "../character/weapon.h"
 #include "../functions.h"
 
 #define OFFERED_WEAPONS_LENGTH 7
+#define QUEST_GOLD_MODIFIER 5
 
 #if OFFERED_WEAPONS_LENGTH > 10
 #error CAN'T OFFER MORE THAN 10 WEAPONS
 #endif
 
 // TODO: locations checklist
-// player_room -
+// player_room +
 // throne_room -
 // demon_lord_castle -
 // dead_forest +
@@ -33,6 +35,7 @@
 // TODO: currently player room send player to dead forest
 // remove it once throne_room and demon_lord_castle done
 
+// TODO: maybe this need a bit rework
 void player_room_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leave_location = false;
@@ -1199,10 +1202,170 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
-    // TODO: ADVENTURE GUILD FUNCTIONAL
-    printf("\nTODO: ADVENTURE GUILD FUNCTIONAL\n");
-    leave_location = true;
-    *location_id = city;
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "x) Leave %s\n"
+        "c) Cancel quest\n"
+        "0) Take quest: Difficulty 0 (%s Room)\n"
+        "1) Take quest: Difficulty 1 (Forest)\n"
+        "2) Take quest: Difficulty 2 (Deep Forest, Mountain)\n"
+        "3) Take quest: Difficulty 3 (Dead Forest)\n"
+        "SELECT: ",
+        location_name, location_name, player->name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around and sees a small bar,\n"
+            "a notice board, and a reception desk\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        // TODO: ADVENTURER GUILD EXPLORE ACTIVITY
+        printf("\nTODO: ADVENTURER GUILD EXPLORE ACTIVITY\n");
+        break;
+      }
+      case 'x': {
+        *location_id = city;
+        leave_location = true;
+        break;
+      }
+      case 'c': {
+        printf(
+            "\n-----< %s LOCATION ACTION >-----\n"
+            "%s cancelled his quest\n",
+            location_name, player->name);
+        strcpy(story->quest.target_name, "");
+        story->quest.target_count = 0;
+        story->quest.reward_gold = 0;
+        story->quest.progress_count = 0;
+        break;
+      }
+      case '0': {
+        printf("\n-----< %s LOCATION ACTION >-----\n", location_name);
+        if (story->quest.target_count != 0) {
+          printf("%s already has quest\n", player->name);
+          break;
+        }
+        if (RND_MAX(1) == 0)
+          strcpy(story->quest.target_name, "Rat");
+        else
+          strcpy(story->quest.target_name, "Spider");
+
+        story->quest.target_count = RND_RANGE(25, 5);
+        story->quest.reward_gold =
+            story->quest.target_count * QUEST_GOLD_MODIFIER;
+        story->quest.progress_count = 0;
+
+        printf("%s took quest difficulty 0\n", player->name);
+
+        print_player_quest(story);
+        break;
+      }
+      case '1': {
+        printf("\n-----< %s LOCATION ACTION >-----\n", location_name);
+        if (story->quest.target_count != 0) {
+          printf("%s already has quest\n", player->name);
+          break;
+        }
+        switch (RND_MAX(3)) {
+          case 0: {
+            strcpy(story->quest.target_name, "Slime");
+            break;
+          }
+          case 1: {
+            strcpy(story->quest.target_name, "Wild Boar");
+            break;
+          }
+          case 2: {
+            strcpy(story->quest.target_name, "Goblin");
+            break;
+          }
+          case 3: {
+            strcpy(story->quest.target_name, "Forest Bandit");
+            break;
+          }
+        }
+
+        story->quest.target_count = RND_RANGE(25, 5);
+        story->quest.reward_gold =
+            story->quest.target_count * QUEST_GOLD_MODIFIER * 3;
+        story->quest.progress_count = 0;
+
+        printf("%s took quest difficulty 1\n", player->name);
+
+        print_player_quest(story);
+        break;
+      }
+      case '2': {
+        printf("\n-----< %s LOCATION ACTION >-----\n", location_name);
+        if (story->quest.target_count != 0) {
+          printf("%s already has quest\n", player->name);
+          break;
+        }
+        switch (RND_MAX(3)) {
+          case 0: {
+            strcpy(story->quest.target_name, "Forest Wraith");
+            break;
+          }
+          case 1: {
+            strcpy(story->quest.target_name, "Giant Snake");
+            break;
+          }
+          case 2: {
+            strcpy(story->quest.target_name, "Snow Leopard");
+            break;
+          }
+          case 3: {
+            strcpy(story->quest.target_name, "Ice Elemental");
+            break;
+          }
+        }
+
+        story->quest.target_count = RND_RANGE(25, 5);
+        story->quest.reward_gold =
+            story->quest.target_count * QUEST_GOLD_MODIFIER * 100;
+        story->quest.progress_count = 0;
+
+        printf("%s took quest difficulty 2\n", player->name);
+
+        print_player_quest(story);
+        break;
+      }
+      case '3': {
+        printf("\n-----< %s LOCATION ACTION >-----\n", location_name);
+        if (story->quest.target_count != 0) {
+          printf("%s already has quest\n", player->name);
+          break;
+        }
+        if (RND_MAX(1) == 0)
+          strcpy(story->quest.target_name, "Undead Spirit");
+
+        else
+          strcpy(story->quest.target_name, "Undead Horde");
+
+        story->quest.target_count = RND_RANGE(25, 5);
+        story->quest.reward_gold =
+            story->quest.target_count * QUEST_GOLD_MODIFIER * 200;
+        story->quest.progress_count = 0;
+
+        printf("%s took quest difficulty 3\n", player->name);
+
+        print_player_quest(story);
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
   }
 
   printf(

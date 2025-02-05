@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "character/character.h"
+#include "functions.h"
 #include "location/location.h"
 #include "story/story.h"
 
