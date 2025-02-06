@@ -26,11 +26,12 @@
 // hidden_garden -
 // high_mountain +
 // mountain +
-// city -e
-// tavern -e
-// blacksmith_shop -e
-// training_ground -e
-// adventurer_guild -e
+// NO EXPLORE ACT:
+// city +
+// tavern +
+// blacksmith_shop +
+// training_ground +
+// adventurer_guild +
 
 // TODO: currently player room send player to dead forest
 // remove it once throne_room and demon_lord_castle done
@@ -613,7 +614,6 @@ void city_loop(struct Character *player, struct Story *story,
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
-        "e) Explore\n"
         "1) Go to Forest\n"
         "2) Go to Mountain\n"
         "3) Visit Tavern\n"
@@ -635,11 +635,6 @@ void city_loop(struct Character *player, struct Story *story,
             "It seems the residents are not very friendly towards him\n"
             "From all places, %s gets sideways glances\n",
             location_name, player->name, player->name);
-        break;
-      }
-      case 'e': {
-        // TODO: CITY EXPLORE ACTIVITY
-        printf("\nTODO: CITY EXPLORE ACTIVITY\n");
         break;
       }
       case '1': {
@@ -699,7 +694,6 @@ void tavern_loop(struct Character *player, struct Story *story,
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
-        "e) Explore\n"
         "1) Leave %s\n"
         "2) Drink beer (10%% health restore)\n"
         "3) Eat salad  (25%% health restore)\n"
@@ -718,11 +712,6 @@ void tavern_loop(struct Character *player, struct Story *story,
             "%s looks around\n"
             "It seems like everyone is having fun\n",
             location_name, player->name);
-        break;
-      }
-      case 'e': {
-        // TODO: TAVERN EXPLORE ACTIVITY
-        printf("\nTODO: TAVERN EXPLORE ACTIVITY\n");
         break;
       }
       case '1': {
@@ -872,7 +861,6 @@ void blacksmith_shop_loop(struct Character *player, struct Story *story,
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
-        "e) Explore\n"
         "x) Leave %s\n"
         "r) Reroll weapons\n",
         location_name, location_name);
@@ -897,11 +885,6 @@ void blacksmith_shop_loop(struct Character *player, struct Story *story,
             "%s looks around and sees stone walls\n"
             "made of large pieces of stone and a forge\n",
             location_name, player->name);
-        break;
-      }
-      case 'e': {
-        // TODO: BLACKSMITH SHOP EXPLORE ACTIVITY
-        printf("\nTODO: BLACKSMITH SHOP EXPLORE ACTIVITY\n");
         break;
       }
       case 'x': {
@@ -979,7 +962,6 @@ void training_ground_loop(struct Character *player, struct Story *story,
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
-        "e) Explore\n"
         "1) Leave %s\n"
         "2) Free training   ( 0 gold,  +1 max health, 10 sec)\n"
         "3) Short training  (10 gold,  +5 max health, 15 sec)\n"
@@ -998,11 +980,6 @@ void training_ground_loop(struct Character *player, struct Story *story,
             "\n-----< %s LOCATION >-----\n"
             "%s looks around and sees a lot of training equipment\n",
             location_name, player->name);
-        break;
-      }
-      case 'e': {
-        // TODO: TRAINING GROUND EXPLORE ACTIVITY
-        printf("\nTODO: TRAINING GROUND EXPLORE ACTIVITY\n");
         break;
       }
       case '1': {
@@ -1190,7 +1167,6 @@ void training_ground_loop(struct Character *player, struct Story *story,
 }
 void adventurer_guild_loop(struct Character *player, struct Story *story,
                            LOCATION_ID *location_id) {
-  // TODO: Write adventurer guild after adding all enemies
   bool leave_location = false;
   char location_name[] = "Adventurer Guild";
 
@@ -1206,7 +1182,6 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
-        "e) Explore\n"
         "x) Leave %s\n"
         "c) Cancel quest\n"
         "0) Take quest: Difficulty 0 (%s Room)\n"
@@ -1227,11 +1202,6 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
             "%s looks around and sees a small bar,\n"
             "a notice board, and a reception desk\n",
             location_name, player->name);
-        break;
-      }
-      case 'e': {
-        // TODO: ADVENTURER GUILD EXPLORE ACTIVITY
-        printf("\nTODO: ADVENTURER GUILD EXPLORE ACTIVITY\n");
         break;
       }
       case 'x': {
