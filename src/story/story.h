@@ -7,42 +7,40 @@
 
 #include "../character/character.h"
 
-// #define STORY_HEADER "\n-----< STORY >-----\n"
+// TODO: Location story checklist
+// player_room,
+// throne_room,
+// demon_lord_castle,
 //
-// #define STORY_TEXT_PLAYER_ROOM1 \
-//   STORY_HEADER                  \
-//   "%s wakes up very drunk\n"    \
-//   "Not remembering what happened yesterday\n"
+// dead_forest,
+// deep_forest,
+// forest,
 //
-// #define STORY_TEXT_THRONE_ROOM1    \
-//   STORY_HEADER                     \
-//   "As %s enters %s\n"              \
-//   "he sees a terrible mess\n"      \
-//   "He also sees a sleeping girl\n" \
-//   "with horns on the throne\n"     \
-//   "She looks very drunk\n"         \
-//   "Looks like there was a fun party yesterday\n"
+// hidden_garden,
+// high_mountain,
+// mountain,
 //
-// #define STORY_TEXT_DEAD_FOREST1                        \
-//   STORY_HEADER                                         \
-//   "As %s exists Demon Lord Castle\n"                   \
-//   "he sees a wasteland from which\n"                   \
-//   "dead trees occasionally stick out\n"                \
-//   "but the lake is clear as the sky\n"                 \
-//   "%s walks to the lake and looks at his reflection\n" \
-//   "He has horns too\n"
+// city,
+// tavern,
+// blacksmith_shop,
+// training_ground,
+// adventurer_guild,
+
+#define STORY_HEADER "\n-----< STORY >-----\n"
+
+#define STORY_DISCLAIMER                                                     \
+  STORY_HEADER                                                               \
+  "This game may contain scenes that are not suitable for young minds\n"     \
+  "Also story will be probably edited, so do not expect it to be the same\n" \
+  "Are you sure you want to continue?\n"                                     \
+  "y) Yes, continue\n"                                                       \
+  "n) No, exit game\n"                                                       \
+  "SELECT: "
 
 #define STORY_ENDING_ERROR                   \
   "\n-----< STORY ENDING: %u ERROR >-----\n" \
   "Something went wrong, the ending was not found\n"
 
-// Demon Lord KAMILLA
-// 0 - Void Dead
-// 1 - Suicide
-// 2 - Killed by monster
-// 3 - enslaved
-// 4 - was killed in hidden garden
-// 5 - sleep without exiting room
 
 struct Quest {
   uint32_t reward_gold;

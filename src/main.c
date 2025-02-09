@@ -39,6 +39,16 @@ int main(void) {
   printf("\n-----< DEBUG MODE >-----\n");
 #endif /* ifdef DEBUG */
 
+  printf(STORY_DISCLAIMER);
+  switch (getchar_clear()) {
+    case 'y':
+      break;
+    default: {
+      printf("Consent not received, exiting the game.\n");
+      return 0;
+    }
+  }
+
   get_player_nick(&player);
 
   // Init seed using nick
