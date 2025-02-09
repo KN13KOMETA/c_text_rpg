@@ -1365,7 +1365,7 @@ void nvoid_loop(struct Character *player, struct Story *story,
         "s) Status\n"
         "l) Look around\n"
         "e) Explore\n"
-        "1) Return to location 0 (Recommended for player)\n"
+        "1) Return to location player_room (Recommended for player)\n"
         "2) Enter location id (!!! MAY BREAK GAME !!!)\n"
         "SELECT: ",
         location_name);
@@ -1392,13 +1392,17 @@ void nvoid_loop(struct Character *player, struct Story *story,
               "%s was completely erased by forces that do not belong to this "
               "world\n",
               player->name);
+
+          story->ending = 0;
+
+          *location_id = nolocation;
           return;
         }
 
         break;
       }
       case '1': {
-        *location_id = 0;
+        *location_id = player_room;
         leave_location = true;
         break;
       }
