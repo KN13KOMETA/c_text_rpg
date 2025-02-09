@@ -210,7 +210,7 @@ struct Character generate_enemy(uint8_t enemy_id) {
       .gold = RND_MAX(UINT16_MAX),
       .max_health = chr.gold,
       .health = chr.gold,
-      {.name = "Shining Death Star Glitch ", .damage = UINT16_MAX}};
+      {.name = "Shining Death Star Glitch", .damage = UINT16_MAX}};
 
   // Max 10 enemies per location
   switch (enemy_id) {
