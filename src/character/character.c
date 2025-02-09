@@ -369,11 +369,6 @@ struct Character generate_enemy(uint8_t enemy_id) {
       chr.weapon.damage = RND_RANGE(2000, 1500);
       break;
     }
-      // city
-      // tavern
-      // blacksmith_shop
-      // training_ground
-      // adventurer_guild
   }
 
   fix_character(&chr);
