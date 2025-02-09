@@ -32,6 +32,10 @@
 //   "%s walks to the lake and looks at his reflection\n" \
 //   "He has horns too\n"
 
+#define STORY_ENDING_ERROR                   \
+  "\n-----< STORY ENDING: %u ERROR >-----\n" \
+  "Something went wrong, the ending was not found\n"
+
 // Demon Lord KAMILLA
 // 0 - Void Dead
 // 1 - Suicide

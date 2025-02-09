@@ -1498,5 +1498,10 @@ void location_loop(struct Character *player, struct Story *story) {
     }
   }
 
+  switch (story->ending) {
+    default: {
+      printf(STORY_ENDING_ERROR, story->ending);
+    }
+  }
   printf("\n-----< ADVENTURE END >-----\n");
 }
