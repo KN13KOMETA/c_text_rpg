@@ -1,5 +1,9 @@
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 ---
+# For some reason, clang-format works on header files
+# only if style for Cpp defined, but ignores C style
 Language: Cpp
 BasedOnStyle: Google
-...
+---
+Language: C
+BasedOnStyle: Google
