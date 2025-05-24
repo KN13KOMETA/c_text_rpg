@@ -234,6 +234,16 @@ struct Character generate_enemy(uint8_t enemy_id) {
       break;
     }
     // throne_room
+    case throne_room * 10 + 0: {
+      strcpy(chr.name, "Frightening Aura");
+      chr.gold = 0;
+      chr.max_health = 30000;
+      chr.health = 30000;
+      // TODO: Rename this
+      strcpy(chr.weapon.name, "Frightening Aura");
+      chr.weapon.damage = 15000;
+      break;
+    }
     // demon_lord_castle
 
     // dead_forest

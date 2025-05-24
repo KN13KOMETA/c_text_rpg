@@ -162,6 +162,9 @@ void throne_room_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leave_location = false;
   char location_name[] = "Throne Room";
+  uint8_t enemies_count = 1;
+  uint8_t enemies_start_index = throne_room * 10;
+  uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
 
   add_counter(&story->throne_room_counter);
 
@@ -170,6 +173,31 @@ void throne_room_loop(struct Character *player, struct Story *story,
       "%s enters %s\n",
       location_name, player->name, location_name);
 
+  // Start battle immeadiately
+  // TODO: need only 1 win
+  {
+    uint16_t prebattle_player_health = player->health;
+    struct Character enemy =
+        generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
+
+    battle_enemy(story, player, &enemy);
+
+    // Restore player health
+    player->health = prebattle_player_health;
+
+    if (enemy.health != 0) {
+      // TODO: Make normal message
+      printf(
+          "\n-----< AFTER BATTLE >-----\n"
+          "Too weak boi\n");
+
+      leave_location = true;
+      *location_id = demon_lord_castle;
+      return;
+    }
+  }
+
+  // TODO: story
   while (!leave_location) {
     // Send player to void for now
     leave_location = true;
