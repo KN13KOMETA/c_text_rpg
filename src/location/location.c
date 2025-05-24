@@ -19,7 +19,7 @@
 // TODO: locations checklist
 // player_room +
 // throne_room -
-// demon_lord_castle -
+// demon_lord_castle +
 // dead_forest +
 // deep_forest +
 // forest +
@@ -32,9 +32,6 @@
 // blacksmith_shop +
 // training_ground +
 // adventurer_guild +
-
-// TODO: currently player room send player to dead forest
-// remove it once throne_room and demon_lord_castle done
 
 // TODO: maybe this need a bit rework
 void player_room_loop(struct Character *player, struct Story *story,
@@ -95,7 +92,7 @@ void player_room_loop(struct Character *player, struct Story *story,
         break;
       }
       case '1': {
-        *location_id = dead_forest;
+        *location_id = demon_lord_castle;
         leave_location = true;
         break;
       }
@@ -122,8 +119,16 @@ void player_room_loop(struct Character *player, struct Story *story,
           fflush(stdout);
         }
 
+        printf("\n");
+
+        if (story->player_room_counter == 1) {
+          story->ending = 5;
+          *location_id = nolocation;
+          return;
+        }
+
         printf(
-            "\n\n-----< SLEEP >-----\n"
+            "\n-----< SLEEP >-----\n"
             "%u health restored\n",
             restore_health);
 
@@ -139,9 +144,8 @@ void player_room_loop(struct Character *player, struct Story *story,
             location_name, player->name);
         player->health = 0;
 
+        story->ending = 1;
         *location_id = nolocation;
-        leave_location = true;
-        // We doesn't want a exit location message
         return;
       }
       default:
@@ -181,6 +185,11 @@ void demon_lord_castle_loop(struct Character *player, struct Story *story,
                             LOCATION_ID *location_id) {
   bool leave_location = false;
   char location_name[] = "Demon Lord Castle";
+  // TODO: Maybe make unique enemies
+  // Have same enemies as player_room
+  uint8_t enemies_count = 2;
+  uint8_t enemies_start_index = player_room * 10;
+  uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
 
   add_counter(&story->demon_lord_castle_counter);
 
@@ -190,9 +199,64 @@ void demon_lord_castle_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
-    // Send player to void for now
-    leave_location = true;
-    *location_id = nvoid;
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Go to %s Room\n"
+        "2) Enter Throne Room\n"
+        "3) Exit %s\n"
+        "SELECT: ",
+        location_name, player->name, location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s looks around sees stone walls around him\n"
+            "and Throne Room surrounded by frightening aura\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        struct Character enemy =
+            generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
+        battle_enemy(story, player, &enemy);
+
+        if (player->health == 0) {
+          printf(
+              "\n-----< AFTER BATTLE >-----\n"
+              "%s refuses to die\n"
+              "1 health restored\n",
+              player->name);
+          player->health = 1;
+        }
+
+        break;
+      }
+      case '1': {
+        *location_id = player_room;
+        leave_location = true;
+        break;
+      }
+      case '2': {
+        *location_id = throne_room;
+        leave_location = true;
+        break;
+      }
+      case '3': {
+        *location_id = dead_forest;
+        leave_location = true;
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
   }
 
   printf(
@@ -245,18 +309,21 @@ void dead_forest_loop(struct Character *player, struct Story *story,
         battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
-          printf(
-              "\n-----< AFTER BATTLE >-----\n"
-              "%s refuses to die\n"
-              "1 health restored\n",
-              player->name);
-          player->health = 1;
+          story->ending = 2;
+          *location_id = nolocation;
+          return;
+          // printf(
+          //     "\n-----< AFTER BATTLE >-----\n"
+          //     "%s refuses to die\n"
+          //     "1 health restored\n",
+          //     player->name);
+          // player->health = 1;
         }
 
         break;
       }
       case '1': {
-        *location_id = player_room;
+        *location_id = demon_lord_castle;
         leave_location = true;
         break;
       }
@@ -319,12 +386,15 @@ void deep_forest_loop(struct Character *player, struct Story *story,
         battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
-          printf(
-              "\n-----< AFTER BATTLE >-----\n"
-              "%s refuses to die\n"
-              "1 health restored\n",
-              player->name);
-          player->health = 1;
+          story->ending = 2;
+          *location_id = nolocation;
+          return;
+          // printf(
+          //     "\n-----< AFTER BATTLE >-----\n"
+          //     "%s refuses to die\n"
+          //     "1 health restored\n",
+          //     player->name);
+          // player->health = 1;
         }
 
         break;
@@ -393,12 +463,15 @@ void forest_loop(struct Character *player, struct Story *story,
         battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
-          printf(
-              "\n-----< AFTER BATTLE >-----\n"
-              "%s refuses to die\n"
-              "1 health restored\n",
-              player->name);
-          player->health = 1;
+          story->ending = 2;
+          *location_id = nolocation;
+          return;
+          // printf(
+          //     "\n-----< AFTER BATTLE >-----\n"
+          //     "%s refuses to die\n"
+          //     "1 health restored\n",
+          //     player->name);
+          // player->health = 1;
         }
 
         break;
@@ -492,12 +565,15 @@ void high_mountain_loop(struct Character *player, struct Story *story,
         battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
-          printf(
-              "\n-----< AFTER BATTLE >-----\n"
-              "%s refuses to die\n"
-              "1 health restored\n",
-              player->name);
-          player->health = 1;
+          story->ending = 2;
+          *location_id = nolocation;
+          return;
+          // printf(
+          //     "\n-----< AFTER BATTLE >-----\n"
+          //     "%s refuses to die\n"
+          //     "1 health restored\n",
+          //     player->name);
+          // player->health = 1;
         }
 
         break;
@@ -566,12 +642,15 @@ void mountain_loop(struct Character *player, struct Story *story,
         battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
-          printf(
-              "\n-----< AFTER BATTLE >-----\n"
-              "%s refuses to die\n"
-              "1 health restored\n",
-              player->name);
-          player->health = 1;
+          story->ending = 2;
+          *location_id = nolocation;
+          return;
+          // printf(
+          //     "\n-----< AFTER BATTLE >-----\n"
+          //     "%s refuses to die\n"
+          //     "1 health restored\n",
+          //     player->name);
+          // player->health = 1;
         }
 
         break;
@@ -1394,7 +1473,6 @@ void nvoid_loop(struct Character *player, struct Story *story,
               player->name);
 
           story->ending = 0;
-
           *location_id = nolocation;
           return;
         }
@@ -1503,5 +1581,6 @@ void location_loop(struct Character *player, struct Story *story) {
       printf(STORY_ENDING_ERROR, story->ending);
     }
   }
+
   printf("\n-----< ADVENTURE END >-----\n");
 }
