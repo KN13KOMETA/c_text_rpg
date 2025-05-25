@@ -721,6 +721,7 @@ void city_loop(struct Character *player, struct Story *story,
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
+        "e) Explore\n"
         "1) Go to Forest\n"
         "2) Go to Mountain\n"
         "3) Visit Tavern\n"
@@ -743,6 +744,11 @@ void city_loop(struct Character *player, struct Story *story,
             "From all places, %s gets sideways glances\n",
             location_name, player->name, player->name);
         break;
+      }
+      case 'e': {
+        story->ending = 3;
+        *location_id = nolocation;
+        return;
       }
       case '1': {
         *location_id = forest;
@@ -1272,6 +1278,7 @@ void training_ground_loop(struct Character *player, struct Story *story,
       "%s leaves %s\n",
       location_name, player->name, location_name);
 }
+// TODO: Rework tasks
 void adventurer_guild_loop(struct Character *player, struct Story *story,
                            LOCATION_ID *location_id) {
   bool leave_location = false;
