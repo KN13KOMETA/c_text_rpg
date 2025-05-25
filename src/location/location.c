@@ -1697,6 +1697,10 @@ void location_loop(struct Character *player, struct Story *story) {
         adventurer_guild_loop(player, story, &current_location);
         break;
       }
+      case dev_room: {
+        dev_room_loop(player, story, &current_location);
+        break;
+      }
       // If something went wrong player will be sent in void location
       default:
         nvoid_loop(player, story, &current_location);
