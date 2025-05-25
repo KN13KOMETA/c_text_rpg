@@ -7,5 +7,6 @@
 #define RND_MAX(max) RND_RANGE(max, 0)
 
 char getchar_clear(void);
+void getchars_clear(char* str, size_t len);
 
 #endif  // !FUNCTIONS_H

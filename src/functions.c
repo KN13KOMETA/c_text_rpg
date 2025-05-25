@@ -11,3 +11,14 @@ char getchar_clear(void) {
 
   return c;
 }
+
+void getchars_clear(char* str, size_t len) {
+  size_t i = 0;
+  char c = 0;
+
+  while ((c = getchar()) != '\n' && c != EOF) {
+    if (i != len - 1) {
+      str[i++] = c;
+    }
+  }
+}
