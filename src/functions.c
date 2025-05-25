@@ -12,6 +12,7 @@ char getchar_clear(void) {
   return c;
 }
 
+// Reads string from stdin and clears it's buffer
 void getchars_clear(char* str, size_t len) {
   size_t i = 0;
   char c = 0;
