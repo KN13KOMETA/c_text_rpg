@@ -1620,6 +1620,10 @@ void location_loop(struct Character *player, struct Story *story) {
       printf(STORY_ENDING1_SUICIDE, player->name);
       break;
     }
+    case 2: {
+      printf(STORY_ENDING2_KILLED_BY_MONSTER, player->name);
+      break;
+    }
     default: {
       printf(STORY_ENDING_ERROR, story->ending);
     }

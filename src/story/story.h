@@ -57,6 +57,17 @@
   STORY_ENDING_HEADER(1, "SUICIDE") \
   "Without any reason %s commits suicide\n"
 
+// Get killed in one of those locations:
+// dead_forest,
+// deep_forest,
+// forest,
+// high_mountain,
+// mountain,
+#define STORY_ENDING2_KILLED_BY_MONSTER                             \
+  STORY_ENDING_HEADER(2, "KILLED BY MONSTER")                       \
+  "%s miscalculated his strength and rushed into a losing battle\n" \
+  "and was killed by monster\n"
+
 struct Quest {
   uint32_t reward_gold;
 
