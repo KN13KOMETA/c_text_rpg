@@ -1457,7 +1457,98 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
       "%s leaves %s\n",
       location_name, player->name, location_name);
 }
+void dev_room_loop(struct Character *player, struct Story *story,
+                   LOCATION_ID *location_id) {
+  bool leave_location = false;
+  char location_name[] = "Dev Room";
 
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "!!! WARNING !!!\n"
+      "This location is intended for game testing\n"
+      "%s enters %s\n",
+      location_name, player->name, location_name);
+
+  while (!leave_location) {
+    printf(
+        "\n-----< %s LOCATION ACTION >-----\n"
+        "s) Status\n"
+        "l) Look around\n"
+        "e) Explore\n"
+        "1) Enter Nvoid 255\n"
+        "2) Enter location id\n"
+        "SELECT: ",
+        location_name);
+
+    switch (getchar_clear()) {
+      case 's': {
+        print_player(player, story);
+        break;
+      }
+      case 'l': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "%s imagine nothing\n",
+            location_name, player->name);
+        break;
+      }
+      case 'e': {
+        struct Character enemy = generate_enemy(UINT8_MAX);
+        battle_enemy(story, player, &enemy);
+
+        if (player->health == 0) {
+          printf(
+              "\n-----< AFTER BATTLE >-----\n"
+              "%s was completely erased by forces that do not belong to this "
+              "world\n",
+              player->name);
+
+          story->ending = 0;
+          *location_id = nolocation;
+          return;
+        }
+
+        break;
+      }
+      case '1': {
+        *location_id = nvoid;
+        leave_location = true;
+        break;
+      }
+      case '2': {
+        int new_id;
+        char str[3];
+
+        getchars_clear(str, 3);
+        new_id = atoi(str);
+
+        if (new_id > 0xff) {
+          printf("Invalid location id\n");
+          break;
+        }
+
+        *location_id = new_id;
+        leave_location = true;
+
+        // LOCATION_ID new_id = *location_id;
+        // printf("LOCATION ID (uint 8): ");
+        //
+        // scanf("%u", location_id);
+        // if (new_id > 0xff) *location_id = 0xff;
+
+        // leave_location = true;
+        break;
+      }
+      default:
+        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    }
+  }
+
+  printf(
+      "\n-----< %s LOCATION >-----\n"
+      "%s leaves %s\n",
+      location_name, player->name, location_name);
+}
 void nvoid_loop(struct Character *player, struct Story *story,
                 LOCATION_ID *location_id) {
   bool leave_location = false;

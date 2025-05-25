@@ -24,6 +24,8 @@ typedef enum {
   blacksmith_shop,
   training_ground,
   adventurer_guild,
+
+  dev_room = UINT8_MAX - 2,
   nolocation = UINT8_MAX - 1,
   nvoid = UINT8_MAX,
 } LOCATION_ID;
