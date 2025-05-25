@@ -37,10 +37,20 @@
   "n) No, exit game\n"                                                       \
   "SELECT: "
 
+// ENDINGS
+#define STORY_ENDING_HEADER(num, name) \
+  "\n-----< STORY ENDING: " #num "/5 " name " >-----\n"
+
 #define STORY_ENDING_ERROR                   \
   "\n-----< STORY ENDING: %u ERROR >-----\n" \
   "Something went wrong, the ending was not found\n"
 
+// Secret ending, normally u can't get this
+// Until you somehow break a game and die in nvoid
+#define STORY_ENDING0_NVOID_DEATH             \
+  STORY_ENDING_HEADER(0, "NVOID DEATH")       \
+  "After the complete disappearance of %s,\n" \
+  "not a single quark of the %s body was found\n"
 
 struct Quest {
   uint32_t reward_gold;

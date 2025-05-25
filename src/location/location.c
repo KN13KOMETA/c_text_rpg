@@ -1612,6 +1612,10 @@ void location_loop(struct Character *player, struct Story *story) {
   }
 
   switch (story->ending) {
+    case 0: {
+      printf(STORY_ENDING0_NVOID_DEATH, player->name, player->name);
+      break;
+    }
     default: {
       printf(STORY_ENDING_ERROR, story->ending);
     }
