@@ -1571,10 +1571,10 @@ void nvoid_loop(struct Character *player, struct Story *story,
         "s) Status\n"
         "l) Look around\n"
         "e) Explore\n"
-        "1) Return to location player_room (Recommended for player)\n"
-        "2) Enter location id (!!! MAY BREAK GAME !!!)\n"
+        "1) Enter %s Room\n"
+        "2) Enter Dev Room (MAY BREAK GAME)\n"
         "SELECT: ",
-        location_name);
+        location_name, player->name);
 
     switch (getchar_clear()) {
       case 's': {
@@ -1612,12 +1612,7 @@ void nvoid_loop(struct Character *player, struct Story *story,
         break;
       }
       case '2': {
-        LOCATION_ID new_id = *location_id;
-        printf("LOCATION ID (uint 8): ");
-
-        scanf("%u", location_id);
-        if (new_id > 0xff) *location_id = 0xff;
-
+        *location_id = dev_room;
         leave_location = true;
         break;
       }
