@@ -20,14 +20,7 @@ void get_player_nick(struct Character *player) {
       "Enter your nick(%u): ",
       CHARACTER_NAME_LENGTH - 1);
 
-  fgets(player->name, CHARACTER_NAME_LENGTH, stdin);
-
-  len = strlen(player->name);
-
-  if (player->name[len - 1] == '\n')
-    player->name[len - 1] = '\0';
-  else
-    while ((c = getchar()) != '\n' && c != EOF);
+  getchars_clear(player->name, CHARACTER_NAME_LENGTH);
 }
 
 /* int main(int argc, char *argv[]) { */
