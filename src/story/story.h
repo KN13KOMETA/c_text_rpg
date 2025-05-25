@@ -68,6 +68,12 @@
   "%s miscalculated his strength and rushed into a losing battle\n" \
   "and was killed by monster\n"
 
+// Explore in city
+#define STORY_ENDING3_KNOCKED_OUT                                          \
+  STORY_ENDING_HEADER(3, "KNOCKED OUT")                                    \
+  "%s decides to explore the city, despite the city looking unfriendly.\n" \
+  "%s wanders into an alley where he is struck from behind and knocked out.\n"
+
 struct Quest {
   uint32_t reward_gold;
 
