@@ -52,6 +52,11 @@
   "After the complete disappearance of %s,\n" \
   "not a single quark of the %s body was found\n"
 
+// Select suicide option in player_room
+#define STORY_ENDING1_SUICIDE       \
+  STORY_ENDING_HEADER(1, "SUICIDE") \
+  "Without any reason %s commits suicide\n"
+
 struct Quest {
   uint32_t reward_gold;
 
