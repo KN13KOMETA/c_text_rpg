@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 # BUILD AND RUN LINUX BINARY
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source $SCRIPT_DIR/var.sh

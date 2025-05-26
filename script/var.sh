@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 # DECLARE ENVIROMENT VARIABLES
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 

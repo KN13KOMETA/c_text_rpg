@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 # COMPILE LINUX AND WINDOWS BINARIES
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source $SCRIPT_DIR/var.sh x
