@@ -1507,7 +1507,8 @@ void dev_room_loop(struct Character *player, struct Story *story,
       case 'l': {
         printf(
             "\n-----< %s LOCATION >-----\n"
-            "%s imagine nothing\n",
+            "%s looks around and sees a mattress on the floor, a metal shelf, "
+            "a plastic spruce, and a dinosaur-era computer",
             location_name, player->name);
         break;
       }
