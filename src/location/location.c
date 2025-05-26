@@ -1495,7 +1495,7 @@ void dev_room_loop(struct Character *player, struct Story *story,
         "l) Look around\n"
         "e) Explore\n"
         "1) Enter Nvoid 255\n"
-        "2) Enter location id\n"
+        "2) Enter location by id\n"
         "SELECT: ",
         location_name);
 
@@ -1536,9 +1536,9 @@ void dev_room_loop(struct Character *player, struct Story *story,
       }
       case '2': {
         int new_id;
-        char str[3];
+        char str[4];
 
-        getchars_clear(str, 3);
+        getchars_clear(str, 4);
         new_id = atoi(str);
 
         if (new_id > 0xff) {
@@ -1548,14 +1548,6 @@ void dev_room_loop(struct Character *player, struct Story *story,
 
         *location_id = new_id;
         leave_location = true;
-
-        // LOCATION_ID new_id = *location_id;
-        // printf("LOCATION ID (uint 8): ");
-        //
-        // scanf("%u", location_id);
-        // if (new_id > 0xff) *location_id = 0xff;
-
-        // leave_location = true;
         break;
       }
       default:
