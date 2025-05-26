@@ -1538,6 +1538,8 @@ void dev_room_loop(struct Character *player, struct Story *story,
         int new_id;
         char str[4];
 
+        printf("ENTER LOCATION ID (uint8_t): ");
+
         getchars_clear(str, 4);
         new_id = atoi(str);
 
