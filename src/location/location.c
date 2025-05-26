@@ -1493,7 +1493,7 @@ void dev_room_loop(struct Character *player, struct Story *story,
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
-        "e) Explore\n"
+        "e) Start fight with enemy by id\n"
         "1) Enter Nvoid 255\n"
         "2) Enter location by id\n"
         "SELECT: ",
@@ -1513,19 +1513,31 @@ void dev_room_loop(struct Character *player, struct Story *story,
         break;
       }
       case 'e': {
-        struct Character enemy = generate_enemy(UINT8_MAX);
+        int enemy_id;
+        char str[4];
+        uint16_t prebattle_player_health = player->health;
+        struct Character enemy;
+
+        printf("ENTER ENEMY ID (uint8_t): ");
+
+        getchars_clear(str, 4);
+        enemy_id = atoi(str);
+
+        if (enemy_id > 0xff) {
+          printf("Invalid enemy id\n");
+          break;
+        }
+
+        enemy = generate_enemy(enemy_id);
         battle_enemy(story, player, &enemy);
 
         if (player->health == 0) {
           printf(
               "\n-----< AFTER BATTLE >-----\n"
-              "%s was completely erased by forces that do not belong to this "
-              "world\n",
-              player->name);
+              "%s can't die in %s\n",
+              player->name, location_name);
 
-          story->ending = 0;
-          *location_id = nolocation;
-          return;
+          player->health = prebattle_player_health;
         }
 
         break;
