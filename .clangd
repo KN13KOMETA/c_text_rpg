@@ -1,3 +1,2 @@
 CompileFlags:
-  Add: [-std=c99, -Wall, -Wextra, -Wpedantic]
-  Add: [-D PROJECT_NAME="", -D PROJECT_VERSION=""]
+  Add: [-std=c99, -Wall, -Wextra, -Wpedantic, -D PROJECT_NAME="", -D PROJECT_VERSION=""]
