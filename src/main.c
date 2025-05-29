@@ -11,6 +11,10 @@
 #error RAND_MAX IS LOWER THAN INT16_MAX
 #endif
 
+#ifndef COMMIT_SHORT_HASH
+#error COMMIT_SHORT_HASH IS NOT DEFINED
+#endif /* ifndef COMMIT_SHORT_HASH */
+
 #ifndef PROJECT_NAME
 #error PROJECT_NAME IS NOT DEFINED
 #endif /* ifndef PROJECT_NAME */
@@ -65,7 +69,16 @@ int main(void) {
 
   printf("\n-----< ADVENTURE END >-----\n");
 
-  printf("\n-----< %s %s >-----\n", PROJECT_NAME, PROJECT_VERSION);
+  // Print game details
+  {
+    print_player(&player, &story);
+    printf("\n-----< %s %s (%s) >-----\n", PROJECT_NAME, PROJECT_VERSION,
+           COMMIT_SHORT_HASH);
+    printf(
+        "Repository: https://github.com/KN13KOMETA/c_text_rpg\n"
+        "Discord: https://discord.gg/ADGTqPrYr8\n"
+        "Personal Discord: https://discord.gg/d4rKqZs\n");
+  }
 
   return 0;
 }
