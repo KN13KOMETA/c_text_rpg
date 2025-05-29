@@ -68,5 +68,7 @@ int main(void) {
 
   printf("\n-----< ADVENTURE END >-----\n");
 
+  printf("\n-----< %s %s >-----\n", PROJECT_NAME, PROJECT_VERSION);
+
   return 0;
 }
