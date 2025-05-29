@@ -2,6 +2,8 @@
 # DECLARE ENVIROMENT VARIABLES
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
+ROOT_DIR="$(readlink -f "$SCRIPT_DIR/..")"
+
 TOOL_DIR="$(readlink -f "$SCRIPT_DIR/../tool")"
 ZIG_PATH="$(readlink -f "$TOOL_DIR/$(ls "$TOOL_DIR" | grep --color=never zig)")"
 
