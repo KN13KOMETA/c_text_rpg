@@ -16,6 +16,7 @@ mkdir $SCRIPT_BIN_DIR
 # Create a symlinks for scripts
 ln -s "$SCRIPT_DIR/build.sh" "$SCRIPT_BIN_DIR/build"
 ln -s "$SCRIPT_DIR/buildtest.sh" "$SCRIPT_BIN_DIR/buildtest"
+ln -s "$SCRIPT_DIR/todolist.sh" "$SCRIPT_BIN_DIR/todolist"
 
 PATH=$PATH:$SCRIPT_BIN_DIR
 
