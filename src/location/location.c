@@ -1748,6 +1748,4 @@ void location_loop(struct Character *player, struct Story *story) {
       printf(STORY_ENDING_ERROR, story->ending);
     }
   }
-
-  printf("\n-----< ADVENTURE END >-----\n");
 }

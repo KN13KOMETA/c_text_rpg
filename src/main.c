@@ -58,5 +58,7 @@ int main(void) {
   print_player(&player, &story);
   location_loop(&player, &story);
 
+  printf("\n-----< ADVENTURE END >-----\n");
+
   return 0;
 }
