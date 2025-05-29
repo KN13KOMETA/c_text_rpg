@@ -13,7 +13,7 @@ FULL_PROJECT_NAME="${PROJECT_NAME}_$PROJECT_VERSION"
 DEBUG_FULL_PROJECT_NAME="${FULL_PROJECT_NAME}_debug"
 
 CC="zig cc"
-CFLAGS="-std=c99 -Wall -Wextra -Wpedantic"
+CFLAGS="-std=c99 -Wall -Wextra -Wpedantic -D PROJECT_NAME=\"${PROJECT_NAME}\" -D PROJECT_VERSION=\"${PROJECT_VERSION}\""
 DEBUG_CFLAGS="$CFLAGS -D DEBUG"
 CSOURCE_FOLDER="$(dirname "$SCRIPT_DIR")/src"
 CFILES="$(find "$CSOURCE_FOLDER" -name "*.c" | tr '\n' ' ')"

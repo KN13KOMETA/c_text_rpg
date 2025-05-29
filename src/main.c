@@ -11,6 +11,14 @@
 #error RAND_MAX IS LOWER THAN INT16_MAX
 #endif
 
+#ifndef PROJECT_NAME
+#error PROJECT_NAME IS NOT DEFINED
+#endif /* ifndef PROJECT_NAME */
+
+#ifndef PROJECT_VERSION
+#error PROJECT_VERSION IS NOT DEFINED
+#endif /* ifndef PROJECT_VERSION */
+
 void get_player_nick(struct Character *player) {
   char c;
   int len;
@@ -23,7 +31,7 @@ void get_player_nick(struct Character *player) {
   getchars_clear(player->name, CHARACTER_NAME_LENGTH);
 }
 
-/* int main(int argc, char *argv[]) { */
+// int main(int argc, char *argv[]) {
 int main(void) {
   struct Character player;
   struct Story story = get_story();
