@@ -21,4 +21,6 @@ ln -s "$SCRIPT_DIR/todolist.sh" "$SCRIPT_BIN_DIR/todolist"
 PATH=$PATH:$SCRIPT_BIN_DIR
 
 echo "\$PATH SETTED UP"
-echo "COMMANDS ARE build, buildtest"
+echo "COMMANDS ARE build, buildtest, todolist"
+
+# TODO: Generate .clangd
