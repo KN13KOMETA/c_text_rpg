@@ -20,9 +20,6 @@
 #endif /* ifndef PROJECT_VERSION */
 
 void get_player_nick(struct Character *player) {
-  char c;
-  int len;
-
   printf(
       "\n-----< ADVENTURE START >-----\n"
       "Enter your nick(%u): ",
