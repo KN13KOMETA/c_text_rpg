@@ -11,10 +11,11 @@
 #define CHARACTER_MAX_GOLD 4000000000
 #define CHARACTER_MAX_HEALTH 50000
 
-#include "../story/story.h"
+// Fixes recursion
+// TODO: understand why it works
+typedef struct Story Story;
 
-// WARN: The whole story.h and character.h situation is horrible
-// Rewrite this trash later
+#include "../story/story.h"
 
 struct Character {
   char name[CHARACTER_NAME_LENGTH];
