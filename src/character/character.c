@@ -323,6 +323,15 @@ struct Character generate_enemy(uint8_t enemy_id) {
     }
 
     // hidden_garden
+    case hidden_garden * 10 + 0: {
+      strcpy(chr.name, "Elven King");
+      chr.gold = RND_RANGE(20000, 15000);
+      chr.max_health = 40000;
+      chr.health = RND_RANGE(40000, 35000);
+      strcpy(chr.weapon.name, "Mithril Hammer");
+      chr.weapon.damage = RND_RANGE(20000, 19000);
+      break;
+    }
     // high_mountain
     case high_mountain * 10 + 0: {
       strcpy(chr.name, "Elven Archer");

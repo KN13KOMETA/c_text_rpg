@@ -548,6 +548,9 @@ void hidden_garden_loop(struct Character *player, struct Story *story,
                         LOCATION_ID *location_id) {
   bool leave_location = false;
   char location_name[] = "Hidden Garden";
+  uint8_t enemies_count = 1;
+  uint8_t enemies_start_index = hidden_garden * 10;
+  uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
 
   add_counter(&story->hidden_garden_counter);
 
@@ -555,6 +558,32 @@ void hidden_garden_loop(struct Character *player, struct Story *story,
       "\n-----< %s LOCATION  >-----\n"
       "%s enters %s\n",
       location_name, player->name, location_name);
+
+  // Start battle immeadiately
+  while (true) {
+    struct Character enemy =
+        generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
+
+    battle_enemy(story, player, &enemy);
+
+    if (player->health == 0) {
+      // TODO: Make normal message
+      printf(
+          "\n-----< AFTER BATTLE >-----\n"
+          "\n");
+
+      story->ending = 4;
+      *location_id = nolocation;
+      return;
+    } else if (enemy.health == 0) {
+      story->ending = 6;
+      *location_id = nolocation;
+      return;
+    }
+
+    printf("Put some text here. btw u cant run\n");
+    continue;
+  }
 
   while (!leave_location) {
     // Send player to void for now
