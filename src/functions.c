@@ -20,4 +20,6 @@ void getchars_clear(char* str, size_t len) {
       str[i++] = c;
     }
   }
+
+  for (; i < len; i++) str[i] = '\0';
 }
