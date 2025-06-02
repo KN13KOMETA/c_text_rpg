@@ -581,7 +581,7 @@ void hidden_garden_loop(struct Character *player, struct Story *story,
       return;
     }
 
-    printf("Put some text here. btw u cant run\n");
+    printf(STORY_TEXT_CANT_RUN_AWAY, player->name);
     continue;
   }
 

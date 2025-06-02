@@ -37,6 +37,10 @@
   "n) No, exit game\n"                                                       \
   "SELECT: "
 
+#define STORY_TEXT_CANT_RUN_AWAY \
+  STORY_HEADER                   \
+  "%s surrounded and can't run away.\n"
+
 // ENDINGS
 #define STORY_ENDING_HEADER(num, name) \
   "\n-----< STORY ENDING: " #num "/5 " name " >-----\n"
