@@ -551,6 +551,9 @@ void hidden_garden_loop(struct Character *player, struct Story *story,
   uint8_t enemies_count = 1;
   uint8_t enemies_start_index = hidden_garden * 10;
   uint8_t enemies_end_index = enemies_start_index + enemies_count - 1;
+  // Define enemy here, so when player tries to run away, enemy do not regen
+  struct Character enemy =
+      generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
 
   add_counter(&story->hidden_garden_counter);
 
@@ -561,9 +564,6 @@ void hidden_garden_loop(struct Character *player, struct Story *story,
 
   // Start battle immeadiately
   while (true) {
-    struct Character enemy =
-        generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
-
     battle_enemy(story, player, &enemy);
 
     if (player->health == 0) {
