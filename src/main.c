@@ -23,10 +23,10 @@
 #error PROJECT_VERSION IS NOT DEFINED
 #endif /* ifndef PROJECT_VERSION */
 
-void get_player_nick(struct Character *player) {
+void get_player_name(struct Character *player) {
   printf(
       "\n-----< ADVENTURE START >-----\n"
-      "Enter your nick(%u): ",
+      "Enter your name(%u): ",
       CHARACTER_NAME_LENGTH - 1);
 
   getchars_clear(player->name, CHARACTER_NAME_LENGTH);
@@ -51,7 +51,7 @@ int main(void) {
     }
   }
 
-  get_player_nick(&player);
+  get_player_name(&player);
 
   // Init seed using nick
   {
