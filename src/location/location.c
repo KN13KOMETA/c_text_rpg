@@ -1565,6 +1565,25 @@ void dev_room_loop(struct Character *player, struct Story *story,
             player->health = new_health;
             break;
           }
+          case 'm': {
+            int new_max_health;
+            char str[6];
+            printf("ENTER NEW MAX HEALTH (%u): ", CHARACTER_MAX_HEALTH);
+
+            getchars_clear(str, 6);
+            new_max_health = atoi(str);
+
+            if (new_max_health <= 0 || new_max_health > CHARACTER_MAX_HEALTH) {
+              printf("Invalid player max health\n");
+              break;
+            }
+
+            player->max_health = new_max_health;
+            // Lower player health if its more than max health
+            if (player->health > player->max_health)
+              player->health = player->max_health;
+            break;
+          }
           default:
             printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n",
                    location_name);
