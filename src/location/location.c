@@ -1518,84 +1518,112 @@ void dev_room_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
+    char select[] = "..";
     printf(
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
         "e) Start fight with enemy by id\n"
         "1) Enter Nvoid 255\n"
-        "2) Enter location by id\n"
-        "SELECT: ",
+        "2) Enter location by id\n",
         location_name);
+    printf(
+        "\n-----< MODIFY player \"%s\" >-----\n"
+        "pn) Modify name (%s)\n"
+        "pg) Modify gold (%u)\n"
+        "ph) Modify health (%u/%u)\n"
+        "pm) Modify max health (%u)\n",
+        player->name, player->name, player->gold, player->health,
+        player->max_health, player->max_health);
+    printf(
+        "\n-----< MODIFY weapon \"%s\" >-----\n"
+        "wn) Modify name (%s)\n"
+        "wd) Modify damage (%u)\n"
+        "wp) Modify price (%u)\n"
+        "wu) Modify upgrade price (%u)\n"
+        "SELECT: ",
+        player->weapon.name, player->weapon.name, player->weapon.damage,
+        player->weapon.price, player->weapon.upgrade_price);
 
-    switch (getchar_clear()) {
-      case 's': {
-        print_player(player, story);
-        break;
-      }
-      case 'l': {
-        printf(
-            "\n-----< %s LOCATION >-----\n"
-            "%s looks around and sees a mattress on the floor, a metal shelf,\n"
-            "a plastic spruce, and a dinosaur-era computer\n",
-            location_name, player->name);
-        break;
-      }
-      case 'e': {
-        int enemy_id;
-        char str[4];
-        uint16_t prebattle_player_health = player->health;
-        struct Character enemy;
+    getchars_clear(select, strlen(select) + 1);
 
-        printf("ENTER ENEMY ID (uint8_t): ");
-
-        getchars_clear(str, 4);
-        enemy_id = atoi(str);
-
-        if (enemy_id > 0xff) {
-          printf("Invalid enemy id\n");
-          break;
-        }
-
-        enemy = generate_enemy(enemy_id);
-        battle_enemy(story, player, &enemy);
-
-        if (player->health == 0) {
-          printf(
-              "\n-----< AFTER BATTLE >-----\n"
-              "%s can't die in %s\n",
-              player->name, location_name);
-
-          player->health = prebattle_player_health;
-        }
-
-        break;
-      }
-      case '1': {
-        *location_id = nvoid;
-        leave_location = true;
-        break;
-      }
-      case '2': {
-        int new_id;
-        char str[4];
-
-        printf("ENTER LOCATION ID (uint8_t): ");
-
-        getchars_clear(str, 4);
-        new_id = atoi(str);
-
-        if (new_id > 0xff) {
-          printf("Invalid location id\n");
-          break;
-        }
-
-        *location_id = new_id;
-        leave_location = true;
-        break;
-      }
-      default:
+    // Hell yeah stairs
+    if (strlen(select) == 2) {
+      if (select[0] == 'p') {
+      } else if (select[0] == 'w') {
+      } else
         printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+    } else {
+      switch (select[0]) {
+        case 's': {
+          print_player(player, story);
+          break;
+        }
+        case 'l': {
+          printf(
+              "\n-----< %s LOCATION >-----\n"
+              "%s looks around and sees a mattress on the floor, a metal "
+              "shelf,\n"
+              "a plastic spruce, and a dinosaur-era computer\n",
+              location_name, player->name);
+          break;
+        }
+        case 'e': {
+          int enemy_id;
+          char str[4];
+          uint16_t prebattle_player_health = player->health;
+          struct Character enemy;
+
+          printf("ENTER ENEMY ID (uint8_t): ");
+
+          getchars_clear(str, 4);
+          enemy_id = atoi(str);
+
+          if (enemy_id > 0xff) {
+            printf("Invalid enemy id\n");
+            break;
+          }
+
+          enemy = generate_enemy(enemy_id);
+          battle_enemy(story, player, &enemy);
+
+          if (player->health == 0) {
+            printf(
+                "\n-----< AFTER BATTLE >-----\n"
+                "%s can't die in %s\n",
+                player->name, location_name);
+
+            player->health = prebattle_player_health;
+          }
+
+          break;
+        }
+        case '1': {
+          *location_id = nvoid;
+          leave_location = true;
+          break;
+        }
+        case '2': {
+          int new_id;
+          char str[4];
+
+          printf("ENTER LOCATION ID (uint8_t): ");
+
+          getchars_clear(str, 4);
+          new_id = atoi(str);
+
+          if (new_id > 0xff) {
+            printf("Invalid location id\n");
+            break;
+          }
+
+          *location_id = new_id;
+          leave_location = true;
+          break;
+        }
+        default:
+          printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
+      }
     }
   }
 
