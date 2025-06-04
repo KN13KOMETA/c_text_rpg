@@ -1563,6 +1563,7 @@ void dev_room_loop(struct Character *player, struct Story *story,
             }
 
             player->health = new_health;
+            break;
           }
           default:
             printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n",
