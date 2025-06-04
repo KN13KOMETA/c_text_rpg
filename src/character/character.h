@@ -8,8 +8,8 @@
 #include "weapon.h"
 
 #define CHARACTER_NAME_LENGTH 21
-#define CHARACTER_MAX_GOLD 4000000000
-#define CHARACTER_MAX_HEALTH 50000
+#define CHARACTER_MAX_GOLD UINT32_C(4000000000)
+#define CHARACTER_MAX_HEALTH UINT16_C(50000)
 
 // Fixes recursion
 // TODO: understand why it works
