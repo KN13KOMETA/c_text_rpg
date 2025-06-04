@@ -1543,6 +1543,16 @@ void dev_room_loop(struct Character *player, struct Story *story,
       // 2 symbols actions
       if (select[0] == 'p') {
         // Player modify actions
+        switch (select[1]) {
+          case 'n': {
+            printf("ENTER NEW NAME (%u): ", CHARACTER_NAME_LENGTH - 1);
+            getchars_clear(player->name, CHARACTER_NAME_LENGTH);
+            break;
+          }
+          default:
+            printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n",
+                   location_name);
+        }
       } else if (select[0] == 'w') {
         // Weapon modify actions
       } else
