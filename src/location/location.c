@@ -1551,10 +1551,20 @@ void dev_room_loop(struct Character *player, struct Story *story,
           }
           case 'g': {
             // TODO: Make modify gold work
-            // char str[11];
+            unsigned long new_gold;
+            char str[11];
             printf("ENTER NEW GOLD (%u): ", CHARACTER_MAX_GOLD);
-            // getchars_clear(str, 11);
-            // player->gold = strtoul(str, char **, int);
+
+            getchars_clear(str, 11);
+            new_gold = strtoul(str, NULL, 10);
+
+            if (new_gold < 0 || new_gold > CHARACTER_MAX_GOLD) {
+              printf("Invalid player gold\n");
+              break;
+            }
+
+            player->gold = new_gold;
+            break;
           }
           case 'h': {
             int new_health;
