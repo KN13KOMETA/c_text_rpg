@@ -45,7 +45,6 @@ void player_room_loop(struct Character *player, struct Story *story,
 
   char cheatcode[] = "ikwid";
   uint8_t cheatcode_length = strlen(cheatcode);
-  uint8_t cheatcode_progress = 0;
 
   sprintf(location_name, "%s Room", player->name);
   add_counter(&story->player_room_counter);
@@ -56,7 +55,7 @@ void player_room_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
-    char select;
+    char select[cheatcode_length + 1];
     printf(
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
@@ -67,9 +66,14 @@ void player_room_loop(struct Character *player, struct Story *story,
         "3) Suicide\n"
         "SELECT: ",
         location_name);
-    select = getchar_clear();
+    getchars_clear(select, cheatcode_length + 1);
 
-    switch (select) {
+    if (strcmp(cheatcode, select) == 0) {
+      *location_id = nvoid;
+      leave_location = true;
+    }
+
+    switch (select[0]) {
       case 's': {
         print_player(player, story);
         break;
@@ -155,20 +159,8 @@ void player_room_loop(struct Character *player, struct Story *story,
         *location_id = nolocation;
         return;
       }
-      default: {
+      default:
         printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
-
-        if (select == cheatcode[cheatcode_progress]) {
-          cheatcode_progress++;
-
-          if (cheatcode_progress == cheatcode_length) {
-            *location_id = nvoid;
-            leave_location = true;
-          }
-        } else {
-          cheatcode_progress = 0;
-        }
-      }
     }
   }
 
