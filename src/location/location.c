@@ -1549,6 +1549,21 @@ void dev_room_loop(struct Character *player, struct Story *story,
             getchars_clear(player->name, CHARACTER_NAME_LENGTH);
             break;
           }
+          case 'h': {
+            int new_health;
+            char str[6];
+            printf("ENTER NEW HEALTH (%u): ", player->max_health);
+
+            getchars_clear(str, 6);
+            new_health = atoi(str);
+
+            if (new_health <= 0 || new_health > player->max_health) {
+              printf("Invalid player health\n");
+              break;
+            }
+
+            player->health = new_health;
+          }
           default:
             printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n",
                    location_name);
