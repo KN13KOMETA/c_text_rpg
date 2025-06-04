@@ -1550,7 +1550,6 @@ void dev_room_loop(struct Character *player, struct Story *story,
             break;
           }
           case 'g': {
-            // TODO: Make modify gold work
             unsigned long new_gold;
             char str[11];
             printf("ENTER NEW GOLD (%u): ", CHARACTER_MAX_GOLD);
