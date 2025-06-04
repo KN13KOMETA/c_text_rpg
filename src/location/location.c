@@ -1558,7 +1558,7 @@ void dev_room_loop(struct Character *player, struct Story *story,
             getchars_clear(str, 11);
             new_gold = strtoul(str, NULL, 10);
 
-            if (new_gold < 0 || new_gold > CHARACTER_MAX_GOLD) {
+            if (new_gold > CHARACTER_MAX_GOLD) {
               printf("Invalid player gold\n");
               break;
             }
