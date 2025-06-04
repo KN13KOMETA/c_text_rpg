@@ -34,7 +34,6 @@
 // training_ground +
 // adventurer_guild +
 
-// TODO: maybe this need a bit rework
 void player_room_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
   bool leave_location = false;
