@@ -1549,11 +1549,15 @@ void dev_room_loop(struct Character *player, struct Story *story,
 
     // Hell yeah stairs
     if (strlen(select) == 2) {
+      // 2 symbols actions
       if (select[0] == 'p') {
+        // Player modify actions
       } else if (select[0] == 'w') {
+        // Weapon modify actions
       } else
         printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
     } else {
+      // 1 symbol actions
       switch (select[0]) {
         case 's': {
           print_player(player, story);
