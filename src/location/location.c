@@ -1549,6 +1549,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
             getchars_clear(player->name, CHARACTER_NAME_LENGTH);
             break;
           }
+          case 'g': {
+            // TODO: Make modify gold work
+            // char str[11];
+            printf("ENTER NEW GOLD (%u): ", CHARACTER_MAX_GOLD);
+            // getchars_clear(str, 11);
+            // player->gold = strtoul(str, char **, int);
+          }
           case 'h': {
             int new_health;
             char str[6];
@@ -1590,6 +1597,7 @@ void dev_room_loop(struct Character *player, struct Story *story,
         }
       } else if (select[0] == 'w') {
         // Weapon modify actions
+        // TODO: make weapon modifiers
       } else
         printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
     } else {
