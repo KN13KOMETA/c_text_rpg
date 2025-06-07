@@ -206,7 +206,7 @@ struct Character generate_player(char *name) {
 }
 struct Character generate_enemy(uint8_t enemy_id) {
   struct Character chr = {
-      .name = "Glitter Glitch",
+      .name = CHARACTER_ERROR_ENEMY_NAME,
       .gold = RND_MAX(UINT16_MAX),
       .max_health = chr.gold,
       .health = chr.gold,
