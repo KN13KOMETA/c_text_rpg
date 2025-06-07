@@ -9,7 +9,7 @@ ZIG_PATH="$(readlink -f "$TOOL_DIR/$(ls "$TOOL_DIR" | grep --color=never zig)")"
 
 PATH=$PATH:$ZIG_PATH
 
-PROJECT_VERSION="v2.2.0-beta"
+PROJECT_VERSION="v2.3.0-beta"
 PROJECT_NAME="c_text_rpg"
 COMMIT_SHORT_HASH="$(git rev-parse --short HEAD)"
 FULL_PROJECT_NAME="${PROJECT_NAME}_$PROJECT_VERSION"
