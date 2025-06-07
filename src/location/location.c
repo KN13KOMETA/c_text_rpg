@@ -1092,6 +1092,8 @@ void blacksmith_shop_loop(struct Character *player, struct Story *story,
                player->weapon.name, player->weapon.price,
                player->weapon.upgrade_price, player->weapon.damage);
 
+        offered_weapons[weapon_id] = generate_weapon();
+
         break;
       }
     }
