@@ -1430,6 +1430,8 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
                story->quest.target_name, story->quest.target_count,
                story->quest.reward_gold);
 
+        offered_quests[quest_id] = generate_quest();
+
         break;
       }
     }
