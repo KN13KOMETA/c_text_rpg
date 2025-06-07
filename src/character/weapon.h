@@ -8,9 +8,9 @@
 
 struct Weapon {
   char name[WEAPON_NAME_LENGTH];
+  uint16_t damage;
   uint32_t price;
   uint32_t upgrade_price;
-  uint16_t damage;
 };
 
 struct Weapon generate_weapon(void);
