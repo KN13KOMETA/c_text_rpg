@@ -11,10 +11,15 @@
 #include "../functions.h"
 
 #define OFFERED_WEAPONS_LENGTH 8
+#define OFFERED_QUESTS_LENGTH 8
 #define QUEST_GOLD_MODIFIER 5
 
 #if OFFERED_WEAPONS_LENGTH > UINT16_MAX
 #error CAN'T OFFER MORE THAN UINT16_MAX WEAPONS
+#endif
+
+#if OFFERED_QUESTS_LENGTH > UINT16_MAX
+#error CAN'T OFFER MORE THAN UINT16_MAX QUESTS 
 #endif
 
 // TODO: locations checklist
@@ -1317,9 +1322,9 @@ void training_ground_loop(struct Character *player, struct Story *story,
       "%s leaves %s\n",
       location_name, player->name, location_name);
 }
-// TODO: Rework tasks
 void adventurer_guild_loop(struct Character *player, struct Story *story,
-                           LOCATION_ID *location_id) {
+                           LOCATION_ID *location_id,
+                           struct Quest offered_quests[]) {
   bool leave_location = false;
   char location_name[] = "Adventurer Guild";
 
@@ -1331,20 +1336,28 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
       location_name, player->name, location_name);
 
   while (!leave_location) {
+    char select[6];
+    uint8_t reroll_time = 10;
+
     printf(
         "\n-----< %s LOCATION ACTION >-----\n"
         "s) Status\n"
         "l) Look around\n"
         "x) Leave %s\n"
-        "c) Cancel quest\n"
-        "0) Take quest: Difficulty 0 (%s Room)\n"
-        "1) Take quest: Difficulty 1 (Forest)\n"
-        "2) Take quest: Difficulty 2 (Deep Forest, Mountain)\n"
-        "3) Take quest: Difficulty 3 (Dead Forest)\n"
-        "SELECT: ",
-        location_name, location_name, player->name);
+        "r) Reroll quests\n"
+        "c) Cancel quest\n",
+        location_name, location_name);
 
-    switch (getchar_clear()) {
+    for (uint16_t i = 0; i < OFFERED_QUESTS_LENGTH; i++) {
+      printf("%u) Take quest: Kill %s (%u) for %ug\n", i,
+             offered_quests[i].target_name, offered_quests[i].target_count,
+             offered_quests[i].reward_gold);
+    }
+
+    printf("SELECT: ");
+    getchars_clear(select, 6);
+
+    switch (select[0]) {
       case 's': {
         print_player(player, story);
         break;
@@ -1362,6 +1375,26 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
         leave_location = true;
         break;
       }
+      case 'r': {
+        printf(
+            "\n-----< %s LOCATION >-----\n"
+            "Rerolling quests\n"
+            "\n-----< WAIT (%us) >-----\n",
+            location_name, reroll_time);
+
+        for (uint8_t i = 0; i < reroll_time; i++) {
+          sleep(1);
+          printf(".");
+          fflush(stdout);
+        }
+
+        printf("\n");
+
+        for (uint16_t i = 0; i < OFFERED_QUESTS_LENGTH; i++)
+          offered_quests[i] = generate_quest();
+
+        break;
+      }
       case 'c': {
         printf(
             "\n-----< %s LOCATION ACTION >-----\n"
@@ -1373,121 +1406,30 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
         story->quest.progress_count = 0;
         break;
       }
-      case '0': {
+      default: {
+        int quest_id;
+
         printf("\n-----< %s LOCATION ACTION >-----\n", location_name);
         if (story->quest.target_count != 0) {
           printf("%s already has quest\n", player->name);
           break;
         }
-        if (RND_MAX(1) == 0)
-          strcpy(story->quest.target_name, "Rat");
-        else
-          strcpy(story->quest.target_name, "Spider");
 
-        story->quest.target_count = RND_RANGE(25, 5);
-        story->quest.reward_gold =
-            story->quest.target_count * QUEST_GOLD_MODIFIER;
-        story->quest.progress_count = 0;
+        quest_id = atoi(select);
 
-        printf("%s took quest difficulty 0\n", player->name);
-
-        print_player_quest(story);
-        break;
-      }
-      case '1': {
-        printf("\n-----< %s LOCATION ACTION >-----\n", location_name);
-        if (story->quest.target_count != 0) {
-          printf("%s already has quest\n", player->name);
+        if (quest_id < 0 || quest_id >= OFFERED_QUESTS_LENGTH) {
+          printf("Invalid quest id\n");
           break;
         }
-        switch (RND_MAX(3)) {
-          case 0: {
-            strcpy(story->quest.target_name, "Slime");
-            break;
-          }
-          case 1: {
-            strcpy(story->quest.target_name, "Wild Boar");
-            break;
-          }
-          case 2: {
-            strcpy(story->quest.target_name, "Goblin");
-            break;
-          }
-          case 3: {
-            strcpy(story->quest.target_name, "Forest Bandit");
-            break;
-          }
-        }
 
-        story->quest.target_count = RND_RANGE(25, 5);
-        story->quest.reward_gold =
-            story->quest.target_count * QUEST_GOLD_MODIFIER * 3;
-        story->quest.progress_count = 0;
+        story->quest = offered_quests[quest_id];
 
-        printf("%s took quest difficulty 1\n", player->name);
+        printf("%s Took quest: kill %s (%u) for %ug\n", player->name,
+               story->quest.target_name, story->quest.target_count,
+               story->quest.reward_gold);
 
-        print_player_quest(story);
         break;
       }
-      case '2': {
-        printf("\n-----< %s LOCATION ACTION >-----\n", location_name);
-        if (story->quest.target_count != 0) {
-          printf("%s already has quest\n", player->name);
-          break;
-        }
-        switch (RND_MAX(3)) {
-          case 0: {
-            strcpy(story->quest.target_name, "Forest Wraith");
-            break;
-          }
-          case 1: {
-            strcpy(story->quest.target_name, "Giant Snake");
-            break;
-          }
-          case 2: {
-            strcpy(story->quest.target_name, "Snow Leopard");
-            break;
-          }
-          case 3: {
-            strcpy(story->quest.target_name, "Ice Elemental");
-            break;
-          }
-        }
-
-        story->quest.target_count = RND_RANGE(25, 5);
-        story->quest.reward_gold =
-            story->quest.target_count * QUEST_GOLD_MODIFIER * 100;
-        story->quest.progress_count = 0;
-
-        printf("%s took quest difficulty 2\n", player->name);
-
-        print_player_quest(story);
-        break;
-      }
-      case '3': {
-        printf("\n-----< %s LOCATION ACTION >-----\n", location_name);
-        if (story->quest.target_count != 0) {
-          printf("%s already has quest\n", player->name);
-          break;
-        }
-        if (RND_MAX(1) == 0)
-          strcpy(story->quest.target_name, "Undead Spirit");
-
-        else
-          strcpy(story->quest.target_name, "Undead Horde");
-
-        story->quest.target_count = RND_RANGE(25, 5);
-        story->quest.reward_gold =
-            story->quest.target_count * QUEST_GOLD_MODIFIER * 200;
-        story->quest.progress_count = 0;
-
-        printf("%s took quest difficulty 3\n", player->name);
-
-        print_player_quest(story);
-        break;
-      }
-      default:
-        printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
     }
   }
 
@@ -1826,9 +1768,13 @@ void nvoid_loop(struct Character *player, struct Story *story,
 void location_loop(struct Character *player, struct Story *story) {
   LOCATION_ID current_location = player_room;
   struct Weapon offered_weapons[OFFERED_WEAPONS_LENGTH];
+  struct Quest offered_quests[OFFERED_QUESTS_LENGTH];
 
   for (uint16_t i = 0; i < OFFERED_WEAPONS_LENGTH; i++)
     offered_weapons[i] = generate_weapon();
+
+  for (uint16_t i = 0; i < OFFERED_QUESTS_LENGTH; i++)
+    offered_quests[i] = generate_quest();
 
   while (current_location != nolocation) {
     switch (current_location) {
@@ -1885,7 +1831,7 @@ void location_loop(struct Character *player, struct Story *story) {
         break;
       }
       case adventurer_guild: {
-        adventurer_guild_loop(player, story, &current_location);
+        adventurer_guild_loop(player, story, &current_location, offered_quests);
         break;
       }
       case dev_room: {
