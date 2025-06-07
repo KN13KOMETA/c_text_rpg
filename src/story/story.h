@@ -112,6 +112,8 @@ struct Story {
 
 struct Story get_story(void);
 
-void add_counter(uint16_t* counter);
+void add_counter(uint16_t *counter);
+
+struct Quest generate_quest(void);
 
 #endif  // !STORY_H
