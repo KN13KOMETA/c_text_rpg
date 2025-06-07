@@ -193,7 +193,7 @@ void fix_character(struct Character *chr) {
   if (chr->health > chr->max_health) chr->health = chr->max_health;
 }
 struct Character generate_player(char *name) {
-  struct Character chr = {.weapon = {"Hands", 0, 5, 5}};
+  struct Character chr = {.weapon = {"Hands", 5, 1, 5}};
 
   strcpy(chr.name, name);
   chr.gold = RND_MAX(50);
