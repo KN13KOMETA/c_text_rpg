@@ -1606,7 +1606,64 @@ void dev_room_loop(struct Character *player, struct Story *story,
         }
       } else if (select[0] == 'w') {
         // Weapon modify actions
-        // TODO: make weapon modifiers
+        switch (select[1]) {
+          case 'n': {
+            printf("ENTER NEW NAME (%u): ", WEAPON_NAME_LENGTH - 1);
+            getchars_clear(player->weapon.name, WEAPON_NAME_LENGTH);
+            break;
+          }
+          case 'd': {
+            int new_damage;
+            char str[6];
+            printf("ENTER NEW DAMAGE (%u): ", WEAPON_MAX_DAMAGE);
+            getchars_clear(str, 6);
+            new_damage = atoi(str);
+
+            if (new_damage <= 0 || new_damage > WEAPON_MAX_DAMAGE) {
+              printf("Invalid weapon damage\n");
+              break;
+            }
+
+            player->weapon.damage = new_damage;
+            break;
+          }
+          case 'p': {
+            unsigned long new_price;
+            char str[11];
+            printf("ENTER NEW PRICE (%u): ", CHARACTER_MAX_GOLD);
+
+            getchars_clear(str, 11);
+            new_price = strtoul(str, NULL, 10);
+
+            if (new_price <= 0 || new_price > CHARACTER_MAX_GOLD) {
+              printf("Invalid weapon price\n");
+              break;
+            }
+
+            player->weapon.price = new_price;
+            break;
+          }
+          case 'u': {
+            unsigned long new_upgrade_price;
+            char str[11];
+            printf("ENTER NEW UPGRADE PRICE (%u): ", CHARACTER_MAX_GOLD);
+
+            getchars_clear(str, 11);
+            new_upgrade_price = strtoul(str, NULL, 10);
+
+            if (new_upgrade_price <= 0 ||
+                new_upgrade_price > CHARACTER_MAX_GOLD) {
+              printf("Invalid weapon upgrade price\n");
+              break;
+            }
+
+            player->weapon.upgrade_price = new_upgrade_price;
+            break;
+          }
+          default:
+            printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n",
+                   location_name);
+        }
       } else
         printf("\n-----< %s LOCATION UNKNOWN ACTION >-----\n", location_name);
     } else {
