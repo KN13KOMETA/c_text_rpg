@@ -563,10 +563,10 @@ void hidden_garden_loop(struct Character *player, struct Story *story,
     battle_enemy(story, player, &enemy);
 
     if (player->health == 0) {
-      // TODO: Make normal message
       printf(
           "\n-----< AFTER BATTLE >-----\n"
-          "\n");
+          "%s was killed by %s\n",
+          player->name, enemy.name);
 
       story->ending = 4;
       *location_id = nolocation;
