@@ -15,7 +15,7 @@ If you avoid spoilers, do not open next files.
 
 Build targets: linux and windows <br>
 Build host: linux <br>
-Build system: bash scripts <br>
+Build system: make <br>
 Compiler: zig <br>
 
 If zig not installed:
@@ -25,7 +25,7 @@ If zig not installed:
    ```sh
    tar -xf zig*
    ```
-   Bash script will autodetect zig in `tool` dir using `grep --color=never zig`
+   make will autodetect zig in `tool` dir using `grep --color=never zig`
 3. Delete zig archive
    ```sh
    rm zig*.tar.*
@@ -33,16 +33,12 @@ If zig not installed:
 
 So in the end you have `tool/zig-dir`
 
-Then you can simply run `./script/build.sh`, which will build executable for both linux and windows.
+Then you can simply run `make`, to see build options.
 
 # DEVELOPING
 
 Install zig (if you doesn't have it) how described in BUILDING instruction. <br>
 
-Run `source ./script/env.sh` which will do some work for you. Like setup zig and commands in current terminal $PATH. <br>
-
 ## Commands
 
-- build - will build windows and linux binaries.
-- buildtest - will build linux bin and run it.
-- todolist - will print every TODO.
+Run `make help` or `make` to see all commands.
