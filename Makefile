@@ -1,6 +1,7 @@
 ROOT_DIR := $(realpath $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
 TOOL_DIR := $(ROOT_DIR)/tool
-ZIG := export ZIG_GLOBAL_CACHE_DIR=$(ROOT_DIR)/.zig-cache && $(realpath $(TOOL_DIR)/$(shell (ls $(TOOL_DIR) | grep --color=never zig))/zig)
+ZIG_CACHE_DIR := $(ROOT_DIR)/.zig-cache
+ZIG := export ZIG_GLOBAL_CACHE_DIR=$(ZIG_CACHE_DIR) && $(realpath $(TOOL_DIR)/$(shell (ls $(TOOL_DIR) | grep --color=never zig))/zig)
 
 TODO_EXCLUDE := --exclude todolist.sh
 TODO_EXCLUDE := $(TODO_EXCLUDE) --exclude Makefile
@@ -68,8 +69,8 @@ $(OUTPUT_DIR):
 	mkdir $(OUTPUT_DIR)
 
 clean: ## Removes build files
-	rm .zig-cache -r
 	rm $(OUTPUT_DIR) -r
+	rm $(ZIG_CACHE_DIR) -r
 
 todo: ## Grep all todo
 	cd $(ROOT_DIR) && grep -e TODO -Hnr . $(TODO_EXCLUDE)
