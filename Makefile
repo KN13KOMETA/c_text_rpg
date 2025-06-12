@@ -46,30 +46,30 @@ run-linux: $(LINUX_OUTPUT) ## Runs linux executable
 
 release-linux: $(LINUX_OUTPUT) ## Builds linux executable
 
-$(LINUX_OUTPUT): bin
+$(LINUX_OUTPUT): $(OUTPUT_DIR)
 	$(CC) $(CFILES) -o $(LINUX_OUTPUT) $(CFLAGS)
 
 release-windows: $(WINDOWS_OUTPUT) ## Builds windows executable
 
-$(WINDOWS_OUTPUT): bin
+$(WINDOWS_OUTPUT): $(OUTPUT_DIR)
 	$(CC) $(CFILES) -o $(WINDOWS_OUTPUT) $(CFLAGS) -target x86_64-windows
 
 debug-linux: $(LINUX_OUTPUT) ## Builds debug linux executable
 
-$(DEBUG_LINUX_OUTPUT): bin
+$(DEBUG_LINUX_OUTPUT): $(OUTPUT_DIR)
 	$(CC) $(CFILES) -o $(DEBUG_LINUX_OUTPUT) $(DEBUG_CFLAGS)
 
 debug-windows: $(WINDOWS_OUTPUT) ## Builds debug windows executable
 
-$(DEBUG_WINDOWS_OUTPUT): bin
+$(DEBUG_WINDOWS_OUTPUT): $(OUTPUT_DIR)
 	$(CC) $(CFILES) -o $(DEBUG_WINDOWS_OUTPUT) $(DEBUG_CFLAGS) -target x86_64-windows
 
-bin:
-	mkdir bin
+$(OUTPUT_DIR):
+	mkdir $(OUTPUT_DIR)
 
 clean: ## Removes build files
-	rm bin -r
 	rm .zig-cache -r
+	rm $(OUTPUT_DIR) -r
 
 todo: ## Grep all todo
 	cd $(ROOT_DIR) && grep -e TODO -Hnr . $(TODO_EXCLUDE)
