@@ -66,11 +66,11 @@ $(DEBUG_WINDOWS_OUTPUT): $(OUTPUT_DIR)
 	$(CC) $(CFILES) -o $(DEBUG_WINDOWS_OUTPUT) $(DEBUG_CFLAGS) -target x86_64-windows
 
 $(OUTPUT_DIR):
-	mkdir $(OUTPUT_DIR)
+	@mkdir $(OUTPUT_DIR)
 
 clean: ## Removes build files
-	rm $(OUTPUT_DIR) -r
-	rm $(ZIG_CACHE_DIR) -r
+	@rm "$(OUTPUT_DIR)" "$(ZIG_CACHE_DIR)" -rf
+	@echo Clean complete
 
 todo: ## Grep all todo
 	cd $(ROOT_DIR) && grep -e TODO -Hnr . $(TODO_EXCLUDE)
