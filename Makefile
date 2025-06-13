@@ -1,6 +1,5 @@
-ROOT_DIR := $(realpath $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
-TOOL_DIR := $(ROOT_DIR)/tool
-ZIG_CACHE_DIR := $(ROOT_DIR)/.zig-cache
+TOOL_DIR := $(CURDIR)/tool
+ZIG_CACHE_DIR := $(CURDIR)/.zig-cache
 ZIG := export ZIG_GLOBAL_CACHE_DIR=$(ZIG_CACHE_DIR) && $(realpath $(TOOL_DIR)/$(shell (ls $(TOOL_DIR) | grep --color=never zig))/zig)
 
 TODO_EXCLUDE := --exclude todolist.sh
@@ -16,17 +15,17 @@ COMMIT_SHORT_HASH := $(shell git rev-parse --short HEAD)
 FULL_PROJECT_NAME := $(PROJECT_NAME)_$(PROJECT_VERSION)
 DEBUG_FULL_PROJECT_NAME := $(FULL_PROJECT_NAME)_debug
 
-CC := ZIG_GLOBAL_CACHE_DIR=$(ROOT_DIR)/.zig-cache && $(ZIG) cc
+CC := ZIG_GLOBAL_CACHE_DIR=$(CURDIR)/.zig-cache && $(ZIG) cc
 CFLAGS := -std=c99
 CFLAGS := $(CFLAGS) -Wall -Wextra -Wpedantic
 CFLAGS := $(CFLAGS) -D PROJECT_NAME=\"$(PROJECT_NAME)\"
 CFLAGS := $(CFLAGS) -D PROJECT_VERSION=\"$(PROJECT_VERSION)\"
 CFLAGS := $(CFLAGS) -D COMMIT_SHORT_HASH=\"$(COMMIT_SHORT_HASH)\"
 DEBUG_CFLAGS := $(CFLAGS) -D DEBUG
-CSOURCE_FOLDER := $(realpath $(ROOT_DIR)/src)
+CSOURCE_FOLDER := $(realpath $(CURDIR)/src)
 CFILES := $(shell find "$(CSOURCE_FOLDER)" -name "*.c" | tr '\n' ' ')
 
-OUTPUT_DIR := $(ROOT_DIR)/bin
+OUTPUT_DIR := $(CURDIR)/bin
 
 LINUX_OUTPUT := $(OUTPUT_DIR)/$(FULL_PROJECT_NAME)
 WINDOWS_OUTPUT := $(OUTPUT_DIR)/$(FULL_PROJECT_NAME).exe
@@ -73,4 +72,4 @@ clean: ## Removes build files
 	@echo Clean complete
 
 todo: ## Grep all todo
-	cd $(ROOT_DIR) && grep -e TODO -Hnr . $(TODO_EXCLUDE)
+	cd $(CURDIR) && grep -e TODO -Hnr . $(TODO_EXCLUDE)
