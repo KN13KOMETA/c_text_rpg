@@ -16,11 +16,18 @@ FULL_PROJECT_NAME := $(PROJECT_NAME)_$(PROJECT_VERSION)
 DEBUG_FULL_PROJECT_NAME := $(FULL_PROJECT_NAME)_debug
 
 CC := ZIG_GLOBAL_CACHE_DIR=$(ZIG_CACHE_DIR) && $(ZIG) cc
-CFLAGS := -std=c99
-CFLAGS := $(CFLAGS) -Wall -Wextra -Wpedantic
-CFLAGS := $(CFLAGS) -D PROJECT_NAME=\"$(PROJECT_NAME)\"
-CFLAGS := $(CFLAGS) -D PROJECT_VERSION=\"$(PROJECT_VERSION)\"
-CFLAGS := $(CFLAGS) -D COMMIT_SHORT_HASH=\"$(COMMIT_SHORT_HASH)\"
+
+CFLAGS_RAW := -xc
+CFLAGS_RAW := $(CFLAGS_RAW), -std=c99
+CFLAGS_RAW := $(CFLAGS_RAW), -Wall
+CFLAGS_RAW := $(CFLAGS_RAW), -Wextra
+CFLAGS_RAW := $(CFLAGS_RAW), -Wpedantic
+CFLAGS_RAW := $(CFLAGS_RAW), -D PROJECT_NAME=\"$(PROJECT_NAME)\"
+CFLAGS_RAW := $(CFLAGS_RAW), -D PROJECT_VERSION=\"$(PROJECT_VERSION)\"
+CFLAGS_RAW := $(CFLAGS_RAW), -D COMMIT_SHORT_HASH=\"$(COMMIT_SHORT_HASH)\"
+
+CFLAGS :=	$(shell echo '$(CFLAGS_RAW)' | sed 's/,//g')
+
 DEBUG_CFLAGS := $(CFLAGS) -D DEBUG
 CSOURCE_FOLDER := $(realpath $(CURDIR)/src)
 CFILES := $(shell find "$(CSOURCE_FOLDER)" -name "*.c" | tr '\n' ' ')
@@ -32,10 +39,13 @@ WINDOWS_OUTPUT := $(OUTPUT_DIR)/$(FULL_PROJECT_NAME).exe
 DEBUG_LINUX_OUTPUT := $(OUTPUT_DIR)/$(DEBUG_FULL_PROJECT_NAME)
 DEBUG_WINDOWS_OUTPUT := $(OUTPUT_DIR)/$(DEBUG_FULL_PROJECT_NAME).exe
 
-.PHONY: help all run-linux test clean todo
+.PHONY: help dev all run-linux test clean todo
 
 help: ## Display this help screen
 	@grep -E '^[a-z.A-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+dev: ## Generates .clangd file
+	sed 's/%CFLAGS%/$(CFLAGS_RAW)/' $(CURDIR)/make/template/.clangd > $(CURDIR)/.clangd
 
 all: ## Builds all targets
 all: $(LINUX_OUTPUT) $(WINDOWS_OUTPUT)

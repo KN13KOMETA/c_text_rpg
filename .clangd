@@ -1,9 +1,0 @@
-CompileFlags:
-  Add: [
-    -xc,
-    -std=c99,
-    -Wall, -Wextra, -Wpedantic, 
-    -D COMMIT_SHORT_HASH="",
-    -D PROJECT_NAME="",
-    -D PROJECT_VERSION=""
-  ]
