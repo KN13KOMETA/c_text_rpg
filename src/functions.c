@@ -3,7 +3,7 @@
 char getchar_clear(void) {
   char c = getchar();
 
-  if (c != 10) {
+  if (c != '\n') {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
   }
