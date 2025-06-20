@@ -4,7 +4,7 @@ char getchar_clear(void) {
   char c = getchar();
 
   if (c != 10) {
-    char c;
+    int c;
     while ((c = getchar()) != '\n' && c != EOF);
   }
 
@@ -13,7 +13,7 @@ char getchar_clear(void) {
 
 void getchars_clear(char* str, size_t len) {
   size_t i = 0;
-  char c = 0;
+  int c = 0;
 
   while ((c = getchar()) != '\n' && c != EOF) {
     if (i != len - 1) {
