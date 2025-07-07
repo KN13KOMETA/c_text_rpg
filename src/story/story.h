@@ -49,6 +49,13 @@
   "\n-----< STORY ENDING: %u ERROR >-----\n" \
   "Something went wrong, the ending was not found\n"
 
+// Secret ending, notmally u can't get this
+// Only if you somehow do EOF before any other ending
+#define STORY_ENDINGUINT8_MAX_EOF                                \
+  STORY_ENDING_HEADER(UINT8_MAX, "EOF")                          \
+  "%s suddenly stopped, unresponsive to everything around it,\n" \
+  "as if it had reached the end of the file.\n"
+
 // Secret ending, normally u can't get this
 // Until you somehow break a game and die in nvoid
 #define STORY_ENDING0_NVOID_DEATH             \

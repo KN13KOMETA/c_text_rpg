@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-char getchar_clear(void) {
-  char c = getchar();
+int getchar_clear(char* ch) {
+  int c = 0;
 
-  if (c != '\n') {
-    int c;
+  *ch = getchar();
+
+  if (*ch != '\n')
     while ((c = getchar()) != '\n' && c != EOF);
-  }
 
   return c;
 }
 
-void getchars_clear(char* str, size_t len) {
+int getchars_clear(char* str, size_t len) {
   size_t i = 0;
   int c = 0;
 
@@ -22,4 +22,6 @@ void getchars_clear(char* str, size_t len) {
   }
 
   for (; i < len; i++) str[i] = '\0';
+
+  return c;
 }

@@ -83,8 +83,9 @@ void print_enemy(struct Character *chr, bool hide_gold,
 #endif /* ifdef DEBUG */
 }
 
-void battle_enemy(struct Story *story, struct Character *player,
-                  struct Character *enemy) {
+int battle_enemy(struct Story *story, struct Character *player,
+                 struct Character *enemy) {
+  char select = 0;
   bool hideEnemyGold = true;
   bool hideEnemyWeaponDamage = true;
   while (1) {
@@ -95,7 +96,9 @@ void battle_enemy(struct Story *story, struct Character *player,
         "r) Run away\n"
         "SELECT: ");
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) return EOF;
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         print_enemy(enemy, hideEnemyGold, hideEnemyWeaponDamage);
@@ -136,7 +139,7 @@ void battle_enemy(struct Story *story, struct Character *player,
           enemy->gold = winner_gold;
           player->gold = 0;
 
-          return;
+          return 0;
         }
 
         // Player turn
@@ -167,7 +170,7 @@ void battle_enemy(struct Story *story, struct Character *player,
             print_player_quest(story);
           }
 
-          return;
+          return 0;
         }
 
         break;
@@ -177,7 +180,7 @@ void battle_enemy(struct Story *story, struct Character *player,
             "\n-----< BATTLE END >-----\n"
             "%s decided to run away\n",
             player->name);
-        return;
+        return 0;
         break;
       }
       default:

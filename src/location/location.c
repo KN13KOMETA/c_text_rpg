@@ -53,7 +53,13 @@ void player_room_loop(struct Character *player, struct Story *story,
         "3) Suicide\n"
         "SELECT: ",
         location_name);
-    getchars_clear(select, cheatcode_length + 1);
+
+    if (getchars_clear(select, cheatcode_length + 1) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
 
     if (strcmp(cheatcode, select) == 0) {
       *location_id = nvoid;
@@ -210,6 +216,7 @@ void throne_room_loop(struct Character *player, struct Story *story,
 }
 void demon_lord_castle_loop(struct Character *player, struct Story *story,
                             LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "Demon Lord Castle";
   // TODO: Make unique enemies
@@ -236,7 +243,14 @@ void demon_lord_castle_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name, player->name, location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -293,6 +307,7 @@ void demon_lord_castle_loop(struct Character *player, struct Story *story,
 
 void dead_forest_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "Dead Forest";
   uint8_t enemies_count = 2;
@@ -317,7 +332,14 @@ void dead_forest_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -364,6 +386,7 @@ void dead_forest_loop(struct Character *player, struct Story *story,
 }
 void deep_forest_loop(struct Character *player, struct Story *story,
                       LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "Deep Forest";
   uint8_t enemies_count = 2;
@@ -388,7 +411,14 @@ void deep_forest_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -435,6 +465,7 @@ void deep_forest_loop(struct Character *player, struct Story *story,
 }
 void forest_loop(struct Character *player, struct Story *story,
                  LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "Forest";
   uint8_t enemies_count = 4;
@@ -459,7 +490,14 @@ void forest_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -558,6 +596,7 @@ void hidden_garden_loop(struct Character *player, struct Story *story,
 }
 void high_mountain_loop(struct Character *player, struct Story *story,
                         LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "High Mountain";
   uint8_t enemies_count = 3;
@@ -582,7 +621,14 @@ void high_mountain_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -630,6 +676,7 @@ void high_mountain_loop(struct Character *player, struct Story *story,
 }
 void mountain_loop(struct Character *player, struct Story *story,
                    LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "Mountain";
   uint8_t enemies_count = 3;
@@ -654,7 +701,14 @@ void mountain_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -702,6 +756,7 @@ void mountain_loop(struct Character *player, struct Story *story,
 
 void city_loop(struct Character *player, struct Story *story,
                LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "City";
 
@@ -727,7 +782,14 @@ void city_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -788,6 +850,7 @@ void city_loop(struct Character *player, struct Story *story,
 }
 void tavern_loop(struct Character *player, struct Story *story,
                  LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "Tavern";
 
@@ -810,7 +873,14 @@ void tavern_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name, location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -981,7 +1051,13 @@ void blacksmith_shop_loop(struct Character *player, struct Story *story,
     }
 
     printf("SELECT: ");
-    getchars_clear(select, 6);
+
+    if (getchars_clear(select, 6) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
 
     switch (select[0]) {
       case 's': {
@@ -1058,6 +1134,7 @@ void blacksmith_shop_loop(struct Character *player, struct Story *story,
 }
 void training_ground_loop(struct Character *player, struct Story *story,
                           LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[] = "Training Ground";
 
@@ -1081,7 +1158,14 @@ void training_ground_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name, location_name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -1309,7 +1393,13 @@ void adventurer_guild_loop(struct Character *player, struct Story *story,
     }
 
     printf("SELECT: ");
-    getchars_clear(select, 6);
+
+    if (getchars_clear(select, 6) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
 
     switch (select[0]) {
       case 's': {
@@ -1434,7 +1524,12 @@ void dev_room_loop(struct Character *player, struct Story *story,
         player->weapon.name, player->weapon.name, player->weapon.damage,
         player->weapon.price, player->weapon.upgrade_price);
 
-    getchars_clear(select, strlen(select) + 1);
+    if (getchars_clear(select, strlen(select) + 1) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
 
     // Hell yeah stairs
     if (strlen(select) == 2) {
@@ -1444,7 +1539,14 @@ void dev_room_loop(struct Character *player, struct Story *story,
         switch (select[1]) {
           case 'n': {
             printf("ENTER NEW NAME (%u): ", CHARACTER_NAME_LENGTH - 1);
-            getchars_clear(player->name, CHARACTER_NAME_LENGTH);
+
+            if (getchars_clear(player->name, CHARACTER_NAME_LENGTH) == EOF) {
+              story->ending = UINT8_MAX;
+              *location_id = nolocation;
+              leave_location = true;
+              return;
+            }
+
             break;
           }
           case 'g': {
@@ -1452,7 +1554,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
             char str[11];
             printf("ENTER NEW GOLD (%u): ", CHARACTER_MAX_GOLD);
 
-            getchars_clear(str, 11);
+            if (getchars_clear(str, 11) == EOF) {
+              story->ending = UINT8_MAX;
+              *location_id = nolocation;
+              leave_location = true;
+              return;
+            }
+
             new_gold = strtoul(str, NULL, 10);
 
             if (new_gold > CHARACTER_MAX_GOLD) {
@@ -1468,7 +1576,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
             char str[6];
             printf("ENTER NEW HEALTH (%u): ", player->max_health);
 
-            getchars_clear(str, 6);
+            if (getchars_clear(select, 6) == EOF) {
+              story->ending = UINT8_MAX;
+              *location_id = nolocation;
+              leave_location = true;
+              return;
+            }
+
             new_health = atoi(str);
 
             if (new_health <= 0 || new_health > player->max_health) {
@@ -1484,7 +1598,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
             char str[6];
             printf("ENTER NEW MAX HEALTH (%u): ", CHARACTER_MAX_HEALTH);
 
-            getchars_clear(str, 6);
+            if (getchars_clear(select, 6) == EOF) {
+              story->ending = UINT8_MAX;
+              *location_id = nolocation;
+              leave_location = true;
+              return;
+            }
+
             new_max_health = atoi(str);
 
             if (new_max_health <= 0 || new_max_health > CHARACTER_MAX_HEALTH) {
@@ -1507,14 +1627,30 @@ void dev_room_loop(struct Character *player, struct Story *story,
         switch (select[1]) {
           case 'n': {
             printf("ENTER NEW NAME (%u): ", WEAPON_NAME_LENGTH - 1);
-            getchars_clear(player->weapon.name, WEAPON_NAME_LENGTH);
+
+            if (getchars_clear(player->weapon.name, WEAPON_NAME_LENGTH) ==
+                EOF) {
+              story->ending = UINT8_MAX;
+              *location_id = nolocation;
+              leave_location = true;
+              return;
+            }
+
             break;
           }
           case 'd': {
             int new_damage;
             char str[6];
+
             printf("ENTER NEW DAMAGE (%u): ", WEAPON_MAX_DAMAGE);
-            getchars_clear(str, 6);
+
+            if (getchars_clear(select, 6) == EOF) {
+              story->ending = UINT8_MAX;
+              *location_id = nolocation;
+              leave_location = true;
+              return;
+            }
+
             new_damage = atoi(str);
 
             if (new_damage <= 0 || new_damage > WEAPON_MAX_DAMAGE) {
@@ -1530,7 +1666,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
             char str[11];
             printf("ENTER NEW PRICE (%u): ", CHARACTER_MAX_GOLD);
 
-            getchars_clear(str, 11);
+            if (getchars_clear(str, 11) == EOF) {
+              story->ending = UINT8_MAX;
+              *location_id = nolocation;
+              leave_location = true;
+              return;
+            }
+
             new_price = strtoul(str, NULL, 10);
 
             if (new_price <= 0 || new_price > CHARACTER_MAX_GOLD) {
@@ -1546,7 +1688,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
             char str[11];
             printf("ENTER NEW UPGRADE PRICE (%u): ", CHARACTER_MAX_GOLD);
 
-            getchars_clear(str, 11);
+            if (getchars_clear(str, 11) == EOF) {
+              story->ending = UINT8_MAX;
+              *location_id = nolocation;
+              leave_location = true;
+              return;
+            }
+
             new_upgrade_price = strtoul(str, NULL, 10);
 
             if (new_upgrade_price <= 0 ||
@@ -1588,7 +1736,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
 
           printf("ENTER ENEMY ID (uint8_t): ");
 
-          getchars_clear(str, 4);
+          if (getchars_clear(str, 4) == EOF) {
+            story->ending = UINT8_MAX;
+            *location_id = nolocation;
+            leave_location = true;
+            return;
+          }
+
           enemy_id = atoi(str);
 
           if (enemy_id > 0xff) {
@@ -1621,7 +1775,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
 
           printf("ENTER LOCATION ID (uint8_t): ");
 
-          getchars_clear(str, 4);
+          if (getchars_clear(str, 4) == EOF) {
+            story->ending = UINT8_MAX;
+            *location_id = nolocation;
+            leave_location = true;
+            return;
+          }
+
           new_id = atoi(str);
 
           if (new_id > 0xff) {
@@ -1646,6 +1806,7 @@ void dev_room_loop(struct Character *player, struct Story *story,
 }
 void nvoid_loop(struct Character *player, struct Story *story,
                 LOCATION_ID *location_id) {
+  char select = 0;
   bool leave_location = false;
   char location_name[9];
 
@@ -1670,7 +1831,14 @@ void nvoid_loop(struct Character *player, struct Story *story,
         "SELECT: ",
         location_name, player->name);
 
-    switch (getchar_clear()) {
+    if (getchar_clear(&select) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
+
+    switch (select) {
       case 's': {
         print_player(player, story);
         break;
@@ -1815,6 +1983,10 @@ void location_loop(struct Character *player, struct Story *story) {
     }
     case 3: {
       printf(STORY_ENDING3_KNOCKED_OUT, player->name, player->name);
+      break;
+    }
+    case UINT8_MAX: {
+      printf(STORY_ENDINGUINT8_MAX_EOF, player->name);
       break;
     }
     default: {

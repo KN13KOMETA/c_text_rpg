@@ -31,8 +31,8 @@ void print_player_quest(struct Story *story);
 void print_player(struct Character *chr, struct Story *story);
 void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage);
 
-void battle_enemy(struct Story *story, struct Character *player,
-                  struct Character *enemy);
+int battle_enemy(struct Story *story, struct Character *player,
+                 struct Character *enemy);
 
 void fix_character(struct Character *chr);
 struct Character generate_player(char *name);

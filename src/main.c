@@ -25,6 +25,7 @@
 
 // int main(int argc, char *argv[]) {
 int main(void) {
+  char select = 0;
   struct Character player;
   struct Story story = get_story();
 
@@ -33,7 +34,10 @@ int main(void) {
 #endif /* ifdef DEBUG */
 
   printf(STORY_DISCLAIMER);
-  switch (getchar_clear()) {
+
+  if (getchar_clear(&select) == EOF) return 0;
+
+  switch (select) {
     case 'y':
       break;
     default: {
@@ -47,7 +51,7 @@ int main(void) {
       "Enter your name(%u): ",
       CHARACTER_NAME_LENGTH - 1);
 
-  getchars_clear(player.name, CHARACTER_NAME_LENGTH);
+  if (getchars_clear(player.name, CHARACTER_NAME_LENGTH) == EOF) return 0;
 
   // Init seed using nick
   {
