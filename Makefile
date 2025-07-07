@@ -31,6 +31,7 @@ CFLAGS :=	$(shell echo '$(CFLAGS_RAW)' | sed 's/,//g')
 DEBUG_CFLAGS := $(CFLAGS) -D DEBUG
 CSOURCE_FOLDER := $(realpath $(CURDIR)/src)
 CFILES := $(shell find "$(CSOURCE_FOLDER)" -name "*.c" | tr '\n' ' ')
+HFILES := $(shell find "$(CSOURCE_FOLDER)" -name "*.h" | tr '\n' ' ')
 
 OUTPUT_DIR := $(CURDIR)/bin
 
@@ -56,22 +57,22 @@ run-linux: $(LINUX_OUTPUT) ## Runs linux executable
 
 release-linux: $(LINUX_OUTPUT) ## Builds linux executable
 
-$(LINUX_OUTPUT): $(OUTPUT_DIR) $(CFILES)
+$(LINUX_OUTPUT): $(OUTPUT_DIR) $(CFILES) $(HFILES)
 	$(CC) $(CFILES) -o $(LINUX_OUTPUT) $(CFLAGS)
 
 release-windows: $(WINDOWS_OUTPUT) ## Builds windows executable
 
-$(WINDOWS_OUTPUT): $(OUTPUT_DIR) $(CFILES)
+$(WINDOWS_OUTPUT): $(OUTPUT_DIR) $(CFILES) $(HFILES)
 	$(CC) $(CFILES) -o $(WINDOWS_OUTPUT) $(CFLAGS) -target x86_64-windows
 
 debug-linux: $(LINUX_OUTPUT) ## Builds debug linux executable
 
-$(DEBUG_LINUX_OUTPUT): $(OUTPUT_DIR) $(CFILES)
+$(DEBUG_LINUX_OUTPUT): $(OUTPUT_DIR) $(CFILES) $(HFILES)
 	$(CC) $(CFILES) -o $(DEBUG_LINUX_OUTPUT) $(DEBUG_CFLAGS)
 
 debug-windows: $(WINDOWS_OUTPUT) ## Builds debug windows executable
 
-$(DEBUG_WINDOWS_OUTPUT): $(OUTPUT_DIR) $(CFILES)
+$(DEBUG_WINDOWS_OUTPUT): $(OUTPUT_DIR) $(CFILES) $(HFILES)
 	$(CC) $(CFILES) -o $(DEBUG_WINDOWS_OUTPUT) $(DEBUG_CFLAGS) -target x86_64-windows
 
 $(OUTPUT_DIR):
