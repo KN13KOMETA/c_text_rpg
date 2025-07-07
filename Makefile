@@ -82,4 +82,5 @@ clean: ## Removes build files
 	@echo Clean complete
 
 todo: ## Grep all todo
-	cd $(CURDIR) && grep -e TODO -Hnr . $(TODO_EXCLUDE)
+	cd $(CURDIR) && grep -e TODO -Hnr . $(TODO_EXCLUDE) | awk 'BEGIN { FS = ":" }; { sub($$3 ":" , "", $$0); printf "%s\n", $$0; }'
+
