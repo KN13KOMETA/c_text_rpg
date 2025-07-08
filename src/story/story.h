@@ -54,7 +54,7 @@
 #define STORY_ENDINGUINT8_MAX_EOF                                \
   STORY_ENDING_HEADER(UINT8_MAX, "EOF")                          \
   "%s suddenly stopped, unresponsive to everything around it,\n" \
-  "as if it had reached the end of the file.\n"
+  "as if it had reached the end of file.\n"
 
 // Secret ending, normally u can't get this
 // Until you somehow break a game and die in nvoid
