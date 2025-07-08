@@ -31,6 +31,7 @@ void print_player_quest(struct Story *story);
 void print_player(struct Character *chr, struct Story *story);
 void print_enemy(struct Character *chr, bool hideGold, bool hideWeaponDamage);
 
+// Return 0 or EOF
 int battle_enemy(struct Story *story, struct Character *player,
                  struct Character *enemy);
 
