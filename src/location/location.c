@@ -82,7 +82,13 @@ void player_room_loop(struct Character *player, struct Story *story,
       case 'e': {
         struct Character enemy =
             generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
-        battle_enemy(story, player, &enemy);
+
+        if (battle_enemy(story, player, &enemy) == EOF) {
+          story->ending = UINT8_MAX;
+          *location_id = nolocation;
+          leave_location = true;
+          return;
+        }
 
         if (player->health == 0) {
           printf(
@@ -185,7 +191,12 @@ void throne_room_loop(struct Character *player, struct Story *story,
     struct Character enemy =
         generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
 
-    battle_enemy(story, player, &enemy);
+    if (battle_enemy(story, player, &enemy) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
 
     // Restore player health
     player->health = prebattle_player_health;
@@ -266,7 +277,13 @@ void demon_lord_castle_loop(struct Character *player, struct Story *story,
       case 'e': {
         struct Character enemy =
             generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
-        battle_enemy(story, player, &enemy);
+
+        if (battle_enemy(story, player, &enemy) == EOF) {
+          story->ending = UINT8_MAX;
+          *location_id = nolocation;
+          leave_location = true;
+          return;
+        }
 
         if (player->health == 0) {
           printf(
@@ -354,7 +371,13 @@ void dead_forest_loop(struct Character *player, struct Story *story,
       case 'e': {
         struct Character enemy =
             generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
-        battle_enemy(story, player, &enemy);
+
+        if (battle_enemy(story, player, &enemy) == EOF) {
+          story->ending = UINT8_MAX;
+          *location_id = nolocation;
+          leave_location = true;
+          return;
+        }
 
         if (player->health == 0) {
           story->ending = 2;
@@ -433,7 +456,13 @@ void deep_forest_loop(struct Character *player, struct Story *story,
       case 'e': {
         struct Character enemy =
             generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
-        battle_enemy(story, player, &enemy);
+
+        if (battle_enemy(story, player, &enemy) == EOF) {
+          story->ending = UINT8_MAX;
+          *location_id = nolocation;
+          leave_location = true;
+          return;
+        }
 
         if (player->health == 0) {
           story->ending = 2;
@@ -512,7 +541,13 @@ void forest_loop(struct Character *player, struct Story *story,
       case 'e': {
         struct Character enemy =
             generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
-        battle_enemy(story, player, &enemy);
+
+        if (battle_enemy(story, player, &enemy) == EOF) {
+          story->ending = UINT8_MAX;
+          *location_id = nolocation;
+          leave_location = true;
+          return;
+        }
 
         if (player->health == 0) {
           story->ending = 2;
@@ -563,7 +598,12 @@ void hidden_garden_loop(struct Character *player, struct Story *story,
 
   // Start battle immeadiately
   while (true) {
-    battle_enemy(story, player, &enemy);
+    if (battle_enemy(story, player, &enemy) == EOF) {
+      story->ending = UINT8_MAX;
+      *location_id = nolocation;
+      leave_location = true;
+      return;
+    }
 
     if (player->health == 0) {
       printf(
@@ -644,7 +684,13 @@ void high_mountain_loop(struct Character *player, struct Story *story,
       case 'e': {
         struct Character enemy =
             generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
-        battle_enemy(story, player, &enemy);
+
+        if (battle_enemy(story, player, &enemy) == EOF) {
+          story->ending = UINT8_MAX;
+          *location_id = nolocation;
+          leave_location = true;
+          return;
+        }
 
         if (player->health == 0) {
           story->ending = 2;
@@ -723,7 +769,13 @@ void mountain_loop(struct Character *player, struct Story *story,
       case 'e': {
         struct Character enemy =
             generate_enemy(RND_RANGE(enemies_end_index, enemies_start_index));
-        battle_enemy(story, player, &enemy);
+
+        if (battle_enemy(story, player, &enemy) == EOF) {
+          story->ending = UINT8_MAX;
+          *location_id = nolocation;
+          leave_location = true;
+          return;
+        }
 
         if (player->health == 0) {
           story->ending = 2;
@@ -1751,7 +1803,13 @@ void dev_room_loop(struct Character *player, struct Story *story,
           }
 
           enemy = generate_enemy(enemy_id);
-          battle_enemy(story, player, &enemy);
+
+          if (battle_enemy(story, player, &enemy) == EOF) {
+            story->ending = UINT8_MAX;
+            *location_id = nolocation;
+            leave_location = true;
+            return;
+          }
 
           if (player->health == 0) {
             printf(
@@ -1852,7 +1910,13 @@ void nvoid_loop(struct Character *player, struct Story *story,
       }
       case 'e': {
         struct Character enemy = generate_enemy(UINT8_MAX);
-        battle_enemy(story, player, &enemy);
+
+        if (battle_enemy(story, player, &enemy) == EOF) {
+          story->ending = UINT8_MAX;
+          *location_id = nolocation;
+          leave_location = true;
+          return;
+        }
 
         if (player->health == 0) {
           printf(
