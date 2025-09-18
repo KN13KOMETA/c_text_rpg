@@ -40,6 +40,7 @@ target_compile_definitions(
         PROJECT_FULL_VERSION=\"${PROJECT_FULL_VERSION}\"
         PROJECT_VERSION=\"${PROJECT_FULL_VERSION}\"
         COMMIT_SHORT_HASH=\"\"
+        $<$<CONFIG:DEBUG>:DEBUG>
 )
 
 get_property(
