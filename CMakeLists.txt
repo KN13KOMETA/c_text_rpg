@@ -31,7 +31,7 @@ set_target_properties(
 
 # Turning on every compiler checks
 # TODO: add -Werror for release builds
-target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wpedantic)
+target_compile_options(${PROJECT_NAME} PUBLIC -xc -Wall -Wextra -Wpedantic)
 
 target_compile_definitions(
     ${PROJECT_NAME}
