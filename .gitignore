@@ -1,4 +1,4 @@
-bin/
+.cache/
 build/
 .clangd
 
@@ -6,4 +6,5 @@ build/
 tool/
 .zig-cache/
 
+bin/
 tmp/
