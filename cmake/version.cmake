@@ -1,7 +1,5 @@
 # NOTE: When updating version you are supposed to only change version and/or prerelease
-
-# Setting version
-project(${PROJECT_NAME} VERSION 2.3.0)
+# You should set major.minor.patch in root file project
 
 # Setting prerelease
 set(PROJECT_VERSION_PRERELEASE "beta")
