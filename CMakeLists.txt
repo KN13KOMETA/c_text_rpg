@@ -13,6 +13,10 @@ project(
 
 include("cmake/version.cmake")
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE "DEBUG")
+endif()
+
 # Force CMake to use c99 instead of gnu99
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
