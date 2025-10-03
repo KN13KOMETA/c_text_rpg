@@ -66,7 +66,16 @@ If you avoid spoilers, do not open next files.
 
 # DEVELOPING
 
-Create build directory with `build` name. It will generate `build/compile_commands.json` file as well which is auto-detected by `clangd` (LSP).
+## Tools
+
+- [clangd](https://clangd.llvm.org) (C LSP)
+- [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html) (C Formatter, built in `clangd`)
+- [cmake-language-server](https://github.com/regen100/cmake-language-server) (CMake LSP)
+- [gersemi](https://github.com/BlankSpruce/gersemi) (CMake Formatter)
+
+## Additional info
+
+Create build directory with `build` name. It will generate `build/compile_commands.json` file as well which is auto-detected by `clangd`.
 
 # RESOURCES
 
