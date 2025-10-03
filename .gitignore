@@ -1,10 +1,6 @@
+# Ignore build directories
+build*/
+
+# Ignore clangd cache
 .cache/
-build/
-.clangd
 
-# Ignore zig compiler and cache
-tool/
-.zig-cache/
-
-bin/
-tmp/
