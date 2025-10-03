@@ -30,7 +30,9 @@ add_executable(
 
 set_target_properties(
   ${PROJECT_NAME}
-  PROPERTIES OUTPUT_NAME "${PROJECT_NAME}_${PROJECT_FULL_VERSION}"
+  PROPERTIES
+    OUTPUT_NAME
+      "${PROJECT_NAME}_${PROJECT_FULL_VERSION}$<$<CONFIG:DEBUG>:_debug>"
 )
 
 # Turning on every compiler checks
