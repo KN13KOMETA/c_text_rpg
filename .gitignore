@@ -1,6 +1,6 @@
 # Ignore build directories
-build*/
+/build*/
 
 # Ignore clangd cache
-.cache/
+/.cache/
 
