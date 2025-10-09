@@ -1,17 +1,11 @@
 set(
   TODO_EXCLUDE
-  --exclude
-  todolist.sh
-  --exclude
-  Makefile
   --exclude-dir
   .git
   --exclude-dir
-  .zig-cache
+  .cache
   --exclude-dir
   build
-  --exclude-dir
-  tool
 )
 
 # TODO: Somehow make it crossplatform
