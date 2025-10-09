@@ -29,7 +29,7 @@ BEGIN {
 }
 
 END {
-  while (NR--)
+  for (i = 0; i < NR; i++)
     printf "%-" longest_file "s:\x1B[36m%*s\x1B[0m: %s\n",
-      file[NR], longest_line, line[NR], comm[NR]
+      file[i], longest_line, line[i], comm[i]
 }
