@@ -23,10 +23,13 @@ BEGIN {
   # Set longest line
   i = length(line[NR - 1])
   if (i > longest_line) longest_line = i;
+
+  # Remove trailing space at comment start
+  sub(/^ /, "", comm[NR - 1])
 }
 
 END {
   while (NR--)
-    printf "%-" longest_file "s:\x1B[36m%*s\x1B[0m:%s\n",
+    printf "%-" longest_file "s:\x1B[36m%*s\x1B[0m: %s\n",
       file[NR], longest_line, line[NR], comm[NR]
 }
