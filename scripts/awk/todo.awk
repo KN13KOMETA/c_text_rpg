@@ -15,8 +15,6 @@ BEGIN {
   line[NR - 1] = $2
   comm[NR - 1] = $4
 
-  for (i = 5; i <= NF; i++)
-    comm[NR - 1] = comm[NR - 1] ":" $i
 
   i = length(file[NR - 1])
   if (i > longest_file) longest_file = i;
